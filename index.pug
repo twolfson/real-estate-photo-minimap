@@ -13,6 +13,20 @@ html(lang="en")
     //- https://getbootstrap.com/docs/4.1/getting-started/download/
     link(rel="stylesheet", href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css", integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO", crossorigin="anonymous")
 
+    //- Based on: https://smile.amazon.com/Coding-Circle-Labels-Stickers-Assorted/dp/B08JMGWWZW/
+    //-   https://images-na.ssl-images-amazon.com/images/I/41uthP1lLOL._AC_.jpg
+    style.
+      .category-1-bg { background-color: #0084ce; color: white; } /* Blue */
+      .category-2-bg { background-color: #00b7f0; color: white; } /* Light blue */
+      .category-3-bg { background-color: #bcc5e4; color: white; } /* Pastel blue */
+      .category-4-bg { background-color: #f5ad03; color: white; } /* Orange */
+      .category-5-bg { background-color: #e7222c; color: white; } /* Red */
+      .category-6-bg { background-color: #35d0ac; color: white; } /* Light green */
+      .category-7-bg { background-color: #07bb12; color: white; } /* Dark green */
+      .category-8-bg { background-color: #fdf73f; } /* Yellow */
+      .category-9-bg { background-color: #701d85; color: white; } /* Purple */
+      .category-0-bg { background-color: #fd5fda; color: white; } /* Pink */
+
     //- Hook for Parcel live reload
     script(src="main.js")
   body
@@ -25,7 +39,7 @@ html(lang="en")
         //-   li Upload blueprint image from external tool
         //-   li Associate locations with blueprint image
         p
-          .progress
+          .progress(style="height: 1.5rem;")
             .progress-bar(role="progressbar", style="width: 33%;") 1 - Categorize images
             //- TODO: Build better `.muted` for progressbar
             .progress-bar(role="progressbar", style="width: 33%; background-color: transparent; color: black; opacity: 40%") 2 - Upload blueprint
@@ -33,20 +47,45 @@ html(lang="en")
       .row: .col-12
         h3 Associate uploaded images with locations
       .row: .col-12
-        .row
-          .col-3
+        .row.mb-3
+          .col-2
             .input-group
-                .input-group-prepend: span.input-group-text 1
+                .input-group-prepend: span.input-group-text.category-1-bg 1
                 input.form-control(type="text", value="Room 1", aria-label="Location name 1")
-          .col-3
+          .col-2
             .input-group
-                .input-group-prepend: span.input-group-text 2
+                .input-group-prepend: span.input-group-text.category-2-bg 2
                 input.form-control(type="text", value="Room 2", aria-label="Location name 2")
-          .col-3
+          .col-2
             .input-group
-                .input-group-prepend: span.input-group-text 3
+                .input-group-prepend: span.input-group-text.category-3-bg 3
                 input.form-control(type="text", value="Room 3", aria-label="Location name 3")
-          .col-3
+          .col-2
             .input-group
-                .input-group-prepend: span.input-group-text 4
+                .input-group-prepend: span.input-group-text.category-4-bg 4
                 input.form-control(type="text", value="Room 4", aria-label="Location name 4")
+          .col-2
+            .input-group
+                .input-group-prepend: span.input-group-text.category-5-bg 5
+                input.form-control(type="text", value="Hallway", aria-label="Location name 5")
+        .row.mb-3
+          .col-2
+            .input-group
+                .input-group-prepend: span.input-group-text.category-6-bg 6
+                input.form-control(type="text", value="Kitchen", aria-label="Location name 6")
+          .col-2
+            .input-group
+                .input-group-prepend: span.input-group-text.category-7-bg 7
+                input.form-control(type="text", value="Bathroom", aria-label="Location name 7")
+          .col-2
+            .input-group
+                .input-group-prepend: span.input-group-text.category-8-bg 8
+                input.form-control(type="text", value="", aria-label="Location name 8")
+          .col-2
+            .input-group
+                .input-group-prepend: span.input-group-text.category-9-bg 9
+                input.form-control(type="text", value="", aria-label="Location name 9")
+          .col-2
+            .input-group
+                .input-group-prepend: span.input-group-text.category-0-bg 0
+                input.form-control(type="text", value="", aria-label="Location name 0")
