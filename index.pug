@@ -17,5 +17,36 @@ html(lang="en")
     script(src="main.js")
   body
     .container
-      .col-12
-        h1 Hello Worlddd
+      .row: .col-12
+        h1 real-estate-layout-tool
+        p We'll create a blueprint layout with grouped images, at up to 10 locations, in 3 steps
+        //- ol
+        //-   li Upload and categorize image with location
+        //-   li Upload blueprint image from external tool
+        //-   li Associate locations with blueprint image
+        p
+          .progress
+            .progress-bar(role="progressbar", style="width: 33%;") 1 - Categorize images
+            //- TODO: Build better `.muted` for progressbar
+            .progress-bar(role="progressbar", style="width: 33%; background-color: transparent; color: black; opacity: 40%") 2 - Upload blueprint
+            .progress-bar(role="progressbar", style="width: 34%; background-color: transparent; color: black; opacity: 40%") 3 - Assocate blueprint
+      .row: .col-12
+        h3 Associate uploaded images with locations
+      .row: .col-12
+        .row
+          .col-3
+            .input-group
+                .input-group-prepend: span.input-group-text 1
+                input.form-control(type="text", value="Room 1", aria-label="Location name 1")
+          .col-3
+            .input-group
+                .input-group-prepend: span.input-group-text 2
+                input.form-control(type="text", value="Room 2", aria-label="Location name 2")
+          .col-3
+            .input-group
+                .input-group-prepend: span.input-group-text 3
+                input.form-control(type="text", value="Room 3", aria-label="Location name 3")
+          .col-3
+            .input-group
+                .input-group-prepend: span.input-group-text 4
+                input.form-control(type="text", value="Room 4", aria-label="Location name 4")
