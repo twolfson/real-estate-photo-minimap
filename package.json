@@ -11,6 +11,9 @@
   "devDependencies": {
     "eslint": "~7.18.0",
     "eslint-config-twolfson": "~1.0.0",
+    "foundry": "~4.4.2",
+    "foundry-release-git": "~2.0.3",
+    "foundry-release-npm": "~2.0.2",
     "parcel": "~1.12.4",
     "pug": "~3.0.0",
     "sass": "~1.26.10"
@@ -24,5 +27,11 @@
   },
   "author": "Todd Wolfson <todd@twolfson.com> (http://twolfson.com/)",
   "license": "Unlicense",
-  "private": true
+  "private": true,
+  "foundry": {
+    "releaseCommands": [
+      "foundry-release-git",
+      "foundry-release-npm"
+    ]
+  }
 }
