@@ -1,0 +1,35 @@
+/* Based on: https://smile.amazon.com/Coding-Circle-Labels-Stickers-Assorted/dp/B08JMGWWZW */
+/*   https://images-na.ssl-images-amazon.com/images/I/41uthP1lLOL._AC_.jpg */
+.category-1-bg { background-color: #0084ce; color: white; } /* Blue */
+.category-2-bg { background-color: #00b7f0; color: white; } /* Light blue */
+.category-3-bg { background-color: #bcc5e4; color: white; } /* Pastel blue */
+.category-4-bg { background-color: #f5ad03; color: white; } /* Orange */
+.category-5-bg { background-color: #e7222c; color: white; } /* Red */
+.category-6-bg { background-color: #35d0ac; color: white; } /* Light green */
+.category-7-bg { background-color: #07bb12; color: white; } /* Dark green */
+.category-8-bg { background-color: #fdf73f; color: black; } /* Yellow */
+.category-9-bg { background-color: #701d85; color: white; } /* Purple */
+.category-0-bg { background-color: #fd5fda; color: white; } /* Pink */
+
+.selected-image { border: 2px solid black; }
+.category-img::before { display: block; position: absolute; text-align: center; font-size: 12px; padding: 0 4px; }
+.category-1-img { border: 2px solid #0084ce; } /* Blue */
+.category-1-img::before { content: '1'; background-color: #0084ce; color: white; } /* Blue */
+.category-2-img { border: 2px solid #00b7f0; } /* Light blue */
+.category-2-img::before { content: '2'; background-color: #00b7f0; color: white; } /* Light blue */
+.category-3-img { border: 2px solid #bcc5e4; } /* Pastel blue */
+.category-3-img::before { content: '3'; background-color: #bcc5e4; color: white; } /* Pastel blue */
+.category-4-img { border: 2px solid #f5ad03; } /* Orange */
+.category-4-img::before { content: '4'; background-color: #f5ad03; color: white; } /* Orange */
+.category-5-img { border: 2px solid #e7222c; } /* Red */
+.category-5-img::before { content: '5'; background-color: #e7222c; color: white; } /* Red */
+.category-6-img { border: 2px solid #35d0ac; } /* Light green */
+.category-6-img::before { content: '6'; background-color: #35d0ac; color: white; } /* Light green */
+.category-7-img { border: 2px solid #07bb12; } /* Dark green */
+.category-7-img::before { content: '7'; background-color: #07bb12; color: white; } /* Dark green */
+.category-8-img { border: 2px solid #fdf73f; } /* Yellow */
+.category-8-img::before { content: '8'; background-color: #fdf73f; color: black; } /* Yellow */
+.category-9-img { border: 2px solid #701d85; } /* Purple */
+.category-9-img::before { content: '9'; background-color: #701d85; color: white; } /* Purple */
+.category-0-img { border: 2px solid #fd5fda; } /* Pink */
+.category-0-img::before { content: '0'; background-color: #fd5fda; color: white; } /* Pink
