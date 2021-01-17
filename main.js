@@ -32,7 +32,7 @@ const Store = {
   }),
   currentImageIndex: 0,
   getLocationKeys: function () {
-    return this.locations.map((cat) => cat.key);
+    return this.locations.map((location) => location.key);
   },
   getCurrentImage: function () {
     return this.images[this.currentImageIndex];
@@ -51,6 +51,10 @@ const Store = {
     assert(locationKeys.includes(locationKey), `Location ${locationKey} isn't within locations`);
     this.getCurrentImage().locationKey = locationKey;
     this.nextImage();
+  },
+  setLocationName: function (locationKey, name) {
+    let location = this.locations.find((location) => location.key === locationKey);
+    location.name = name;
   },
 
   rr /* run and render */: function (method, /* args */) {
@@ -95,33 +99,31 @@ function main() {
       h('.row', [
         h('.col-12',
           (() => {
-            function createInput(location, humanI) {
+            function createInput(location) {
               return h('.col-2', [
                 h('.input-group', [
                   h('.input-group-prepend', [
                     h('span', {
-                      className: `input-group-text location-${humanI}-bg`,
+                      className: `input-group-text location-${location.key}-bg`,
                       role: 'button',
-                      onClick: () => { Store.rr('setLocationForCurrentImage', humanI); },
-                    }, humanI),
+                      onClick: () => { Store.rr('setLocationForCurrentImage', location.key); },
+                    }, location.key),
                   ]),
-                  h('input.form-control', {type: 'text', value: location, onChange: () => { /* TODO: Wire me up */}, 'aria-label': `Location name ${humanI}`}),
+                  h('input.form-control', {
+                    type: 'text', value: location.name,
+                    onChange: (evt) => { Store.rr('setLocationName', location.key, evt.target.value); },
+                    'aria-label': `Location name ${location.key}`
+                  }),
                 ])
               ]);
             }
+            assert(Store.locations.length === 10, `Expected 10 locations but received ${Store.locations.length}`);
             return [
               h('.row.mb-3',
-                // TODO: Use data structure for locations (e.g. [{name: 'Room 1', shortcut: '1'}, ...])
-                ['Room 1', 'Room 2', 'Room 3', 'Room 4', 'Hallway'].map((location, i) => {
-                  let humanI = i + 1;
-                  return createInput(location, humanI.toString());
-                })
+                Store.locations.slice(0, 5).map(createInput)
               ),
               h('.row.mb-3',
-                ['Kitchen', 'Bathroom', '', '', ''].map((location, i) => {
-                  let humanI = (i + 6) % 10;
-                  return createInput(location, humanI.toString());
-                })
+                Store.locations.slice(5, 10).map(createInput)
               )
             ];
           })()
@@ -186,6 +188,12 @@ let render = main;
 // View hooks
 // When a key is pressed
 window.addEventListener('keypress', (evt) => {
+  // If the event is for an input, then stop
+  // https://github.com/ccampbell/mousetrap/blob/1.6.5/mousetrap.js#L973-L1001
+  if (['INPUT', 'SELECT', 'TEXTAREA'].includes(evt.target.tagName)) {
+    return;
+  }
+
   // If it's a known location, then label our current image
   if (Store.getLocationKeys().includes(evt.key)) {
     Store.rr('setLocationForCurrentImage', evt.key);
