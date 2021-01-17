@@ -6,7 +6,7 @@ const assert = require('assert');
 const classnames = require('classnames');
 const h = require('react-hyperscript');
 const ReactDOM = require('react-dom');
-let demoData = require('./data/demo.json');
+let demoData = require('../../data/demo.json');
 
 // Define our configuration
 let config = {
