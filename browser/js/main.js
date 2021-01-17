@@ -1,6 +1,3 @@
-// Wrap all our content in an IIFE to avoid leaks
-(function () {
-
 // Load in our dependencies
 const assert = require('assert');
 const classnames = require('classnames');
@@ -18,16 +15,16 @@ function createStore() {
   return {
     // DEV: We use keys instead of array index as we want to associate it loosely (e.g. different shortcuts)
     locations: [
-      {key: '1', name: 'Room 1',  },
-      {key: '2', name: 'Room 2',  },
-      {key: '3', name: 'Room 3',  },
-      {key: '4', name: 'Room 4',  },
-      {key: '5', name: 'Hallway', },
-      {key: '6', name: 'Kitchen', },
-      {key: '7', name: 'Bathroom',},
-      {key: '8', name: '',        },
-      {key: '9', name: '',        },
-      {key: '0', name: '',        },
+      {key: '1', name: 'Room 1',   },
+      {key: '2', name: 'Room 2',   },
+      {key: '3', name: 'Room 3',   },
+      {key: '4', name: 'Room 4',   },
+      {key: '5', name: 'Hallway',  },
+      {key: '6', name: 'Kitchen',  },
+      {key: '7', name: 'Bathroom', },
+      {key: '8', name: '',         },
+      {key: '9', name: '',         },
+      {key: '0', name: '',         },
     ],
     images: demoData.map((src, i) => {
       let img = {key: i.toString(), src: src, locationKey: null};
@@ -71,13 +68,13 @@ function createStore() {
     },
 
     resetStore: function () {
-      Store = createStore();
+      Store = createStore(); // eslint-disable-line no-use-before-define
     },
     rr /* run and render */: function (method, /* args */) {
       // Run our logic
       let args = [].slice.call(arguments, 1);
       this[method].apply(this, args);
-      render();
+      render(); // eslint-disable-line no-use-before-define
 
       // Serialize and save our state
       if (config.persistData) {
@@ -104,7 +101,9 @@ if (config.persistData && localStorage.stateBackup) {
   Store.currentImageIndex = _loadedState.images.findIndex((img) => img.locationKey === null);
   if (Store.currentImageIndex === -1) { Store.currentImageIndex = 0; }
 
-  console.info('Loaded state from `localStorage`. To delete backup, run: `delete localStorage.stateBackup; Store.rr(\'resetStore\');`');
+  // eslint-disable-next-line no-console
+  console.info('Loaded state from `localStorage`. ' +
+    'To delete backup, run: `delete localStorage.stateBackup; Store.rr(\'resetStore\');`');
 }
 
 // Define our main page load hook
@@ -112,23 +111,22 @@ function main() {
   let reactContainer = document.getElementById('react-content');
   if (!reactContainer) { throw new Error('Unable to find #react-content'); }
 
-  //- TODO: Should use `this.props` instead of `Store` for content
+  // TODO: Should use `this.props` instead of `Store` for content
   ReactDOM.render(
     h('.container', [
       h('.row', [
         h('.col-12', [
           h('h1', 'real-estate-photo-minimap'),
           h('p', 'We\'ll create a blueprint layout with grouped images, at up to 10 locations, in 3 steps'),
-          //- ol
-          //-   li Upload and categorize image with location
-          //-   li Upload blueprint image from external tool
-          //-   li Associate locations with blueprint image
+          // ol
+          //   li Upload and categorize image with location
+          //   li Upload blueprint image from external tool
+          //   li Associate locations with blueprint image
           h('.mb-3', [
             h('.progress', {style: {height: '1.5rem'}}, [
               h('.progress-bar', {role: 'progressbar', style: {width: '33%'}}, '1 - Categorize images'),
-              //- TODO: Build better `.muted` for progressbar
-              h('.progress-bar', {role: 'progressbar', style: {width: '33%', backgroundColor: 'transparent', color: 'black', opacity: '40%'}}, '2 - Upload blueprint'),
-              h('.progress-bar', {role: 'progressbar', style: {width: '34%', backgroundColor: 'transparent', color: 'black', opacity: '40%'}}, '3 - Assocate blueprint'),
+              h('.progress-bar', {role: 'progressbar.progressbar-muted', style: {width: '33%'}}, '2 - Upload blueprint'), // eslint-disable-line max-len
+              h('.progress-bar', {role: 'progressbar.progressbar-muted', style: {width: '34%'}}, '3 - Assocate blueprint'), // eslint-disable-line max-len
             ])
           ])
         ])
@@ -189,7 +187,7 @@ function main() {
       h('.row',
         Store.images.map((img, i) => {
           return h('.col-1.mb-1', [
-            //- DEV: We use a `div` as `::before` doesn't seem to work great with `img`
+            // DEV: We use a `div` as `::before` doesn't seem to work great with `img`
             h('div', {
               key: i,
               className: classnames({
@@ -199,7 +197,7 @@ function main() {
               h('img.img-fluid', {
                 src: img.src,
                 role: 'button',
-                alt:`Photo ${i} thumbnail`,
+                alt: `Photo ${i} thumbnail`,
                 onClick: () => { Store.rr('goToImage', i); }
               })
             ])
@@ -252,6 +250,3 @@ window.addEventListener('keydown', (evt) => {
     Store.rr('nextImage');
   }
 });
-
-// End of IIFE
-}());

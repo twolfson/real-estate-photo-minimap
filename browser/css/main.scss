@@ -1,3 +1,11 @@
+// Custom Bootstrap extensions
+.progressbar-muted {
+  background-color: 'transparent';
+  color: 'black';
+  opacity: '40%';
+}
+
+// Custom CSS styles
 // Based on: https://smile.amazon.com/Coding-Circle-Labels-Stickers-Assorted/dp/B08JMGWWZW
 //   https://images-na.ssl-images-amazon.com/images/I/41uthP1lLOL._AC_.jpg
 $location-1-bg: #0084ce; $location-1-fg: white; // Blue
