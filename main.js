@@ -24,26 +24,23 @@ const Store = {
     return this.images[this.currentImageIndex];
   },
 
-  _nextImage: function () {
+  nextImage: function () {
     this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
   },
-  _goToImage: function (index) {
+  goToImage: function (index) {
     assert(index >= 0 && index < this.images.length, `Index ${index} out of \`this.images\` range`);
     assert(!isNaN(index), `Index is NaN`);
     this.currentImageIndex = index;
   },
-
-  nextImage: function () {
-    this._nextImage();
-    render();
-  },
-  goToImage: function (index) {
-    this._goToImage(index);
-    render();
-  },
   categorizeCurrentImage: function (category) {
-    this._categorizeImage(this.getCurrentImage(), category);
-    this._nextImage();
+    assert(CATEGORIES.includes(category), `Category ${category} isn't within CATEGORIES`);
+    this.getCurrentImage().category = category;
+    this.nextImage();
+  },
+
+  rr /* run and render */: function (method, /* args */) {
+    let args = [].slice.call(arguments, 1);
+    this[method].apply(this, args);
     render();
   }
 };
@@ -140,7 +137,7 @@ function main() {
                 src: img.src,
                 role: 'button',
                 alt:`Photo ${i} thumbnail`,
-                onClick: () => { Store.goToImage(i); }
+                onClick: () => { Store.rr('goToImage', i); }
               })
             ])
           ]);
@@ -172,10 +169,10 @@ let render = main;
 window.addEventListener('keypress', (evt) => {
   // If it's a known category, then label our current image
   if (CATEGORIES.includes(evt.key)) {
-    Store.categorizeCurrentImage(evt.key);
+    Store.rr('categorizeCurrentImage', evt.key);
   // Otherwise, if we're skipping, then skip
   } else if (evt.key === 's') {
-    Store.nextImage();
+    Store.rr('nextImage');
   }
 });
 
