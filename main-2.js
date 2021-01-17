@@ -181,36 +181,23 @@ function main() {
             .filter((location) => imagesByLocation.hasOwnProperty(location.key))
             .map((location) => {
               let currentImages = imagesByLocation[location.key];
-              return h('.col-3', [
+              // TODO: Ensure consistent height boxes
+              return h('.col-3.mb-3', [
                 h(`.location-box.location-${location.key}-box`, [
-                  h('img.location-box__img.location-box__img-0',
-                    {src: currentImages[0].src, alt: `Location ${location.name} first photo`}),
-                  currentImages.length >= 2 ? h('img.location-box__img.location-box__img-1',
-                    {src: currentImages[1].src, alt: `Location ${location.name} second photo`}) : null,
-                  currentImages.length >= 3 ? h('img.location-box__img.location-box__img-2',
-                    {src: currentImages[2].src, alt: `Location ${location.name} third photo`}) : null,
-                  currentImages.length >= 4 ? `+ ${currentImages.length - 3}` : null,
+                  h(`.location-${location.key}-bg.mb-1.pl-1`, location.name),
+                  h('.pl-1', [
+                    h('img.location-box__img.location-box__img-0', {
+                      src: currentImages[0].src, alt: `Location ${location.name} first photo`,
+                    }),
+                    currentImages.length >= 2 ? h('img.location-box__img.location-box__img-1',
+                      {src: currentImages[1].src, alt: `Location ${location.name} second photo`}) : null,
+                    currentImages.length >= 3 ? h('img.location-box__img.location-box__img-2',
+                      {src: currentImages[2].src, alt: `Location ${location.name} third photo`}) : null,
+                    currentImages.length >= 4 ? ` + ${currentImages.length - 3}` : null,
+                  ]),
                 ])
               ]);
             });
-        // Store.images.map((img, i) => {
-        //   return h('.col-1.mb-1', [
-        //     //- DEV: We use a `div` as `::before` doesn't seem to work great with `img`
-        //     h('div', {
-        //       key: i,
-        //       className: classnames({
-        //         'selected-image': i === Store.currentImageIndex,
-        //       }, img.locationKey ? `location-img location-${img.locationKey}-img` : '')
-        //     }, [
-        //       h('img.img-fluid', {
-        //         src: img.src,
-        //         role: 'button',
-        //         alt:`Photo ${i} thumbnail`,
-        //         onClick: () => { Store.rr('goToImage', i); }
-        //       })
-        //     ])
-        //   ]);
-        // })
         })()
       ),
     ]),
