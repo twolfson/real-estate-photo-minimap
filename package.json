@@ -23,7 +23,7 @@
     "build": "rm -r dist && NODE_ENV=production parcel build --no-source-maps browser/index.pug",
     "lint": "eslint browser/ --max-warnings 0 --max-warnings 0",
     "precheck": "eslint browser/",
-    "publish-demo": "npm run build && git diff --exit-code && gh-pages --dist dist --branch gh-pages",
+    "publish-demo": "npm run build && git diff --exit-code && gh-pages --dist dist --branch gh-pages --repo \"git@github.com:twolfson/real-estate-photo-minimap-public.git\"",
     "start": "parcel browser/index.pug --port 5000",
     "test": "npm run precheck && NODE_ENV=test echo \"No tests\" 1>&2 && npm run lint"
   },

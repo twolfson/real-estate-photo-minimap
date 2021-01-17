@@ -3,6 +3,8 @@ Generate a minimap browser for real estate photos
 
 Built out of frustration with disorienting rental and real estate listings (e.g. photos jumping between rooms, no blueprint image)
 
+<https://twolfson.github.io/real-estate-photo-minimap-public/index.html>
+
 ## Features
 - [x] Quick location categorization
 - [ ] Minimap creator
