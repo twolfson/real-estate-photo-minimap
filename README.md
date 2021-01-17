@@ -16,8 +16,8 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 ### Pending tasks
 #### Initial release
 - [ ] Add GitHub pages release workflow
-  - Do use `/v1/` prefix for future-proofing/not breaking someone's backed up data
-  - Ensure JS compressed
+  - [ ] Do use `/v1/` prefix for future-proofing/not breaking someone's backed up data
+  - [x] Ensure JS compressed
 - [ ] Reintroduce second step
   - Should break up different sections into components for reuse (e.g. all images gallery)
   - Move back to listing all images, but now list as grouped variants (maybe allow person to toggle via select menu for sort)
