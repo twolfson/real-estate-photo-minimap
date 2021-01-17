@@ -121,9 +121,9 @@ function main() {
           //-   li Associate locations with blueprint image
           h('.mb-3', [
             h('.progress', {style: {height: '1.5rem'}}, [
-              h('.progress-bar', {role: 'progressbar', style: {width: '33%'}}, '1 - Categorize images'),
+              h('.progress-bar', {role: 'progressbar', style: {width: '33%', textDecoration: 'line-through'}}, '1 - Categorize images'),
               //- TODO: Build better `.muted` for progressbar
-              h('.progress-bar', {role: 'progressbar', style: {width: '33%', backgroundColor: 'transparent', color: 'black', opacity: '40%'}}, '2 - Upload blueprint'),
+              h('.progress-bar', {role: 'progressbar', style: {width: '33%'}}, '2 - Upload blueprint'),
               h('.progress-bar', {role: 'progressbar', style: {width: '34%', backgroundColor: 'transparent', color: 'black', opacity: '40%'}}, '3 - Assocate blueprint'),
             ])
           ])
@@ -143,14 +143,13 @@ function main() {
                   h('.input-group-prepend', [
                     h('span', {
                       className: `input-group-text location-${location.key}-bg`,
-                      role: 'button',
-                      onClick: () => { Store.rr('setLocationForCurrentImage', location.key); },
+                      // NOTE: No more `onClick` behavior
                     }, location.key),
                   ]),
                   h('input.form-control', {
                     type: 'text', value: location.name,
-                    onFocus: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
-                    onChange: (evt) => { Store.rr('setLocationName', location.key, evt.target.value); },
+                      // NOTE: No more `onClick`/`onFocus` behavior
+                    readOnly: true,
                     'aria-label': `Location name ${location.key}`
                   }),
                 ])
@@ -168,53 +167,52 @@ function main() {
           })()
         )
       ]),
-      h('.row', [
-        h('.col-6', [
-          h('div', 'Type or press location number to categorize image'),
-          h('p', [
-            h('img.img-fluid', {src: Store.getCurrentImage().src, alt: 'Actively selected photo'})
-          ]),
-
-          h('p', [
-            'or ',
-            h('button.btn.btn-secondary', {onClick: () => { Store.rr('nextImage'); }}, 'skip to next image'),
-            h('span.text-muted', ' (shortcut: s)'),
-          ])
-        ])
-      ]),
       h('.row',
-        Store.images.map((img, i) => {
-          return h('.col-1.mb-1', [
-            //- DEV: We use a `div` as `::before` doesn't seem to work great with `img`
-            h('div', {
-              key: i,
-              className: classnames({
-                'selected-image': i === Store.currentImageIndex,
-              }, img.locationKey ? `location-img location-${img.locationKey}-img` : '')
-            }, [
-              h('img.img-fluid', {
-                src: img.src,
-                role: 'button',
-                alt:`Photo ${i} thumbnail`,
-                onClick: () => { Store.rr('goToImage', i); }
-              })
-            ])
-          ]);
-        })
+        (() => {
+          // Group images into their locations
+          let imagesByLocation = {};
+          Store.images.forEach((img) => {
+            if (!img.locationKey) { return; }
+            imagesByLocation[img.locationKey] = imagesByLocation[img.locationKey] || [];
+            imagesByLocation[img.locationKey].push(img);
+          });
+
+          return Store.locations
+            .filter((location) => imagesByLocation.hasOwnProperty(location.key))
+            .map((location) => {
+              let currentImages = imagesByLocation[location.key];
+              return h('.col-3', [
+                h(`.location-box.location-${location.key}-box`, [
+                  h('img.location-box__img.location-box__img-0',
+                    {src: currentImages[0].src, alt: `Location ${location.name} first photo`}),
+                  currentImages.length >= 2 ? h('img.location-box__img.location-box__img-1',
+                    {src: currentImages[1].src, alt: `Location ${location.name} second photo`}) : null,
+                  currentImages.length >= 3 ? h('img.location-box__img.location-box__img-2',
+                    {src: currentImages[2].src, alt: `Location ${location.name} third photo`}) : null,
+                  currentImages.length >= 4 ? `+ ${currentImages.length - 3}` : null,
+                ])
+              ]);
+            });
+        // Store.images.map((img, i) => {
+        //   return h('.col-1.mb-1', [
+        //     //- DEV: We use a `div` as `::before` doesn't seem to work great with `img`
+        //     h('div', {
+        //       key: i,
+        //       className: classnames({
+        //         'selected-image': i === Store.currentImageIndex,
+        //       }, img.locationKey ? `location-img location-${img.locationKey}-img` : '')
+        //     }, [
+        //       h('img.img-fluid', {
+        //         src: img.src,
+        //         role: 'button',
+        //         alt:`Photo ${i} thumbnail`,
+        //         onClick: () => { Store.rr('goToImage', i); }
+        //       })
+        //     ])
+        //   ]);
+        // })
+        })()
       ),
-      h('.row', [
-        h('.col-12', [
-          h('.text-right', [
-            h('p', [
-              h('button.btn.btn-primary', 'Continue'),
-              h('br'),
-              h('em.text-muted.small', `Uncategorized images (${
-                Store.images.filter((img) => !img.locationKey).length
-              }) will be omitted`),
-            ])
-          ])
-        ])
-      ]),
     ]),
     reactContainer
   );

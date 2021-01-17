@@ -33,3 +33,32 @@
 .location-0-img { border: 2px solid #fd5fda; } /* Pink */
 .location-0-img::before { content: '0'; background-color: #fd5fda; color: white; } /* Pink */
 .selected-image { outline: 2px solid black; }
+
+.location-1-box { border: 2px solid #0084ce; } /* Blue */
+.location-2-box { border: 2px solid #00b7f0; } /* Light blue */
+.location-3-box { border: 2px solid #bcc5e4; } /* Pastel blue */
+.location-4-box { border: 2px solid #f5ad03; } /* Orange */
+.location-5-box { border: 2px solid #e7222c; } /* Red */
+.location-6-box { border: 2px solid #35d0ac; } /* Light green */
+.location-7-box { border: 2px solid #07bb12; } /* Dark green */
+.location-8-box { border: 2px solid #fdf73f; } /* Yellow */
+.location-9-box { border: 2px solid #701d85; } /* Purple */
+.location-0-box { border: 2px solid #fd5fda; } /* Pink */
+.location-box__img {
+  height: 100px;
+  width: auto;
+}
+.location-box__img-1,
+.location-box__img-2 {
+  position: relative;
+}
+.location-box__img-1 {
+  z-index: -1;
+  top: -88px;
+  left: 12px;
+}
+.location-box__img-2 {
+  z-index: -2;
+  top: -176px; /* 100*2 - 12*2 */
+  left: 24px;
+}
