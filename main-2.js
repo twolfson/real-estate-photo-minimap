@@ -1,6 +1,23 @@
 // Wrap all our content in an IIFE to avoid leaks
 (function () {
 
+// Next step is probably to rewrite this page with SVG editor first
+//   This looks just right for what we want, https://github.com/methodofaction/Method-Draw
+//   and MIT license is totally plausible
+
+// More content to build:
+// - BEFORE WE GO ANY FURTHER, SEE HOW BAD HOTLINKING IS
+// - Move back to listing all images, but now list as grouped variants (maybe allow person to toggle via select menu for sort)
+//     - Could do grouped outline but prob fine to list in order and the colors will communicate for us
+// - Once SVG builder is completed
+// - Drag/drop to get to final version
+// - Never going to do: Adjusting order of images
+// - Nice polish: Final left/right arrow order is based on zig-zag library shelf pattern (i.e. riiiiight, down, left, riiiiight)
+// - Can do CRUD UI landing page (prob just create new)
+// - People can share via a link generator/serialized state interface
+// - Once steps are roughly done, we can polish with {common: {}}, {stepSpecific: {}} delimiters for cloning/export
+// - Still pretty headstrong on using hotlinking to avoid hosting
+
 // Load in our dependencies
 const assert = require('assert');
 const classnames = require('classnames');
@@ -94,6 +111,7 @@ window.Store = Store;
 // TODO: Figure out how to identify different sets of content
 // TODO: Set up ability for user to clear their own cache
 if (localStorage.stateBackup) {
+  // TODO: Revisit using `localStorage.setItem/getItem` instead of parsing/serializing on our own
   let _loadedState = JSON.parse(localStorage.stateBackup);
   Store.locations = _loadedState.locations;
   Store.images = _loadedState.images;
