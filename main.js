@@ -34,7 +34,37 @@ function main() {
         h('.col-12', [
           h('h3', 'Associate uploaded images with locations')
         ])
-      ])
+      ]),
+      h('.row', [
+        h('.col-12',
+          (() => {
+            function createInput(location, humanI) {
+              return h('.col-2', [
+                h('.input-group', [
+                  h('.input-group-prepend', [
+                    h('span', {className: `input-group-text category-${humanI}-bg`}, humanI),
+                  ]),
+                  h('input.form-control', {type: 'text', value: location, onChange: () => { /* TODO: Wire me up */}, 'aria-label': `Location name ${humanI}`}),
+                ])
+              ]);
+            }
+            return [
+              h('.row.mb-3',
+                ['Room 1', 'Room 2', 'Room 3', 'Room 4', 'Hallway'].map((location, i) => {
+                  let humanI = i + 1;
+                  return createInput(location, humanI);
+                })
+              ),
+              h('.row.mb-3',
+                ['Kitchen', 'Bathroom', '', '', ''].map((location, i) => {
+                  let humanI = (i + 6) % 10;
+                  return createInput(location, humanI);
+                })
+              )
+            ];
+          })()
+        )
+      ]),
     ]),
     reactContainer
   );

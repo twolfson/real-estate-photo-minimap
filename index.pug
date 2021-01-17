@@ -19,21 +19,6 @@ html(lang="en")
     #react-content: .container: .row: .col-12: strong Loading...
     hr(style="border-bottom: 2px solid black")
     .container
-      .row: .col-12
-        .row.mb-3
-          for location, i in ['Room 1', 'Room 2', 'Room 3', 'Room 4', 'Hallway']
-            - human_i = i + 1
-            .col-2
-              .input-group
-                  .input-group-prepend: span.input-group-text(class=`category-${human_i}-bg`)= human_i
-                  input.form-control(type="text", value=location, aria-label=`Location name ${human_i}`)
-        .row.mb-3
-          for location, i in ['Kitchen', 'Bathroom', '', '', '']
-            - human_i = (i + 6) % 10
-            .col-2
-              .input-group
-                  .input-group-prepend: span.input-group-text(class=`category-${human_i}-bg`)= human_i
-                  input.form-control(type="text", value=location, aria-label=`Location name ${human_i}`)
       .row: .col-6
         div Type location number to categorize image
         p
