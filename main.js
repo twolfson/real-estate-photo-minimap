@@ -12,19 +12,19 @@ function createStore() {
   return {
     // DEV: We use keys instead of array index as we want to associate it loosely (e.g. different shortcuts)
     locations: [
-      {name: 'Room 1',   key: '1'},
-      {name: 'Room 2',   key: '2'},
-      {name: 'Room 3',   key: '3'},
-      {name: 'Room 4',   key: '4'},
-      {name: 'Hallway',  key: '5'},
-      {name: 'Kitchen',  key: '6'},
-      {name: 'Bathroom', key: '7'},
-      {name: '',         key: '8'},
-      {name: '',         key: '9'},
-      {name: '',         key: '0'},
+      {key: '1', name: 'Room 1',  },
+      {key: '2', name: 'Room 2',  },
+      {key: '3', name: 'Room 3',  },
+      {key: '4', name: 'Room 4',  },
+      {key: '5', name: 'Hallway', },
+      {key: '6', name: 'Kitchen', },
+      {key: '7', name: 'Bathroom',},
+      {key: '8', name: '',        },
+      {key: '9', name: '',        },
+      {key: '0', name: '',        },
     ],
     images: Array(44).fill(true).map((_, i) => {
-      let img = {key: i, src: `big-photos/${i}.jpg`, locationKey: null};
+      let img = {key: i.toString(), src: `big-photos/${i}.jpg`, locationKey: null};
       if (i === 3) { img.locationKey = '1'; }
       if (i === 5) { img.locationKey = '2'; }
       if (i === 7) { img.locationKey = '3'; }
@@ -45,6 +45,12 @@ function createStore() {
     },
     nextImage: function () {
       this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+    },
+    goToFirstLocationImage: function (locationKey) {
+      let firstLocationImageIndex = this.images.findIndex((img) => img.locationKey === locationKey);
+      if (firstLocationImageIndex !== -1) {
+        this.currentImageIndex = firstLocationImageIndex;
+      }
     },
     goToImage: function (index) {
       assert(index >= 0 && index < this.images.length, `Index ${index} out of \`this.images\` range`);
@@ -132,7 +138,7 @@ function main() {
         h('.col-12',
           (() => {
             function createInput(location) {
-              return h('.col-2', [
+              return h('.col-2', {key: location.key}, [
                 h('.input-group', [
                   h('.input-group-prepend', [
                     h('span', {
@@ -143,6 +149,7 @@ function main() {
                   ]),
                   h('input.form-control', {
                     type: 'text', value: location.name,
+                    onFocus: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
                     onChange: (evt) => { Store.rr('setLocationName', location.key, evt.target.value); },
                     'aria-label': `Location name ${location.key}`
                   }),
@@ -219,6 +226,7 @@ let render = main;
 
 // View hooks
 // When a key is pressed
+// TODO: When move to another window, unbind (prob do via `componentDidMount` and `componentWillUnmount` mechanisms)
 window.addEventListener('keydown', (evt) => {
   // If the event is for an input, then stop
   // https://github.com/ccampbell/mousetrap/blob/1.6.5/mousetrap.js#L973-L1001
