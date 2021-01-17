@@ -13,7 +13,7 @@
     "pug": "~3.0.0"
   },
   "scripts": {
-    "start": "parcel index.pug big-photos/* --port 5000",
+    "start": "parcel index.pug --port 5000",
     "build": "rm -r dist && NODE_ENV=production parcel build index.pug",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

@@ -6,6 +6,7 @@ const assert = require('assert');
 const classnames = require('classnames');
 const h = require('react-hyperscript');
 const ReactDOM = require('react-dom');
+let demoData = require('./data/demo.json');
 
 // Model singleton
 function createStore() {
@@ -23,12 +24,8 @@ function createStore() {
       {key: '9', name: '',        },
       {key: '0', name: '',        },
     ],
-    images: Array(44).fill(true).map((_, i) => {
-      let img = {key: i.toString(), src: `big-photos/${i}.jpg`, locationKey: null};
-      if (i === 3) { img.locationKey = '1'; }
-      if (i === 5) { img.locationKey = '2'; }
-      if (i === 7) { img.locationKey = '3'; }
-      if (i === 20) { img.locationKey = '4'; }
+    images: demoData.map((src, i) => {
+      let img = {key: i.toString(), src: src, locationKey: null};
       return img;
     }),
     currentImageIndex: 0,
@@ -93,7 +90,7 @@ window.Store = Store;
 // Load in our saved state
 // TODO: Figure out how to identify different sets of content
 // TODO: Set up ability for user to clear their own cache
-if (localStorage.stateBackup) {
+if (false && localStorage.stateBackup) {
   let _loadedState = JSON.parse(localStorage.stateBackup);
   Store.locations = _loadedState.locations;
   Store.images = _loadedState.images;
