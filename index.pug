@@ -15,34 +15,10 @@ html(lang="en")
 
     //- Build our stylesheet
     link(rel="stylesheet", href="main.css")
-
-    //- Load in our JS dependencies
-    //- https://reactjs.org/docs/cdn-links.html
-    if process.env.ENV === 'production'
-      <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
-      <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
-    else
-      <script crossorigin src="https://unpkg.com/react@17/umd/react.development.js"></script>
-      <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"></script>
   body
     #react-content: .container: .row: .col-12: strong Loading...
     hr(style="border-bottom: 2px solid black")
     .container
-      .row: .col-12
-        h1 real-estate-layout-tool
-        p We'll create a blueprint layout with grouped images, at up to 10 locations, in 3 steps
-        //- ol
-        //-   li Upload and categorize image with location
-        //-   li Upload blueprint image from external tool
-        //-   li Associate locations with blueprint image
-        p
-          .progress(style="height: 1.5rem;")
-            .progress-bar(role="progressbar", style="width: 33%;") 1 - Categorize images
-            //- TODO: Build better `.muted` for progressbar
-            .progress-bar(role="progressbar", style="width: 33%; background-color: transparent; color: black; opacity: 40%") 2 - Upload blueprint
-            .progress-bar(role="progressbar", style="width: 34%; background-color: transparent; color: black; opacity: 40%") 3 - Assocate blueprint
-      .row: .col-12
-        h3 Associate uploaded images with locations
       .row: .col-12
         .row.mb-3
           for location, i in ['Room 1', 'Room 2', 'Room 3', 'Room 4', 'Hallway']

@@ -2,8 +2,8 @@
 (function () {
 
 // Load in our dependencies
-const ReactDOM = window.ReactDOM;
-const e = React.createElement;
+const ReactDOM = require('react-dom');
+const h = require('react-hyperscript');
 
 // Define our main page load hook
 function main() {
@@ -11,7 +11,31 @@ function main() {
   if (!reactContainer) { throw new Error('Unable to find #react-content'); }
 
   ReactDOM.render(
-    e('h1', {}, 'foo'),
+    h('.container', [
+      h('.row', [
+        h('.col-12', [
+          h('h1', 'real-estate-layout-tool'),
+          h('p', 'We\'ll create a blueprint layout with grouped images, at up to 10 locations, in 3 steps'),
+          //- ol
+          //-   li Upload and categorize image with location
+          //-   li Upload blueprint image from external tool
+          //-   li Associate locations with blueprint image
+          h('.mb-3', [
+            h('.progress', {style: {height: '1.5rem'}}, [
+              h('.progress-bar', {role: 'progressbar', style: {width: '33%'}}, '1 - Categorize images'),
+              //- TODO: Build better `.muted` for progressbar
+              h('.progress-bar', {role: 'progressbar', style: {width: '33%', backgroundColor: 'transparent', color: 'black', opacity: '40%'}}, '2 - Upload blueprint'),
+              h('.progress-bar', {role: 'progressbar', style: {width: '34%', backgroundColor: 'transparent', color: 'black', opacity: '40%'}}, '3 - Assocate blueprint'),
+            ])
+          ])
+        ])
+      ]),
+      h('.row', [
+        h('.col-12', [
+          h('h3', 'Associate uploaded images with locations')
+        ])
+      ])
+    ]),
     reactContainer
   );
 }
