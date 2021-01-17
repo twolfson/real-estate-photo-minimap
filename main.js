@@ -39,6 +39,10 @@ function createStore() {
       return this.images[this.currentImageIndex];
     },
 
+    previousImage: function () {
+      this.currentImageIndex = this.currentImageIndex - 1;
+      if (this.currentImageIndex < 0) { this.currentImageIndex = this.images.length - 1; }
+    },
     nextImage: function () {
       this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
     },
@@ -77,7 +81,7 @@ function createStore() {
     }
   };
 }
-const Store = createStore();
+let Store = createStore();
 window.Store = Store;
 
 // Load in our saved state
@@ -215,18 +219,24 @@ let render = main;
 
 // View hooks
 // When a key is pressed
-window.addEventListener('keypress', (evt) => {
+window.addEventListener('keydown', (evt) => {
   // If the event is for an input, then stop
   // https://github.com/ccampbell/mousetrap/blob/1.6.5/mousetrap.js#L973-L1001
   if (['INPUT', 'SELECT', 'TEXTAREA'].includes(evt.target.tagName)) {
     return;
   }
 
-  // If it's a known location, then label our current image
+  // Compare to known shortcuts
+  // Location numbers
   if (Store.getLocationKeys().includes(evt.key)) {
     Store.rr('setLocationForCurrentImage', evt.key);
-  // Otherwise, if we're skipping, then skip
+  // Skipping shortcut
   } else if (evt.key === 's') {
+    Store.rr('nextImage');
+  // Arrow keys
+  } else if (evt.key === 'ArrowLeft') {
+    Store.rr('previousImage');
+  } else if (evt.key === 'ArrowRight') {
     Store.rr('nextImage');
   }
 });
