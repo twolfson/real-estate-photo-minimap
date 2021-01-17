@@ -131,7 +131,7 @@ function main() {
     h('.container', [
       h('.row', [
         h('.col-12', [
-          h('h1', 'real-estate-layout-tool'),
+          h('h1', 'real-estate-photo-minimap'),
           h('p', 'We\'ll create a blueprint layout with grouped images, at up to 10 locations, in 3 steps'),
           //- ol
           //-   li Upload and categorize image with location

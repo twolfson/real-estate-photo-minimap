@@ -1,7 +1,7 @@
 {
-  "name": "real-estate-layout-tool",
+  "name": "real-estate-photo-minimap",
   "version": "1.0.0",
-  "description": "Layout tool experiment for real estate listings",
+  "description": "Generate a minimap browser for real estate photos",
   "dependencies": {
     "classnames": "~2.2.6",
     "react": "~17.0.1",

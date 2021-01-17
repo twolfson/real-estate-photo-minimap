@@ -1,4 +1,4 @@
-# real-estate-layout-tool data
+# real-estate-photo-minimap data
 Listing found via: <https://www.redfin.com/CA/San-Francisco/1376-Natoma-St-94103/home/895861>
 
 with public MLS photos via: <https://mlax.rapmls.com/Gallery.aspx?mls=SFAR&listingRid=375258> (found via MLS listing ID and <https://sfarmls.rapmls.com/>)
