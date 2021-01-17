@@ -1,8 +1,7 @@
+# Node.js/library files
 .cache
-big-photos/
 dist/
 node_modules/
-reference/
-small-photos/
-notes.txt
+
+# Development files
 backups/
