@@ -21,7 +21,8 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
   - Should break up different sections into components for reuse (e.g. all images gallery)
   - Move back to listing all images, but now list as grouped variants (maybe allow person to toggle via select menu for sort)
     - Could do grouped outline but prob fine to list in order and the colors will communicate for us
-- [ ] Write out would-be testing skeleton, even if we're not doing it -- so there's a reference for the future
+
+#### Before open source
 - [ ] Settle on license (probably dual license, maybe leave unlicensed/private for a while)
 
 #### Polish
