@@ -49,9 +49,6 @@ html(lang="en")
       .category-9-img::before { content: '9'; background-color: #701d85; color: white; } /* Purple */
       .category-0-img { border: 2px solid #fd5fda; } /* Pink */
       .category-0-img::before { content: '0'; background-color: #fd5fda; color: white; } /* Pink */
-
-    //- Hook for Parcel live reload
-    script(src="main.js")
   body
     .container
       .row: .col-12
@@ -148,3 +145,6 @@ html(lang="en")
             br
             //- TOOD: Use dynamic image
             em.text-muted.small Uncategorized images (40) will be omitted
+
+    //- RUn our main JS after all content loaded
+    script(src="main.js")
