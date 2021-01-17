@@ -26,6 +26,8 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 - [ ] Settle on license (probably dual license, maybe leave unlicensed/private for a while)
 
 #### Polish
+- [ ] Add analytics
+- [ ] Add error handling
 - [ ] Add "hint" notes to categorization page
   - Use ceiling fixtures (e.g. fan, light)
   - Use blinds/curtains colors
