@@ -9,6 +9,12 @@ The photo URLs were found via via:
 console.log(JSON.stringify($$('.gallery-image-wrapper').map((el) => el.dataset.path), null, 2));
 ```
 
-They were secondarily backed up via <https://archive.today/> where we extracted the final URLs with the same JS
+They were additionally downloaded/uploaded to Imgur via string manipulation in Sublime Text and `wget` (zero-padded names required)
 
-<https://archive.vn/hsQHZ>
+> Correction: Order kept getting messed up, dragged images one by one x_x
+
+<https://imgur.com/a/d6iPQ6F>
+
+```js
+console.log(JSON.stringify($$('.PostContent-imageWrapper-rounded').map((el) => el.querySelector('img').src), null, 2))
+```
