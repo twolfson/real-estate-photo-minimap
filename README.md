@@ -14,6 +14,7 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
   - Also need to add in drag/drop for locations/image groups
 - [ ] Minimap browser
   - Nice polish: Final order is based on zig-zag library shelf pattern (i.e. riiiiight, down, left, riiiiight)
+  - Figma sketch: https://www.figma.com/proto/iEBsOuvBRFDVHn8yiTJOOP/Real-estate-layout-tool?node-id=0%3A3&frame-preset-name=Desktop&scaling=min-zoom
 
 ### Pending tasks
 #### Initial release
