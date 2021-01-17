@@ -1,49 +1,60 @@
-/* Based on: https://smile.amazon.com/Coding-Circle-Labels-Stickers-Assorted/dp/B08JMGWWZW */
-/*   https://images-na.ssl-images-amazon.com/images/I/41uthP1lLOL._AC_.jpg */
-.location-1-bg { background-color: #0084ce; color: white; } /* Blue */
-.location-2-bg { background-color: #00b7f0; color: white; } /* Light blue */
-.location-3-bg { background-color: #bcc5e4; color: white; } /* Pastel blue */
-.location-4-bg { background-color: #f5ad03; color: white; } /* Orange */
-.location-5-bg { background-color: #e7222c; color: white; } /* Red */
-.location-6-bg { background-color: #35d0ac; color: white; } /* Light green */
-.location-7-bg { background-color: #07bb12; color: white; } /* Dark green */
-.location-8-bg { background-color: #fdf73f; color: black; } /* Yellow */
-.location-9-bg { background-color: #701d85; color: white; } /* Purple */
-.location-0-bg { background-color: #fd5fda; color: white; } /* Pink */
+// Based on: https://smile.amazon.com/Coding-Circle-Labels-Stickers-Assorted/dp/B08JMGWWZW
+//   https://images-na.ssl-images-amazon.com/images/I/41uthP1lLOL._AC_.jpg
+$location-1-bg: #0084ce; $location-1-fg: white; // Blue
+$location-2-bg: #00b7f0; $location-2-fg: white; // Light blue
+$location-3-bg: #bcc5e4; $location-3-fg: white; // Pastel blue
+$location-4-bg: #f5ad03; $location-4-fg: white; // Orange
+$location-5-bg: #e7222c; $location-5-fg: white; // Red
+$location-6-bg: #35d0ac; $location-6-fg: white; // Light green
+$location-7-bg: #07bb12; $location-7-fg: white; // Dark green
+$location-8-bg: #fdf73f; $location-8-fg: black; // Yellow
+$location-9-bg: #701d85; $location-9-fg: white; // Purple
+$location-0-bg: #fd5fda; $location-0-fg: white; // Pink
+
+.location-1-bg { background-color: $location-1-bg; color: $location-1-fg; }
+.location-2-bg { background-color: $location-2-bg; color: $location-2-fg; }
+.location-3-bg { background-color: $location-3-bg; color: $location-3-fg; }
+.location-4-bg { background-color: $location-4-bg; color: $location-4-fg; }
+.location-5-bg { background-color: $location-5-bg; color: $location-5-fg; }
+.location-6-bg { background-color: $location-6-bg; color: $location-6-fg; }
+.location-7-bg { background-color: $location-7-bg; color: $location-7-fg; }
+.location-8-bg { background-color: $location-8-bg; color: $location-8-fg; }
+.location-9-bg { background-color: $location-9-bg; color: $location-9-fg; }
+.location-0-bg { background-color: $location-0-bg; color: $location-0-fg; }
 
 .location-img::before { display: block; position: absolute; text-align: center; font-size: 12px; padding: 0 4px; }
-.location-1-img { border: 2px solid #0084ce; } /* Blue */
-.location-1-img::before { content: '1'; background-color: #0084ce; color: white; } /* Blue */
-.location-2-img { border: 2px solid #00b7f0; } /* Light blue */
-.location-2-img::before { content: '2'; background-color: #00b7f0; color: white; } /* Light blue */
-.location-3-img { border: 2px solid #bcc5e4; } /* Pastel blue */
-.location-3-img::before { content: '3'; background-color: #bcc5e4; color: white; } /* Pastel blue */
-.location-4-img { border: 2px solid #f5ad03; } /* Orange */
-.location-4-img::before { content: '4'; background-color: #f5ad03; color: white; } /* Orange */
-.location-5-img { border: 2px solid #e7222c; } /* Red */
-.location-5-img::before { content: '5'; background-color: #e7222c; color: white; } /* Red */
-.location-6-img { border: 2px solid #35d0ac; } /* Light green */
-.location-6-img::before { content: '6'; background-color: #35d0ac; color: white; } /* Light green */
-.location-7-img { border: 2px solid #07bb12; } /* Dark green */
-.location-7-img::before { content: '7'; background-color: #07bb12; color: white; } /* Dark green */
-.location-8-img { border: 2px solid #fdf73f; } /* Yellow */
-.location-8-img::before { content: '8'; background-color: #fdf73f; color: black; } /* Yellow */
-.location-9-img { border: 2px solid #701d85; } /* Purple */
-.location-9-img::before { content: '9'; background-color: #701d85; color: white; } /* Purple */
-.location-0-img { border: 2px solid #fd5fda; } /* Pink */
-.location-0-img::before { content: '0'; background-color: #fd5fda; color: white; } /* Pink */
+.location-1-img { border: 2px solid $location-1-bg; }
+.location-1-img::before { content: '1'; background-color: $location-1-bg; color: $location-1-fg; }
+.location-2-img { border: 2px solid $location-2-bg; }
+.location-2-img::before { content: '2'; background-color: $location-2-bg; color: $location-2-fg; }
+.location-3-img { border: 2px solid $location-3-bg; }
+.location-3-img::before { content: '3'; background-color: $location-3-bg; color: $location-3-fg; }
+.location-4-img { border: 2px solid $location-4-bg; }
+.location-4-img::before { content: '4'; background-color: $location-4-bg; color: $location-4-fg; }
+.location-5-img { border: 2px solid $location-5-bg; }
+.location-5-img::before { content: '5'; background-color: $location-5-bg; color: $location-5-fg; }
+.location-6-img { border: 2px solid $location-6-bg; }
+.location-6-img::before { content: '6'; background-color: $location-6-bg; color: $location-6-fg; }
+.location-7-img { border: 2px solid $location-7-bg; }
+.location-7-img::before { content: '7'; background-color: $location-7-bg; color: $location-7-fg; }
+.location-8-img { border: 2px solid $location-8-bg; }
+.location-8-img::before { content: '8'; background-color: $location-8-bg; color: $location-8-fg; }
+.location-9-img { border: 2px solid $location-9-bg; }
+.location-9-img::before { content: '9'; background-color: $location-9-bg; color: $location-9-fg; }
+.location-0-img { border: 2px solid $location-0-bg; }
+.location-0-img::before { content: '0'; background-color: $location-0-bg; color: $location-0-fg; }
 .selected-image { outline: 2px solid black; }
 
-.location-1-box { border: 2px solid #0084ce; } /* Blue */
-.location-2-box { border: 2px solid #00b7f0; } /* Light blue */
-.location-3-box { border: 2px solid #bcc5e4; } /* Pastel blue */
-.location-4-box { border: 2px solid #f5ad03; } /* Orange */
-.location-5-box { border: 2px solid #e7222c; } /* Red */
-.location-6-box { border: 2px solid #35d0ac; } /* Light green */
-.location-7-box { border: 2px solid #07bb12; } /* Dark green */
-.location-8-box { border: 2px solid #fdf73f; } /* Yellow */
-.location-9-box { border: 2px solid #701d85; } /* Purple */
-.location-0-box { border: 2px solid #fd5fda; } /* Pink */
+.location-1-box { border: 2px solid $location-1-bg; }
+.location-2-box { border: 2px solid $location-2-bg; }
+.location-3-box { border: 2px solid $location-3-bg; }
+.location-4-box { border: 2px solid $location-4-bg; }
+.location-5-box { border: 2px solid $location-5-bg; }
+.location-6-box { border: 2px solid $location-6-bg; }
+.location-7-box { border: 2px solid $location-7-bg; }
+.location-8-box { border: 2px solid $location-8-bg; }
+.location-9-box { border: 2px solid $location-9-bg; }
+.location-0-box { border: 2px solid $location-0-bg; }
 .location-box__img {
   height: 100px;
   width: auto;
