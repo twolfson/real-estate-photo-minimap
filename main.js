@@ -7,19 +7,33 @@ const classnames = require('classnames');
 const h = require('react-hyperscript');
 const ReactDOM = require('react-dom');
 
-// Model singleton and constants
-// DEV: `evt.key` is a string, this is easier to maintain via Sublime Text mutli-select
-const CATEGORIES = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+// Model singleton
 const Store = {
+  // DEV: We use keys instead of array index as we want to associate it loosely (e.g. different shortcuts)
+  categories: [
+    {name: 'Room 1',   key: '1'},
+    {name: 'Room 2',   key: '2'},
+    {name: 'Room 3',   key: '3'},
+    {name: 'Room 4',   key: '4'},
+    {name: 'Hallway',  key: '5'},
+    {name: 'Kitchen',  key: '6'},
+    {name: 'Bathroom', key: '7'},
+    {name: '',         key: '8'},
+    {name: '',         key: '9'},
+    {name: '',         key: '0'},
+  ],
   images: Array(44).fill(true).map((_, i) => {
-    let img = {src: `big-photos/${i}.jpg`, category: null};
-    if (i === 3) { img.category = '1'; }
-    if (i === 5) { img.category = '2'; }
-    if (i === 7) { img.category = '3'; }
-    if (i === 20) { img.category = '4'; }
+    let img = {src: `big-photos/${i}.jpg`, categoryKey: null};
+    if (i === 3) { img.categoryKey = '1'; }
+    if (i === 5) { img.categoryKey = '2'; }
+    if (i === 7) { img.categoryKey = '3'; }
+    if (i === 20) { img.categoryKey = '4'; }
     return img;
   }),
   currentImageIndex: 0,
+  getCategoryKeys: function () {
+    return this.categories.map((cat) => cat.key);
+  },
   getCurrentImage: function () {
     return this.images[this.currentImageIndex];
   },
@@ -32,9 +46,10 @@ const Store = {
     assert(!isNaN(index), `Index is NaN`);
     this.currentImageIndex = index;
   },
-  categorizeCurrentImage: function (category) {
-    assert(CATEGORIES.includes(category), `Category ${category} isn't within CATEGORIES`);
-    this.getCurrentImage().category = category;
+  categorizeCurrentImage: function (categoryKey) {
+    let categoryKeys = this.getCategoryKeys();
+    assert(categoryKeys.includes(categoryKey), `Category ${categoryKey} isn't within categories`);
+    this.getCurrentImage().categoryKey = categoryKey;
     this.nextImage();
   },
 
@@ -51,6 +66,7 @@ function main() {
   let reactContainer = document.getElementById('react-content');
   if (!reactContainer) { throw new Error('Unable to find #react-content'); }
 
+  //- TODO: Should use `this.props` instead of `Store` for content
   ReactDOM.render(
     h('.container', [
       h('.row', [
@@ -130,9 +146,10 @@ function main() {
           return h('.col-1.mb-1', [
             //- DEV: We use a `div` as `::before` doesn't seem to work great with `img`
             h('div', {
+              key: i,
               className: classnames({
                 'selected-image': i === Store.currentImageIndex,
-              }, img.category ? `category-img category-${img.category}-img` : '')
+              }, img.categoryKey ? `category-img category-${img.categoryKey}-img` : '')
             }, [
               h('img.img-fluid', {
                 src: img.src,
@@ -151,7 +168,7 @@ function main() {
               h('button.btn.btn-primary', 'Continue'),
               h('br'),
               h('em.text-muted.small', `Uncategorized images (${
-                Store.images.filter((img) => !img.category).length
+                Store.images.filter((img) => !img.categoryKey).length
               }) will be omitted`),
             ])
           ])
@@ -170,7 +187,7 @@ let render = main;
 // When a key is pressed
 window.addEventListener('keypress', (evt) => {
   // If it's a known category, then label our current image
-  if (CATEGORIES.includes(evt.key)) {
+  if (Store.getCategoryKeys().includes(evt.key)) {
     Store.rr('categorizeCurrentImage', evt.key);
   // Otherwise, if we're skipping, then skip
   } else if (evt.key === 's') {
