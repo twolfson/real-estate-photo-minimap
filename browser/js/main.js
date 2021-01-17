@@ -125,8 +125,8 @@ function main() {
           h('.mb-3', [
             h('.progress', {style: {height: '1.5rem'}}, [
               h('.progress-bar', {role: 'progressbar', style: {width: '33%'}}, '1 - Categorize images'),
-              h('.progress-bar', {role: 'progressbar.progressbar-muted', style: {width: '33%'}}, '2 - Upload blueprint'), // eslint-disable-line max-len
-              h('.progress-bar', {role: 'progressbar.progressbar-muted', style: {width: '34%'}}, '3 - Assocate blueprint'), // eslint-disable-line max-len
+              h('.progress-bar.progressbar-muted', {role: 'progressbar', style: {width: '33%'}}, '2 - Upload blueprint'), // eslint-disable-line max-len
+              h('.progress-bar.progressbar-muted', {role: 'progressbar', style: {width: '34%'}}, '3 - Assocate blueprint'), // eslint-disable-line max-len
             ])
           ])
         ])
