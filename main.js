@@ -2,6 +2,7 @@
 (function () {
 
 // Load in our dependencies
+const assert = require('assert');
 const classnames = require('classnames');
 const h = require('react-hyperscript');
 const ReactDOM = require('react-dom');
@@ -18,9 +19,30 @@ const Store = {
     if (i === 20) { img.category = '4'; }
     return img;
   }),
+  currentImageIndex: 0,
+  getCurrentImage: function () {
+    return this.images[this.currentImageIndex];
+  },
 
-  labelCurrentImage: function (category) {
-    this._labelImage(this.currentImage, category);
+  _nextImage: function () {
+    this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+  },
+  _goToImage: function (index) {
+    assert(index >= 0 && index < this.images.length, `Index ${index} out of \`this.images\` range`);
+    assert(!isNaN(index), `Index is NaN`);
+    this.currentImageIndex = index;
+  },
+
+  nextImage: function () {
+    this._nextImage();
+    render();
+  },
+  goToImage: function (index) {
+    this._goToImage(index);
+    render();
+  },
+  categorizeCurrentImage: function (category) {
+    this._categorizeImage(this.getCurrentImage(), category);
     this._nextImage();
     render();
   }
@@ -93,7 +115,7 @@ function main() {
           //- TODO: Use dynamic image location
           h('div', 'Type location number to categorize image'),
           h('p', [
-            h('img.img-fluid', {src: 'big-photos/0.jpg', alt: 'Actively selected photo'})
+            h('img.img-fluid', {src: Store.getCurrentImage().src, alt: 'Actively selected photo'})
           ]),
 
           h('p', [
@@ -111,10 +133,15 @@ function main() {
             //- DEV: We use a `div` as `::before` doesn't seem to work great with `img`
             h('div', {
               className: classnames({
-                'selected-image': i === 0,
+                'selected-image': i === Store.currentImageIndex,
               }, img.category ? `category-img category-${img.category}-img` : '')
             }, [
-              h('img.img-fluid', {src: img.src, alt:`Photo ${i} thumbnail`})
+              h('img.img-fluid', {
+                src: img.src,
+                role: 'button',
+                alt:`Photo ${i} thumbnail`,
+                onClick: () => { Store.goToImage(i); }
+              })
             ])
           ]);
         })
@@ -145,7 +172,7 @@ let render = main;
 window.addEventListener('keypress', (evt) => {
   // If it's a known category, then label our current image
   if (CATEGORIES.includes(evt.key)) {
-    Store.labelCurrentImage(evt.key);
+    Store.categorizeCurrentImage(evt.key);
   // Otherwise, if we're skipping, then skip
   } else if (evt.key === 's') {
     Store.nextImage();
