@@ -8,62 +8,90 @@ const h = require('react-hyperscript');
 const ReactDOM = require('react-dom');
 
 // Model singleton
-const Store = {
-  // DEV: We use keys instead of array index as we want to associate it loosely (e.g. different shortcuts)
-  locations: [
-    {name: 'Room 1',   key: '1'},
-    {name: 'Room 2',   key: '2'},
-    {name: 'Room 3',   key: '3'},
-    {name: 'Room 4',   key: '4'},
-    {name: 'Hallway',  key: '5'},
-    {name: 'Kitchen',  key: '6'},
-    {name: 'Bathroom', key: '7'},
-    {name: '',         key: '8'},
-    {name: '',         key: '9'},
-    {name: '',         key: '0'},
-  ],
-  images: Array(44).fill(true).map((_, i) => {
-    let img = {src: `big-photos/${i}.jpg`, locationKey: null};
-    if (i === 3) { img.locationKey = '1'; }
-    if (i === 5) { img.locationKey = '2'; }
-    if (i === 7) { img.locationKey = '3'; }
-    if (i === 20) { img.locationKey = '4'; }
-    return img;
-  }),
-  currentImageIndex: 0,
-  getLocationKeys: function () {
-    return this.locations.map((location) => location.key);
-  },
-  getCurrentImage: function () {
-    return this.images[this.currentImageIndex];
-  },
+function createStore() {
+  return {
+    // DEV: We use keys instead of array index as we want to associate it loosely (e.g. different shortcuts)
+    locations: [
+      {name: 'Room 1',   key: '1'},
+      {name: 'Room 2',   key: '2'},
+      {name: 'Room 3',   key: '3'},
+      {name: 'Room 4',   key: '4'},
+      {name: 'Hallway',  key: '5'},
+      {name: 'Kitchen',  key: '6'},
+      {name: 'Bathroom', key: '7'},
+      {name: '',         key: '8'},
+      {name: '',         key: '9'},
+      {name: '',         key: '0'},
+    ],
+    images: Array(44).fill(true).map((_, i) => {
+      let img = {key: i, src: `big-photos/${i}.jpg`, locationKey: null};
+      if (i === 3) { img.locationKey = '1'; }
+      if (i === 5) { img.locationKey = '2'; }
+      if (i === 7) { img.locationKey = '3'; }
+      if (i === 20) { img.locationKey = '4'; }
+      return img;
+    }),
+    currentImageIndex: 0,
+    getLocationKeys: function () {
+      return this.locations.map((location) => location.key);
+    },
+    getCurrentImage: function () {
+      return this.images[this.currentImageIndex];
+    },
 
-  nextImage: function () {
-    this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
-  },
-  goToImage: function (index) {
-    assert(index >= 0 && index < this.images.length, `Index ${index} out of \`this.images\` range`);
-    assert(!isNaN(index), `Index is NaN`);
-    this.currentImageIndex = index;
-  },
-  setLocationForCurrentImage: function (locationKey) {
-    let locationKeys = this.getLocationKeys();
-    assert(locationKeys.includes(locationKey), `Location ${locationKey} isn't within locations`);
-    this.getCurrentImage().locationKey = locationKey;
-    this.nextImage();
-  },
-  setLocationName: function (locationKey, name) {
-    let location = this.locations.find((location) => location.key === locationKey);
-    location.name = name;
-  },
+    nextImage: function () {
+      this.currentImageIndex = (this.currentImageIndex + 1) % this.images.length;
+    },
+    goToImage: function (index) {
+      assert(index >= 0 && index < this.images.length, `Index ${index} out of \`this.images\` range`);
+      assert(!isNaN(index), `Index is NaN`);
+      this.currentImageIndex = index;
+    },
+    setLocationForCurrentImage: function (locationKey) {
+      let locationKeys = this.getLocationKeys();
+      assert(locationKeys.includes(locationKey), `Location ${locationKey} isn't within locations`);
+      this.getCurrentImage().locationKey = locationKey;
+      this.nextImage();
+    },
+    setLocationName: function (locationKey, name) {
+      let location = this.locations.find((location) => location.key === locationKey);
+      location.name = name;
+    },
 
-  rr /* run and render */: function (method, /* args */) {
-    let args = [].slice.call(arguments, 1);
-    this[method].apply(this, args);
-    render();
-  }
-};
+    resetStore: function () {
+      Store = createStore();
+    },
+    rr /* run and render */: function (method, /* args */) {
+      // Run our logic
+      let args = [].slice.call(arguments, 1);
+      this[method].apply(this, args);
+      render();
+
+      // Serialize and save our state
+      localStorage.stateBackup = JSON.stringify({
+        locations: this.locations,
+        images: this.images,
+        version: 'v1',
+        timestamp: Date.now(),
+      });
+    }
+  };
+}
+const Store = createStore();
 window.Store = Store;
+
+// Load in our saved state
+// TODO: Figure out how to identify different sets of content
+// TODO: Set up ability for user to clear their own cache
+if (localStorage.stateBackup) {
+  let _loadedState = JSON.parse(localStorage.stateBackup);
+  Store.locations = _loadedState.locations;
+  Store.images = _loadedState.images;
+  Store.currentImageIndex = _loadedState.images.findIndex((img) => img.locationKey === null);
+  if (Store.currentImageIndex === -1) { Store.currentImageIndex = 0; }
+
+  console.info('Loaded state from `localStorage`. To delete backup, run: `delete localStorage.stateBackup; Store.rr(\'resetStore\');`');
+}
 
 // Define our main page load hook
 function main() {
@@ -175,7 +203,7 @@ function main() {
             ])
           ])
         ])
-      ])
+      ]),
     ]),
     reactContainer
   );
