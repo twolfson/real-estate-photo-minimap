@@ -10,7 +10,7 @@ let demoData = require('../../data/demo.json');
 
 // Define our configuration
 let config = {
-  persistData: process.env.ENV === 'development'
+  persistData: process.env.NODE_ENV === 'development'
 };
 
 // Model singleton
