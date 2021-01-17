@@ -39,6 +39,7 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 - [ ] Shareable links/restorable state
   - Be careful: Restoring state for SVG can lead to XSS vulnerabilities
 - [ ] On final page (with share links), prompt for donations
+- [ ] Footer info to demo page (e.g. attribution, donation info)
 
 ## Getting started
 To run our repo locally, run the following:
