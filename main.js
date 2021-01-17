@@ -10,7 +10,7 @@ const ReactDOM = require('react-dom');
 // Model singleton
 const Store = {
   // DEV: We use keys instead of array index as we want to associate it loosely (e.g. different shortcuts)
-  categories: [
+  locations: [
     {name: 'Room 1',   key: '1'},
     {name: 'Room 2',   key: '2'},
     {name: 'Room 3',   key: '3'},
@@ -23,16 +23,16 @@ const Store = {
     {name: '',         key: '0'},
   ],
   images: Array(44).fill(true).map((_, i) => {
-    let img = {src: `big-photos/${i}.jpg`, categoryKey: null};
-    if (i === 3) { img.categoryKey = '1'; }
-    if (i === 5) { img.categoryKey = '2'; }
-    if (i === 7) { img.categoryKey = '3'; }
-    if (i === 20) { img.categoryKey = '4'; }
+    let img = {src: `big-photos/${i}.jpg`, locationKey: null};
+    if (i === 3) { img.locationKey = '1'; }
+    if (i === 5) { img.locationKey = '2'; }
+    if (i === 7) { img.locationKey = '3'; }
+    if (i === 20) { img.locationKey = '4'; }
     return img;
   }),
   currentImageIndex: 0,
-  getCategoryKeys: function () {
-    return this.categories.map((cat) => cat.key);
+  getLocationKeys: function () {
+    return this.locations.map((cat) => cat.key);
   },
   getCurrentImage: function () {
     return this.images[this.currentImageIndex];
@@ -46,10 +46,10 @@ const Store = {
     assert(!isNaN(index), `Index is NaN`);
     this.currentImageIndex = index;
   },
-  categorizeCurrentImage: function (categoryKey) {
-    let categoryKeys = this.getCategoryKeys();
-    assert(categoryKeys.includes(categoryKey), `Category ${categoryKey} isn't within categories`);
-    this.getCurrentImage().categoryKey = categoryKey;
+  setLocationForCurrentImage: function (locationKey) {
+    let locationKeys = this.getLocationKeys();
+    assert(locationKeys.includes(locationKey), `Location ${locationKey} isn't within locations`);
+    this.getCurrentImage().locationKey = locationKey;
     this.nextImage();
   },
 
@@ -100,9 +100,9 @@ function main() {
                 h('.input-group', [
                   h('.input-group-prepend', [
                     h('span', {
-                      className: `input-group-text category-${humanI}-bg`,
+                      className: `input-group-text location-${humanI}-bg`,
                       role: 'button',
-                      onClick: () => { Store.rr('categorizeCurrentImage', humanI); },
+                      onClick: () => { Store.rr('setLocationForCurrentImage', humanI); },
                     }, humanI),
                   ]),
                   h('input.form-control', {type: 'text', value: location, onChange: () => { /* TODO: Wire me up */}, 'aria-label': `Location name ${humanI}`}),
@@ -111,7 +111,7 @@ function main() {
             }
             return [
               h('.row.mb-3',
-                // TODO: Use data structure for categories (e.g. [{name: 'Room 1', shortcut: '1'}, ...])
+                // TODO: Use data structure for locations (e.g. [{name: 'Room 1', shortcut: '1'}, ...])
                 ['Room 1', 'Room 2', 'Room 3', 'Room 4', 'Hallway'].map((location, i) => {
                   let humanI = i + 1;
                   return createInput(location, humanI.toString());
@@ -149,7 +149,7 @@ function main() {
               key: i,
               className: classnames({
                 'selected-image': i === Store.currentImageIndex,
-              }, img.categoryKey ? `category-img category-${img.categoryKey}-img` : '')
+              }, img.locationKey ? `location-img location-${img.locationKey}-img` : '')
             }, [
               h('img.img-fluid', {
                 src: img.src,
@@ -168,7 +168,7 @@ function main() {
               h('button.btn.btn-primary', 'Continue'),
               h('br'),
               h('em.text-muted.small', `Uncategorized images (${
-                Store.images.filter((img) => !img.categoryKey).length
+                Store.images.filter((img) => !img.locationKey).length
               }) will be omitted`),
             ])
           ])
@@ -186,9 +186,9 @@ let render = main;
 // View hooks
 // When a key is pressed
 window.addEventListener('keypress', (evt) => {
-  // If it's a known category, then label our current image
-  if (Store.getCategoryKeys().includes(evt.key)) {
-    Store.rr('categorizeCurrentImage', evt.key);
+  // If it's a known location, then label our current image
+  if (Store.getLocationKeys().includes(evt.key)) {
+    Store.rr('setLocationForCurrentImage', evt.key);
   // Otherwise, if we're skipping, then skip
   } else if (evt.key === 's') {
     Store.rr('nextImage');
