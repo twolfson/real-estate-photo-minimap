@@ -8,6 +8,11 @@ const h = require('react-hyperscript');
 const ReactDOM = require('react-dom');
 let demoData = require('./data/demo.json');
 
+// Define our configuration
+let config = {
+  persistData: process.env.ENV === 'development'
+};
+
 // Model singleton
 function createStore() {
   return {
@@ -75,12 +80,14 @@ function createStore() {
       render();
 
       // Serialize and save our state
-      localStorage.stateBackup = JSON.stringify({
-        locations: this.locations,
-        images: this.images,
-        version: 'v1',
-        timestamp: Date.now(),
-      });
+      if (config.persistData) {
+        localStorage.stateBackup = JSON.stringify({
+          locations: this.locations,
+          images: this.images,
+          version: 'v1',
+          timestamp: Date.now(),
+        });
+      }
     }
   };
 }
@@ -88,9 +95,9 @@ let Store = createStore();
 window.Store = Store;
 
 // Load in our saved state
-// TODO: Figure out how to identify different sets of content
-// TODO: Set up ability for user to clear their own cache
-if (false && localStorage.stateBackup) {
+// TODO: Use distinct key for each minimap (part of CRUD build)
+// TODO: Set up ability for user to clear their own cache (would be deletion in CRUD)
+if (config.persistData && localStorage.stateBackup) {
   let _loadedState = JSON.parse(localStorage.stateBackup);
   Store.locations = _loadedState.locations;
   Store.images = _loadedState.images;
