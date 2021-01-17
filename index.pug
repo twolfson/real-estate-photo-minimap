@@ -16,16 +16,10 @@ html(lang="en")
     //- Build our stylesheet
     link(rel="stylesheet", href="main.css")
   body
-    #react-content: .container: .row: .col-12: strong Loading...
-    hr(style="border-bottom: 2px solid black")
-    .container
-      .row: .col-12
-        .text-right
-          p
-            button.btn.btn-primary Continue
-            br
-            //- TOOD: Use dynamic image
-            em.text-muted.small Uncategorized images (40) will be omitted
+    #react-content
+      .container
+        .row: .col-12
+          strong Loading...
 
     //- RUn our main JS after all content loaded
     script(src="main.js")

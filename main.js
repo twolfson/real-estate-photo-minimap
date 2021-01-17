@@ -86,7 +86,6 @@ function main() {
       h('.row',
         //- TODO: Use dynamic numbering and image location
         Array(44).fill(true).map((_, i) => {
-          console.log('i', i);
           let imgName = `big-photos/${i}.jpg`;
           return h('.col-1.mb-1', [
             //- TODO: Use dynamic numbering and categorization
@@ -106,7 +105,19 @@ function main() {
             ])
           ]);
         })
-      )
+      ),
+      h('.row', [
+        h('.col-12', [
+          h('.text-right', [
+            h('p', [
+              h('button.btn.btn-primary', 'Continue'),
+              h('br'),
+              //- TODO: Use dynamic image count
+              h('em.text-muted.small', 'Uncategorized images (40) will be omitted'),
+            ])
+          ])
+        ])
+      ])
     ]),
     reactContainer
   );
