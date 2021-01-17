@@ -6,6 +6,26 @@ const classnames = require('classnames');
 const h = require('react-hyperscript');
 const ReactDOM = require('react-dom');
 
+// Model singleton and constants
+// DEV: `evt.key` is a string, this is easier to maintain via Sublime Text mutli-select
+const CATEGORIES = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
+const Store = {
+  images: Array(44).fill(true).map((_, i) => {
+    let img = {src: `big-photos/${i}.jpg`, category: null};
+    if (i === 3) { img.category = '1'; }
+    if (i === 5) { img.category = '2'; }
+    if (i === 7) { img.category = '3'; }
+    if (i === 20) { img.category = '4'; }
+    return img;
+  }),
+
+  labelCurrentImage: function (category) {
+    this._labelImage(this.currentImage, category);
+    this._nextImage();
+    render();
+  }
+};
+
 // Define our main page load hook
 function main() {
   let reactContainer = document.getElementById('react-content');
@@ -85,23 +105,16 @@ function main() {
       ]),
       h('.row',
         //- TODO: Use dynamic numbering and image location
-        Array(44).fill(true).map((_, i) => {
-          let imgName = `big-photos/${i}.jpg`;
+        Store.images.map((img, i) => {
           return h('.col-1.mb-1', [
             //- TODO: Use dynamic numbering and categorization
             //- DEV: We use a `div` as `::before` doesn't seem to work great with `img`
             h('div', {
               className: classnames({
                 'selected-image': i === 0,
-
-                'category-img': [3, 5, 7, 20].includes(i),
-                'category-1-img': i === 3,
-                'category-2-img': i === 5,
-                'category-3-img': i === 7,
-                'category-4-img': i === 20,
-              })
+              }, img.category ? `category-img category-${img.category}-img` : '')
             }, [
-              h('img.img-fluid', {src: imgName, alt:`Photo ${i} thumbnail`})
+              h('img.img-fluid', {src: img.src, alt:`Photo ${i} thumbnail`})
             ])
           ]);
         })
@@ -122,20 +135,10 @@ function main() {
     reactContainer
   );
 }
-Array(44).map((i) => console.log);
 // DEV: We could use `DOMContentLoaded` hook but our script location is good enough
 main();
-
-// Model singleton and constants
-// DEV: `evt.key` is a string, this is easier to maintain via Sublime Text mutli-select
-const CATEGORIES = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '0'];
-const Store = {
-  images: [],
-  labelCurrentImage: function (category) {
-    this.labelImage(this.currentImage, category);
-    this.nextImage();
-  }
-};
+// Alias `main` to `render`
+let render = main;
 
 // View hooks
 // When a key is pressed
@@ -149,4 +152,5 @@ window.addEventListener('keypress', (evt) => {
   }
 });
 
+// End of IIFE
 }());
