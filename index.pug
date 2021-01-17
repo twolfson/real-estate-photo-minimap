@@ -19,35 +19,6 @@ html(lang="en")
     #react-content: .container: .row: .col-12: strong Loading...
     hr(style="border-bottom: 2px solid black")
     .container
-      .row: .col-6
-        div Type location number to categorize image
-        p
-          //- TODO: Allow pressing actual number part of "prepend" -- updated text would read "Type or press"
-          //- TODO: Use dynamic image location
-          img.img-fluid(src="big-photos/0.jpg", alt="Actively selected photo")
-
-        p
-          = "or "
-          //- TODO: Bind button as well as shortcut
-          button.btn skip to next image
-          span.text-muted= " (shortcut: s)"
-      .row
-        //- TODO: Use dynamic numbering and image location
-        each _, i in Array(44)
-          .col-1.mb-1
-            - let imgName = `big-photos/${i}.jpg`;
-            //- TODO: Use dynamic numbering and categorization
-            //- DEV: We use a `div` as `::before` doesn't seem to work great with `img`
-            div(class={
-              'selected-image': i === 0,
-
-              'category-img': [3, 5, 7, 20].includes(i),
-              'category-1-img': i === 3,
-              'category-2-img': i === 5,
-              'category-3-img': i === 7,
-              'category-4-img': i === 20,
-            })
-              img.img-fluid(src=imgName, alt=`Photo ${i} thumbnail`)
       .row: .col-12
         .text-right
           p

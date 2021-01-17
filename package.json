@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "Layout tool experiment for real estate listings",
   "dependencies": {
+    "classnames": "~2.2.6",
     "react": "~17.0.1",
     "react-dom": "~17.0.1",
     "react-hyperscript": "~3.2.0"
@@ -12,7 +13,7 @@
     "pug": "~3.0.0"
   },
   "scripts": {
-    "start": "parcel index.pug --port 5000",
+    "start": "parcel index.pug big-photos/* --port 5000",
     "build": "rm -r dist && NODE_ENV=production parcel build index.pug",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

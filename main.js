@@ -2,8 +2,9 @@
 (function () {
 
 // Load in our dependencies
-const ReactDOM = require('react-dom');
+const classnames = require('classnames');
 const h = require('react-hyperscript');
+const ReactDOM = require('react-dom');
 
 // Define our main page load hook
 function main() {
@@ -50,6 +51,7 @@ function main() {
             }
             return [
               h('.row.mb-3',
+                // TODO: Use data structure for categories
                 ['Room 1', 'Room 2', 'Room 3', 'Room 4', 'Hallway'].map((location, i) => {
                   let humanI = i + 1;
                   return createInput(location, humanI);
@@ -65,10 +67,51 @@ function main() {
           })()
         )
       ]),
+      h('.row', [
+        h('.col-6', [
+          //- TODO: Allow pressing actual number part of "prepend" -- updated text would read "Type or press"
+          //- TODO: Use dynamic image location
+          h('div', 'Type location number to categorize image'),
+          h('p', [
+            h('img.img-fluid', {src: 'big-photos/0.jpg', alt: 'Actively selected photo'})
+          ]),
+
+          h('p', [
+            'or ',
+            h('button.btn.btn-secondary', {onClick: () => { /* TODO: Implement click */}}, 'skip to next image'),
+            h('span.text-muted', ' (shortcut: s)'),
+          ])
+        ])
+      ]),
+      h('.row',
+        //- TODO: Use dynamic numbering and image location
+        Array(44).fill(true).map((_, i) => {
+          console.log('i', i);
+          let imgName = `big-photos/${i}.jpg`;
+          return h('.col-1.mb-1', [
+            //- TODO: Use dynamic numbering and categorization
+            //- DEV: We use a `div` as `::before` doesn't seem to work great with `img`
+            h('div', {
+              className: classnames({
+                'selected-image': i === 0,
+
+                'category-img': [3, 5, 7, 20].includes(i),
+                'category-1-img': i === 3,
+                'category-2-img': i === 5,
+                'category-3-img': i === 7,
+                'category-4-img': i === 20,
+              })
+            }, [
+              h('img.img-fluid', {src: imgName, alt:`Photo ${i} thumbnail`})
+            ])
+          ]);
+        })
+      )
     ]),
     reactContainer
   );
 }
+Array(44).map((i) => console.log);
 // DEV: We could use `DOMContentLoaded` hook but our script location is good enough
 main();
 
