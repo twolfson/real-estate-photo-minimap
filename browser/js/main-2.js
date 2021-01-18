@@ -55,21 +55,15 @@ function main() {
           (() => {
             function createInput(location) {
               return h('.col-2', {key: location.key}, [
-                h('.input-group', [
-                  h('.input-group-prepend', [
-                    h('span', {
-                      className: `input-group-text location-${location.key}-bg`,
-                      role: 'button',
-                      onClick: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
-                    }, location.key),
-                  ]),
-                  h('input.form-control', {
-                    type: 'text', value: location.name,
-                    onFocus: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
-                    onChange: (evt) => { Store.rr('setLocationName', location.key, evt.target.value); },
-                    'aria-label': `Location name ${location.key}`
-                  }),
-                ])
+                // DEV: Split into `btn-group` to get same spacing as input group
+                h(`.btn-group.btn-block`, [
+                  h(`button.btn.location-${location.key}-bg`, {
+                    onClick: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
+                  }, location.key),
+                  h(`button.btn.location-${location.key}-bg`, {
+                    onClick: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
+                  }, location.name)
+                ]),
               ]);
             }
             assert(Store.locations.length === 10, `Expected 10 locations but received ${Store.locations.length}`);
