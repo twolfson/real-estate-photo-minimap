@@ -23,13 +23,28 @@ class Home extends React.Component {
     return h('h1', [
       'Welcome to the Home Page' + this.state.count,
       h('button', {onClick: () => {_state.count += 1; _state._updateFn(_state); }}, 'Increment'),
-      h(Link, {to: '/2'}, 'Foo'),
+      h(Link, {to: '/2'}, 'Forward'),
     ]);
   }
 };
 class Home2 extends React.Component {
+  constructor() {
+    super();
+    this.state = Object.assign(_state);
+    let that = this;
+    _state._updateFn = (_state) => {
+      // TODO: In final version, this would be passed in immutably from `_state`
+      let state = Object.assign(_state);
+      that.setState(state);
+    }
+  }
+
   render() {
-    return h('h1', 'Welcome 222 to the Home Page');
+    return h('h1', [
+      'Welcome 222 the Home Page' + this.state.count,
+      h('button', {onClick: () => {_state.count += 1; _state._updateFn(_state); }}, 'Increment'),
+      h(Link, {to: '/'}, 'Back'),
+    ]);
   }
 };
 
