@@ -3,6 +3,12 @@ const assert = require('assert');
 const config = require('./config');
 let demoData = require('../../data/demo.json');
 
+// Reset data in development
+// DEV: `if` check is to prevent this from ever leaking into production
+// if (config.persistData) {
+//   localStorage.stateBackup = JSON.stringify(require('../../backups/1376-natoma-with-sort-and-new-names.json'));
+// }
+
 // Model singleton
 // DEV: Inspired by Redux but not explicitly Redux due to learning overhead
 function createStore() {
