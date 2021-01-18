@@ -23,6 +23,18 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
       - I guess anything can be built from boxes + lines though, right? (except arcs)
   - Nice touch: Prepopulate SVG editor with location names and boxes around them (added bonus: shows scale of target minimap)
   - Also need to add in drag/drop for locations/image groups
+  - After building 2:
+    - Pen tool is definitely necessary, there are weird walls and such at times (e.g. cut-ins, excess areas)
+      - Maybe can build a dot pattern grid and allow people to click/drag different points on it?
+    - Copy/paste is necessary for common workability
+    - Resizing with text staying centered is nice
+    - Binding taxes to center of a box is nice
+    - Click/drag multiselect is prob nice to have
+    - Maybe there's something that exists for blueprint layouts...
+      - Whatever we build is prob always going to be lesser than that (in quality/practicality) but maybe we'll be more agile with simpler?
+    - Welp, stopping here -- it's clear that needs some more thought/work
+      - Might get wild hairs to build that grid editor as a separate tool
+    - Need some way to recategorize images (e.g. 2 almost identical bathrooms)
 - [ ] Minimap browser
   - Nice polish: Final order is based on zig-zag library shelf pattern (i.e. riiiiight, down, left, riiiiight)
   - Figma sketch: https://www.figma.com/proto/iEBsOuvBRFDVHn8yiTJOOP/Real-estate-layout-tool?node-id=0%3A3&frame-preset-name=Desktop&scaling=min-zoom
@@ -57,6 +69,7 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
   - Be careful: Restoring state for SVG can lead to XSS vulnerabilities
 - [ ] On final page (with share links), prompt for donations
 - [ ] Footer info to demo page (e.g. attribution, donation info)
+- [ ] Prompt user on BR/BA count to prepopulate fields
 
 ## Getting started
 To run our repo locally, run the following:
