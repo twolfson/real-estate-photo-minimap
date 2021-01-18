@@ -5,10 +5,18 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const {HashRouter, Switch, Route, Link} = require('react-router-dom');
 
+const _state = {count: 0};
+
 class Home extends React.Component {
+  constructor() {
+    super();
+    this.state = Object.assign(_state);
+  }
+
   render() {
     return h('h1', [
-      'Welcome to the Home Page',
+      'Welcome to the Home Page' + this.state.count,
+      h('button', {onClick: () => {_state.count += 1}}, 'Increment'),
       h(Link, {to: '/2'}, 'Foo'),
     ]);
   }
