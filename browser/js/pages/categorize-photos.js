@@ -155,7 +155,8 @@ class CategorizePhotos extends React.Component {
     window.addEventListener('keydown', this._keyListener);
   }
   componentWillUnmount() {
-    console.log('bye');
+    window.removeEventListener('keydown', this._keyListener);
+    delete this._keyListener;
   }
 }
 
