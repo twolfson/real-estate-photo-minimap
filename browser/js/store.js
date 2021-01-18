@@ -4,6 +4,7 @@ const config = require('./config');
 let demoData = require('../../data/demo.json');
 
 // Model singleton
+// DEV: Inspired by Redux but not explicitly Redux due to learning overhead
 function createStore() {
   return {
     // Allow external context to set render callback
