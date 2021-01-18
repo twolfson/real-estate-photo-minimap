@@ -90,6 +90,7 @@ function createStore() {
   };
 }
 let Store = createStore();
+window.Store = Store; // Expose for debugging/practicality
 
 // Load in our saved state
 // TODO: Use distinct key for each minimap (part of CRUD build)

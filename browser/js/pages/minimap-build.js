@@ -10,9 +10,6 @@ const Store = require('../store');
 // Fancy importing non-JS assets handling for demo
 import blueprintSvgSrc from '../../../backups/1376-natoma.svg';
 
-// Expose common data
-window.Store = Store;
-
 // Define our main page load hook
 class MinimapBuild extends React.Component {
   constructor() {

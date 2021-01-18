@@ -5,7 +5,7 @@ const MinimapBuild = require('./pages/minimap-build');
 const h = require('react-hyperscript');
 const React = require('react');
 const ReactDOM = require('react-dom');
-const {HashRouter, Switch, Route, Link} = require('react-router-dom');
+const {HashRouter, Switch, Route} = require('react-router-dom');
 
 // Define our main page load hook
 function main() {

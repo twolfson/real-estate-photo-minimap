@@ -6,9 +6,7 @@ const h = require('react-hyperscript');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const Store = require('../store');
-
-// Expose common data
-window.Store = Store;
+const {Link} = require('react-router-dom');
 
 // Define our main page load hook
 class CategorizePhotos extends React.Component {
@@ -117,7 +115,7 @@ class CategorizePhotos extends React.Component {
         h('.col-12', [
           h('.text-right', [
             h('p', [
-              h('button.btn.btn-primary', 'Continue'),
+              h(Link, {className: 'btn btn-primary', to: '/minimap-build'}, 'Continue'),
               h('br'),
               h('em.text-muted.small', `Uncategorized images (${
                 Store.images.filter((img) => !img.locationKey).length
