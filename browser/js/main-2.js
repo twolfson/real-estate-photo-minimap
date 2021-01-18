@@ -61,11 +61,13 @@ function main() {
             function createInput(location) {
               return h('.col-2', {key: location.key}, [
                 // DEV: Split into `btn-group` to get same spacing as input group
-                h(`.btn-group.btn-block`, [
+                h(`.btn-group`, {style: {display: 'flex'}}, [
                   h(`button.btn.location-${location.key}-bg`, {
+                    style: {display: 'flex'},
                     onClick: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
                   }, location.key),
                   h(`button.btn.location-${location.key}-bg`, {
+                    style: {display: 'block'},
                     onClick: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
                   }, location.name)
                 ]),
