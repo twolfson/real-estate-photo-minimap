@@ -51,6 +51,11 @@ function main() {
         ])
       ]),
       h('.row', [
+        h('.col-12', [
+          h('p', 'Navigate the images below for convenient reference')
+        ])
+      ]),
+      h('.row', [
         h('.col-12',
           (() => {
             function createInput(location) {
@@ -77,11 +82,6 @@ function main() {
             ];
           })()
         )
-      ]),
-      h('.row', [
-        h('.col-12', [
-          'Navigate the images below for convenient reference'
-        ])
       ]),
       h('.row', [
         h('.col-4', [
