@@ -27,8 +27,8 @@ function main() {
           //   li Associate locations with blueprint image
           h('.mb-3', [
             h('.progress', {style: {height: '1.5rem'}}, [
-              h('.progress-bar', {role: 'progressbar', style: {width: '33%'}}, '1 - Categorize images'),
-              h('.progress-bar.progressbar-muted', {role: 'progressbar', style: {width: '33%'}}, '2 - Upload blueprint'), // eslint-disable-line max-len
+              h('.progress-bar', {role: 'progressbar', style: {width: '33%', textDecoration: 'line-through'}}, '1 - Categorize images'),
+              h('.progress-bar', {role: 'progressbar', style: {width: '33%'}}, '2 - Upload blueprint'), // eslint-disable-line max-len
               h('.progress-bar.progressbar-muted', {role: 'progressbar', style: {width: '34%'}}, '3 - Assocate blueprint'), // eslint-disable-line max-len
             ])
           ])
@@ -49,15 +49,13 @@ function main() {
                     h('span', {
                       className: `input-group-text location-${location.key}-bg`,
                       role: 'button',
-                      onClick: () => { Store.rr('setLocationForCurrentImage', location.key); },
+                      onClick: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
                     }, location.key),
                   ]),
-                  h('input.form-control', {
-                    type: 'text', value: location.name,
-                    onFocus: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
-                    onChange: (evt) => { Store.rr('setLocationName', location.key, evt.target.value); },
-                    'aria-label': `Location name ${location.key}`
-                  }),
+                  h('span.form-control', {
+                    role: 'button',
+                    onClick: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
+                  }, location.name),
                 ])
               ]);
             }

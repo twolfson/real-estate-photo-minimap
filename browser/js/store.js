@@ -1,10 +1,14 @@
 // Load in our dependencies
+const assert = require('assert');
 const config = require('./config');
 let demoData = require('../../data/demo.json');
 
 // Model singleton
 function createStore() {
   return {
+    // Allow external context to set render callback
+    _renderFn: null,
+
     // DEV: We use keys instead of array index as we want to associate it loosely (e.g. different shortcuts)
     locations: [
       {key: '1', name: 'Room 1',   },
@@ -63,7 +67,8 @@ function createStore() {
       // Run our logic
       let args = [].slice.call(arguments, 1);
       this[method].apply(this, args);
-      render(); // eslint-disable-line no-use-before-define
+      assert(this._renderFn, 'Store._renderFn was never set');
+      this._renderFn();
 
       // Serialize and save our state
       if (config.persistData) {
