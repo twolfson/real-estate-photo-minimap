@@ -38,6 +38,8 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
     - Welp, stopping here -- it's clear that needs some more thought/work
       - Might get wild hairs to build that grid editor as a separate tool
     - Need some way to recategorize images (e.g. 2 almost identical bathrooms)
+    - Maybe we don't even need to have blueprint support at all... maybe people doing the minimap generation on their own computer is "good enough"
+      - Eh, was kind of tedious with Inkscape but I can imagine there are better tools (e.g. Figma)
 - [ ] Minimap browser
   - Nice polish: Final order is based on zig-zag library shelf pattern (i.e. riiiiight, down, left, riiiiight)
   - Figma sketch: https://www.figma.com/proto/iEBsOuvBRFDVHn8yiTJOOP/Real-estate-layout-tool?node-id=0%3A3&frame-preset-name=Desktop&scaling=min-zoom
