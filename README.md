@@ -40,6 +40,11 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
     - Need some way to recategorize images (e.g. 2 almost identical bathrooms)
     - Maybe we don't even need to have blueprint support at all... maybe people doing the minimap generation on their own computer is "good enough"
       - Eh, was kind of tedious with Inkscape but I can imagine there are better tools (e.g. Figma)
+    - Before we build anything, we want more confidence that it's the right path (e.g. usability, state persistence)
+      - which itself is a bit of a contradiction, but I don't think we're really creating any unique tool -- more watering down existing ones
+      - Let's keep using Inkscape with only boxes to see how viable it is
+      - After doing 50 listings, then we'll prob be more confident (also will show us how often we really need to do this)
+      - For closer viability, added `reference-files/minimap-template.svg` which has content we can copy/paste -- similar to our imagined drag/drop clone idea
 - [ ] Minimap browser
   - Nice polish: Final order is based on zig-zag library shelf pattern (i.e. riiiiight, down, left, riiiiight)
   - Figma sketch: https://www.figma.com/proto/iEBsOuvBRFDVHn8yiTJOOP/Real-estate-layout-tool?node-id=0%3A3&frame-preset-name=Desktop&scaling=min-zoom
