@@ -139,7 +139,9 @@ class MinimapBuild extends React.Component {
         h('.col-6.text-right', [
           h('p', [
             // h(Link, {className: 'btn btn-primary', to: '/minimap-review'}, 'Continue'),
-            h('button', {className: 'btn btn-primary', disabled: true}, 'Next: Not yet implemented'),
+            h('button', {className: 'btn btn-primary', disabled: true}, 'Continue'),
+            h('br'),
+            h('em.text-muted.small', 'Not yet implemented'),
           ])
         ]),
       ]),
