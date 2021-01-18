@@ -112,15 +112,15 @@ class CategorizePhotos extends React.Component {
         })
       ),
       h('.row', [
-        h('.col-12', [
-          h('.text-right', [
-            h('p', [
-              h(Link, {className: 'btn btn-primary', to: '/minimap-build'}, 'Continue'),
-              h('br'),
-              h('em.text-muted.small', `Uncategorized images (${
-                Store.images.filter((img) => !img.locationKey).length
-              }) will be omitted`),
-            ])
+        h('.col-6', [
+        ]),
+        h('.col-6.text-right', [
+          h('p', [
+            h(Link, {className: 'btn btn-primary', to: '/minimap-build'}, 'Continue'),
+            h('br'),
+            h('em.text-muted.small', `Uncategorized images (${
+              Store.images.filter((img) => !img.locationKey).length
+            }) will be omitted`),
           ])
         ])
       ]),

@@ -6,6 +6,7 @@ const h = require('react-hyperscript');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const Store = require('../store');
+const {Link} = require('react-router-dom');
 
 // Fancy importing non-JS assets handling for demo
 import blueprintSvgSrc from '../../../backups/1376-natoma.svg';
@@ -55,7 +56,7 @@ class MinimapBuild extends React.Component {
       ]),
       h('.row', [
         h('.col-12', [
-          h('p', 'Navigate the images below for convenient reference')
+          h('p', 'Navigate the buttons and images below for convenient reference')
         ])
       ]),
       h('.row', [
@@ -88,7 +89,7 @@ class MinimapBuild extends React.Component {
           })()
         )
       ]),
-      h('.row', [
+      h('.row.mb-3', [
         h('.col-4', [
           h('a', {href: Store.getCurrentImage().src, target: '_blank'}, [
             h('img.img-fluid', {
@@ -127,6 +128,22 @@ class MinimapBuild extends React.Component {
           )
         ])
       ]),
+      h('.row', [
+        h('.col-6', [
+          h('p', [
+            h(Link, {className: 'btn btn-primary', to: '/'}, 'Back'),
+            h('br'),
+            h('em.text-muted.small', 'Progress will be persisted'),
+          ])
+        ]),
+        h('.col-6.text-right', [
+          h('p', [
+            // h(Link, {className: 'btn btn-primary', to: '/minimap-review'}, 'Continue'),
+            h('button', {className: 'btn btn-primary', disabled: true}, 'Next: Not yet implemented'),
+          ])
+        ]),
+      ]),
+
     ]);
   }
 
