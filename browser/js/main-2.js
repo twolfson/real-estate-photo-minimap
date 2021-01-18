@@ -28,7 +28,7 @@ function main() {
           h('.mb-3', [
             h('.progress', {style: {height: '1.5rem'}}, [
               h('.progress-bar', {role: 'progressbar', style: {width: '33%', textDecoration: 'line-through'}}, '1 - Categorize images'),
-              h('.progress-bar', {role: 'progressbar', style: {width: '33%'}}, '2 - Upload blueprint'), // eslint-disable-line max-len
+              h('.progress-bar', {role: 'progressbar', style: {width: '33%'}}, '2 - Build minimap'), // eslint-disable-line max-len
               h('.progress-bar.progressbar-muted', {role: 'progressbar', style: {width: '34%'}}, '3 - Assocate blueprint'), // eslint-disable-line max-len
             ])
           ])
@@ -36,7 +36,7 @@ function main() {
       ]),
       h('.row', [
         h('.col-12', [
-          h('h3', 'Associate uploaded images with locations')
+          h('h3', 'Build minimap/blueprint with each location')
         ])
       ]),
       h('.row', [
@@ -74,10 +74,8 @@ function main() {
         )
       ]),
       h('.row', [
-        h('.col-6', [
-          h('div', 'Type or press location number to categorize image'),
-          h('p', [
-          ]),
+        h('.col-12.mb-3', [
+          h('div', {style: {border: '1px solid black'}}, 'hi')
         ])
       ]),
       h('.row', [
@@ -136,10 +134,7 @@ window.addEventListener('keydown', (evt) => {
   // Compare to known shortcuts
   // Location numbers
   if (Store.getLocationKeys().includes(evt.key)) {
-    Store.rr('setLocationForCurrentImage', evt.key);
-  // Skipping shortcut
-  } else if (evt.key === 's') {
-    Store.rr('nextImage');
+    Store.rr('goToFirstLocationImage', evt.key);
   // Arrow keys
   } else if (evt.key === 'ArrowLeft') {
     Store.rr('previousImage');
