@@ -26,6 +26,8 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
   - After building 2:
     - Pen tool is definitely necessary, there are weird walls and such at times (e.g. cut-ins, excess areas)
       - Maybe can build a dot pattern grid and allow people to click/drag different points on it?
+      - After some thorough thought, not worth rebuilding that functionality. We'll wind up building a full blueprint tool when this is intended as quick/dirty (for now)
+        - Same fallacy as rebuilding DSL for an API (it never stops with just 1 or 2 functions)
     - Copy/paste is necessary for common workability
     - Resizing with text staying centered is nice
     - Binding taxes to center of a box is nice
