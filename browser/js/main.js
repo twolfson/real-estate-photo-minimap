@@ -7,7 +7,10 @@ const {HashRouter, Switch, Route} = require('react-router-dom');
 
 class Home extends React.Component {
   render() {
-    return h('h1', 'Welcome to the Home Page');
+    return h('h1', [
+      'Welcome to the Home Page',
+      h('a', {href: '#/2'}, 'Link')
+    ]);
   }
 };
 class Home2 extends React.Component {
