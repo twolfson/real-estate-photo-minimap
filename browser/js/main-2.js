@@ -6,6 +6,9 @@ const h = require('react-hyperscript');
 const ReactDOM = require('react-dom');
 const Store = require('./store');
 
+// Fancy importing non-JS assets handling for demo
+import blueprintSvgSrc from '../../backups/1376-natoma.svg';
+
 // Expose common data
 window.Store = Store;
 
@@ -75,12 +78,25 @@ function main() {
       ]),
       h('.row', [
         h('.col-12.mb-3', [
-          h('div', {style: {border: '1px solid black'}}, 'hi')
+          h('div.p-1', {style: {border: '1px solid black', height: '300px'}}, [
+            // 'Minimap builder goes here'
+            h('img', {src: blueprintSvgSrc, style: {maxHeight: '100%', margin: '0 auto'}})
+          ])
+        ])
+      ]),
+      h('.row', [
+        h('.col-12', [
+          'Navigate the images below for convenient reference'
         ])
       ]),
       h('.row', [
         h('.col-4', [
-          h('img.img-fluid', {src: Store.getCurrentImage().src, alt: 'Actively selected photo'})
+          h('a', {href: Store.getCurrentImage().src, target: '_blank'}, [
+            h('img.img-fluid', {
+              src: Store.getCurrentImage().src,
+              alt: 'Actively selected photo',
+            })
+          ])
         ]),
         h('.col-8', [
           h('.row.row-cols-8',
