@@ -60,14 +60,16 @@ function main() {
           (() => {
             function createInput(location) {
               return h('.col-2', {key: location.key}, [
-                // DEV: Split into `btn-group` to get same spacing as input group
-                h(`.btn-group`, {style: {display: 'flex'}}, [
-                  h(`button.btn.location-${location.key}-bg`, {
-                    style: {display: 'flex'},
-                    onClick: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
-                  }, location.key),
-                  h(`button.btn.location-${location.key}-bg`, {
-                    style: {display: 'block'},
+                h(`.input-group`, [
+                  h(`.input-group-prepend`, [
+                    h(`button.input-group-text.location-${location.key}-bg`, {
+                      style: {border: '0'},
+                      onClick: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
+                    }, location.key),
+                  ]),
+                  h(`button.form-control-plaintext.location-${location.key}-bg`, {
+                    style: {borderRadius: '0.25rem', borderTopLeftRadius: '0', borderBottomLeftRadius: '0'},
+                    readOnly: true,
                     onClick: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
                   }, location.name)
                 ]),
