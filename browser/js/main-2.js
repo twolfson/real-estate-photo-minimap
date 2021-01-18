@@ -77,47 +77,41 @@ function main() {
         h('.col-6', [
           h('div', 'Type or press location number to categorize image'),
           h('p', [
-            h('img.img-fluid', {src: Store.getCurrentImage().src, alt: 'Actively selected photo'})
           ]),
-
-          h('p', [
-            'or ',
-            h('button.btn.btn-secondary', {onClick: () => { Store.rr('nextImage'); }}, 'skip to next image'),
-            h('span.text-muted', ' (shortcut: s)'),
-          ])
         ])
       ]),
-      h('.row',
-        Store.images.map((img, i) => {
-          return h('.col-1.mb-1', [
-            // DEV: We use a `div` as `::before` doesn't seem to work great with `img`
-            h('div', {
-              key: i,
-              className: classnames({
-                'selected-image': i === Store.currentImageIndex,
-              }, img.locationKey ? `location-img location-${img.locationKey}-img` : '')
-            }, [
-              h('img.img-fluid', {
-                src: img.src,
-                role: 'button',
-                alt: `Photo ${i} thumbnail`,
-                onClick: () => { Store.rr('goToImage', i); }
-              })
-            ])
-          ]);
-        })
-      ),
       h('.row', [
-        h('.col-12', [
-          h('.text-right', [
-            h('p', [
-              h('button.btn.btn-primary', 'Continue'),
-              h('br'),
-              h('em.text-muted.small', `Uncategorized images (${
-                Store.images.filter((img) => !img.locationKey).length
-              }) will be omitted`),
-            ])
-          ])
+        h('.col-4', [
+          h('img.img-fluid', {src: Store.getCurrentImage().src, alt: 'Actively selected photo'})
+        ]),
+        h('.col-8', [
+          h('.row.row-cols-8',
+            // DEV: All browsers except IE stable sort, this is prob good enough -- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+            // TODO: This mutates our images in-place, thus Store receives new order, which is why left/right arrows are working right now
+            //   but we should prob not contaminate the Store order directly like that
+            //   Maybe add something like an `orderId` key to each image and update/sort by that?
+            //   To see it break: Use `.slice()` first as well as reset `localStorage`
+            Store.images.sort((imgA, imgB) => {
+              return imgA.locationKey > imgB.locationKey;
+            }).map((img, i) => {
+              return h('.col.mb-1', [
+                // DEV: We use a `div` as `::before` doesn't seem to work great with `img`
+                h('div', {
+                  key: i,
+                  className: classnames({
+                    'selected-image': i === Store.currentImageIndex,
+                  }, img.locationKey ? `location-img location-${img.locationKey}-img` : '')
+                }, [
+                  h('img.img-fluid', {
+                    src: img.src,
+                    role: 'button',
+                    alt: `Photo ${i} thumbnail`,
+                    onClick: () => { Store.rr('goToImage', i); }
+                  })
+                ])
+              ]);
+            })
+          )
         ])
       ]),
     ]),

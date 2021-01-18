@@ -5,6 +5,12 @@
   opacity: 0.4;
 }
 
+.row-cols-8 > * {
+    -ms-flex: 0 0 12.5%;
+    flex: 0 0 12.5%;
+    max-width: 12.5%;
+}
+
 // Custom CSS styles
 // Based on: https://smile.amazon.com/Coding-Circle-Labels-Stickers-Assorted/dp/B08JMGWWZW
 //   https://images-na.ssl-images-amazon.com/images/I/41uthP1lLOL._AC_.jpg
