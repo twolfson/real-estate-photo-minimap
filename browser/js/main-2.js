@@ -43,6 +43,14 @@ function main() {
         ])
       ]),
       h('.row', [
+        h('.col-12.mb-3', [
+          h('div.p-1', {style: {border: '1px solid black', height: '300px'}}, [
+            // 'Minimap builder goes here'
+            h('img', {src: blueprintSvgSrc, style: {maxHeight: '100%', margin: '0 auto'}})
+          ])
+        ])
+      ]),
+      h('.row', [
         h('.col-12',
           (() => {
             function createInput(location) {
@@ -75,14 +83,6 @@ function main() {
             ];
           })()
         )
-      ]),
-      h('.row', [
-        h('.col-12.mb-3', [
-          h('div.p-1', {style: {border: '1px solid black', height: '300px'}}, [
-            // 'Minimap builder goes here'
-            h('img', {src: blueprintSvgSrc, style: {maxHeight: '100%', margin: '0 auto'}})
-          ])
-        ])
       ]),
       h('.row', [
         h('.col-12', [

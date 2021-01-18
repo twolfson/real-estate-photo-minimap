@@ -1,4 +1,10 @@
 // Custom Bootstrap extensions
+// Override normal container behavior, focused on desktop only app
+.container {
+  width: 1140px;
+  max-width: none;
+}
+
 .progressbar-muted {
   background-color: transparent;
   color: black;
