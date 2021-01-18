@@ -1,25 +1,31 @@
 // Load in our dependencies
 const assert = require('assert');
-const config = require('./config');
+const config = require('../config');
 const classnames = require('classnames');
 const h = require('react-hyperscript');
+const React = require('react');
 const ReactDOM = require('react-dom');
-const Store = require('./store');
+const Store = require('../store');
 
 // Fancy importing non-JS assets handling for demo
-import blueprintSvgSrc from '../../backups/1376-natoma.svg';
+import blueprintSvgSrc from '../../../backups/1376-natoma.svg';
 
 // Expose common data
 window.Store = Store;
 
 // Define our main page load hook
-function main() {
-  let reactContainer = document.getElementById('react-content');
-  if (!reactContainer) { throw new Error('Unable to find #react-content'); }
+class MinimapBuild extends React.Component {
+  constructor() {
+    super();
+    // TODO: Should use `this.state` instead of `Store` for content
+    // DEV: For now, this triggers new state due to unique object
+    let getState = () => { return {}; };
+    this.state = getState();
+    Store._renderFn = () => { this.setState(getState()); };
+  }
 
-  // TODO: Should use `this.props` instead of `Store` for content
-  ReactDOM.render(
-    h('.container', [
+  render() {
+    return h('.container', [
       h('.row', [
         h('.col-12', [
           h('h1', 'real-estate-photo-minimap'),
@@ -124,33 +130,36 @@ function main() {
           )
         ])
       ]),
-    ]),
-    reactContainer
-  );
+    ]);
+  }
+
+  componentDidMount() {
+    // When a key is pressed
+    this._keyListener = (evt) => {
+      // If the event is for an input, then stop
+      // https://github.com/ccampbell/mousetrap/blob/1.6.5/mousetrap.js#L973-L1001
+      if (['INPUT', 'SELECT', 'TEXTAREA'].includes(evt.target.tagName)) {
+        return;
+      }
+
+      // Compare to known shortcuts
+      // Location numbers
+      if (Store.getLocationKeys().includes(evt.key)) {
+        Store.rr('goToFirstLocationImage', evt.key);
+      // Arrow keys
+      } else if (evt.key === 'ArrowLeft') {
+        Store.rr('previousImage');
+      } else if (evt.key === 'ArrowRight') {
+        Store.rr('nextImage');
+      }
+    }
+    window.addEventListener('keydown', this._keyListener);
+  }
+  componentWillUnmount() {
+    window.removeEventListener('keydown', this._keyListener);
+    delete this._keyListener;
+  }
 }
-// DEV: We could use `DOMContentLoaded` hook but our script location is good enough
-main();
-// Rebind `main` as render
-Store._renderFn = main;
 
-// View hooks
-// When a key is pressed
-// TODO: When move to another window, unbind (prob do via `componentDidMount` and `componentWillUnmount` mechanisms)
-window.addEventListener('keydown', (evt) => {
-  // If the event is for an input, then stop
-  // https://github.com/ccampbell/mousetrap/blob/1.6.5/mousetrap.js#L973-L1001
-  if (['INPUT', 'SELECT', 'TEXTAREA'].includes(evt.target.tagName)) {
-    return;
-  }
-
-  // Compare to known shortcuts
-  // Location numbers
-  if (Store.getLocationKeys().includes(evt.key)) {
-    Store.rr('goToFirstLocationImage', evt.key);
-  // Arrow keys
-  } else if (evt.key === 'ArrowLeft') {
-    Store.rr('previousImage');
-  } else if (evt.key === 'ArrowRight') {
-    Store.rr('nextImage');
-  }
-});
+// Export our module
+module.exports = MinimapBuild;
