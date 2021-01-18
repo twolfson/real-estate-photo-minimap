@@ -30,6 +30,7 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
     - Resizing with text staying centered is nice
     - Binding taxes to center of a box is nice
     - Click/drag multiselect is prob nice to have
+    - For text, prob use `contenteditable` `span` tags (way easier to manage than toggling `input` styles)
     - Maybe there's something that exists for blueprint layouts...
       - Whatever we build is prob always going to be lesser than that (in quality/practicality) but maybe we'll be more agile with simpler?
     - Welp, stopping here -- it's clear that needs some more thought/work
