@@ -3,13 +3,13 @@ const assert = require('assert');
 const h = require('react-hyperscript');
 const React = require('react');
 const ReactDOM = require('react-dom');
-const {HashRouter, Switch, Route} = require('react-router-dom');
+const {HashRouter, Switch, Route, Link} = require('react-router-dom');
 
 class Home extends React.Component {
   render() {
     return h('h1', [
       'Welcome to the Home Page',
-      h('a', {href: '#/2'}, 'Link')
+      h(Link, {to: '/2'}, 'Foo'),
     ]);
   }
 };
@@ -32,6 +32,7 @@ function main() {
       h(Switch, [
         h(Route, {exact: true, path: '/', component: Home}),
         h(Route, {exact: true, path: '/2', component: Home2}),
+        h(Route, {path: '*'}, () => '404: URL not found'),
       ])
     ]),
     reactContainer
