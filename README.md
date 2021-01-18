@@ -33,7 +33,7 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
   - For individual steps, just extend the same state -- we would never create multiple database schemas, only add on new data in new columns. Same concept here
 
 #### Initial release
-- [ ] Reintroduce second step
+- [ ] Reintroduce second step (currently only a rough prototype since usage of this is uncertain)
   - Should break up different sections into components for reuse (e.g. all images gallery)
   - Move back to listing all images, but now list as grouped variants (maybe allow person to toggle via select menu for sort)
     - Could do grouped outline but prob fine to list in order and the colors will communicate for us
