@@ -45,7 +45,7 @@ function main() {
       h('.row', [
         h('.col-12.mb-3', [
           h('div.p-1', {style: {border: '1px solid black', height: '300px'}}, [
-            // 'Minimap builder goes here'
+            h('span', {style: {position: 'absolute'}}, 'Minimap builder goes here'),
             h('img', {src: blueprintSvgSrc, style: {maxHeight: '100%', margin: '0 auto'}})
           ])
         ])
@@ -60,15 +60,13 @@ function main() {
           (() => {
             function createInput(location) {
               return h('.col-2', {key: location.key}, [
-                h(`.input-group`, [
+                h(`.input-group.input-group-as-btn-group`, [
                   h(`.input-group-prepend`, [
                     h(`button.input-group-text.location-${location.key}-bg`, {
-                      style: {border: '0'},
                       onClick: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
                     }, location.key),
                   ]),
                   h(`button.form-control-plaintext.location-${location.key}-bg`, {
-                    style: {borderRadius: '0.25rem', borderTopLeftRadius: '0', borderBottomLeftRadius: '0'},
                     readOnly: true,
                     onClick: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
                   }, location.name)

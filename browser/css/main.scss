@@ -17,6 +17,18 @@
     max-width: 12.5%;
 }
 
+// One-off style fixes to allow input group to look akin to a button grop with different layout
+.input-group-as-btn-group {
+  .input-group-text {
+    border: 0;
+  }
+  .form-control-plaintext {
+    border-radius: 0.25rem;
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+  }
+}
+
 // Custom CSS styles
 // Based on: https://smile.amazon.com/Coding-Circle-Labels-Stickers-Assorted/dp/B08JMGWWZW
 //   https://images-na.ssl-images-amazon.com/images/I/41uthP1lLOL._AC_.jpg
