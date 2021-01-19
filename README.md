@@ -5,6 +5,8 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 
 <https://twolfson.github.io/real-estate-photo-minimap-public/>
 
+TODO: Flatten out `minimapInfo.boxes` to `minimap.items` so everything has a `type` and we can use less switching logic as well as have everything at the same order
+
 ## Features
 - [x] Quick location categorization
 - [ ] Minimap creator
