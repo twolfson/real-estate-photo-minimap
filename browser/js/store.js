@@ -62,9 +62,9 @@ let actions = {
     });
   },
   setLocationForCurrentImage: function (locationKey) {
-    let locationKeys = helpers.getLocationKeys();
+    let locationKeys = helperState.getLocationKeys();
     assert(locationKeys.includes(locationKey), `Location ${locationKey} isn't within locations`);
-    helpers.getCurrentImage().locationKey = locationKey;
+    helperState.getCurrentImage().locationKey = locationKey;
     actions.nextImage();
   },
   setLocationName: function (locationKey, name) {
@@ -75,24 +75,16 @@ let actions = {
 
 // Define our helper methods
 let helpers = {
-  get locations() {
-    return state.locations;
-  },
-  get images() {
-    return state.images;
-  },
-  get currentImageIndex() {
-    return state.currentImageIndex;
-  },
+  // DEV: `this` will be `state` in these contexts
+  //  We need to use `this` as it will be unfrozen for `helperState` methods but frozen for `renderState`
   getLocationKeys: function () {
-    return state.locations.map((location) => location.key);
+    return this.locations.map((location) => location.key);
   },
-  _getCurrentImage: function () {
-    return state.images[state.currentImageIndex];
+  getCurrentImage: function () {
+    return this.images[this.currentImageIndex];
   },
-  // TODO: Add in freezing for this data
-  getCurrentImage: function () { return helpers._getCurrentImage(); },
 };
+let helperState; // Will have `this` context for `state`
 
 let Store = {
   // Allow external context to set render callback
@@ -106,8 +98,8 @@ let Store = {
   // Define our action interfaces
   _renderState: null,
   regenerateRenderState: function () {
-    let renderState = Object.assign({}, state, helpers);
-    this._renderState = deepFreeze(cloneDeep(renderState));
+    helperState = Object.assign({}, state, helpers);
+    this._renderState = deepFreeze(cloneDeep(helperState));
     return this._renderState;
   },
   run: function (method, /* args */) {
