@@ -3,7 +3,13 @@ const h = require('react-hyperscript');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const Draggable = require('react-draggable');
-const { ResizableBox } = require('react-resizable');
+const { Resizable, ResizableBox } = require('react-resizable');
+Resizable.prototype.resizeHandler = function (e) {
+  console.log('hi', arguments);
+  return (e) => {
+    e.stopPropagation();
+  };
+};
 
 // Fancy importing non-JS assets handling for demo
 // TODO: Remove SVG demo
@@ -35,26 +41,24 @@ class MinimapBuilder extends React.Component {
         onStart: () => { this.setState({dragging: true}); },
         onStop: () => { this.setState({dragging: false}); },
       }, [
-        h('div', [
-          h(ResizableBox, {
-            height, width,
-            style: {
-              // Vertical centering for span, https://css-tricks.com/centering-css-complete-guide/
-              // TODO: Relocate all content to classes
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
+        h(ResizableBox, {
+          height, width,
+          style: {
+            // Vertical centering for span, https://css-tricks.com/centering-css-complete-guide/
+            // TODO: Relocate all content to classes
+            display: 'flex',
+            flexDirection: 'column',
+            justifyContent: 'center',
 
-              cursor: this.state.dragging ? 'grabbing' : 'grab',
-              background: 'white',
-              border: '3px solid black',
-              position: 'absolute', left, top,
-            }
-          }, [
-            h('.d-inline-block.text-center', [
-              h(`.d-inline-block.small.p-1.location-${location.key}-bg`, {
-              }, location.name)
-            ])
+            cursor: this.state.dragging ? 'grabbing' : 'grab',
+            background: 'white',
+            border: '3px solid black',
+            position: 'absolute', left, top,
+          }
+        }, [
+          h('.d-inline-block.text-center', [
+            h(`.d-inline-block.small.p-1.location-${location.key}-bg`, {
+            }, location.name)
           ])
         ])
       ])
