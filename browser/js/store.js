@@ -64,10 +64,13 @@ let actions = {
     state.minimapInfo = {
       boxes: state.locations.map((location, i) => {
         return {
+          key: `location-${location.key}`,
           type: 'location',
           locationKey: location.key,
           left: (i % 5) * 150,
           top: Math.floor(i / 5) * 150,
+          leftOffset: 0,
+          topOffset: 0,
           width: 100,
           height: 100,
         };
@@ -95,6 +98,11 @@ let actions = {
     let location = state.locations.find((location) => location.key === locationKey);
     location.name = name;
   },
+  updateMinimapBox: function (boxKey, data) {
+    let box = state.minimapInfo.boxes.find((box) => box.key === boxKey);
+    // TODO: Add validation that `data` keys are only positional
+    Object.assign(box, data);
+  }
 };
 
 // Define our helper methods
@@ -128,6 +136,7 @@ let Store = {
   },
   run: function (method, /* args */) {
     let args = [].slice.call(arguments, 1);
+    assert(actions.hasOwnProperty(method), `Unknown action ${method}`);
     actions[method].apply(actions, args);
     this.regenerateRenderState();
   },
