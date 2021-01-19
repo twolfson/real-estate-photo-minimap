@@ -4,6 +4,8 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const Draggable = require('react-draggable');
 const { ResizableBox } = require('react-resizable');
+const GridItem = require('react-grid-layout');
+console.log(GridItem);
 
 // Fancy importing non-JS assets handling for demo
 // TODO: Remove SVG demo
