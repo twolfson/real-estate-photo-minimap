@@ -11,7 +11,8 @@ let demoData = require('../../data/demo.json');
 
 // Model singleton
 // DEV: Inspired by Redux but not explicitly Redux due to learning overhead
-// DEV: state is a separate variable for easy/quick reference
+// DEV: state and actions are separate variables for easy/quick reference
+// DEV: Consider `actions` as setters and `Store` as container for getters
 let state = {
   // DEV: We use keys instead of array index as we want to associate it loosely (e.g. different shortcuts)
   locations: [
@@ -32,33 +33,8 @@ let state = {
   }),
   currentImageIndex: 0,
 };
-let Store = {
-  // Allow external context to set render callback
-  _renderFn: null,
 
-  // Re-expose state for quick access publicly
-  __state: state,
-  // Define our helper methods
-  // TODO: Ditch `get` methods once migrated to `setState` model
-  get locations() {
-    return state.locations;
-  },
-  get images() {
-    return state.images;
-  },
-  get currentImageIndex() {
-    return state.currentImageIndex;
-  },
-  getLocationKeys: function () {
-    return state.locations.map((location) => location.key);
-  },
-  _getCurrentImage: function () {
-    return state.images[state.currentImageIndex];
-  },
-  // TODO: Add in freezing for this data
-  getCurrentImage: function () { return this._getCurrentImage(); },
-
-  // Define our actions
+let actions = {
   previousImage: function () {
     state.currentImageIndex = state.currentImageIndex - 1;
     if (state.currentImageIndex < 0) { state.currentImageIndex = state.images.length - 1; }
@@ -86,12 +62,45 @@ let Store = {
   setLocationName: function (locationKey, name) {
     let location = state.locations.find((location) => location.key === locationKey);
     location.name = name;
-  },
+  }
+};
 
-  rr /* run and render */: function (method, /* args */) {
-    // Run our logic
+let Store = {
+  // Allow external context to set render callback
+  _renderFn: null,
+
+  // Re-expose state and actions for quick access publicly
+  __state: state,
+  __actions: actions,
+
+  // Define our helper methods
+  // TODO: Ditch `get` methods once migrated to `setState` model
+  get locations() {
+    return state.locations;
+  },
+  get images() {
+    return state.images;
+  },
+  get currentImageIndex() {
+    return state.currentImageIndex;
+  },
+  getLocationKeys: function () {
+    return state.locations.map((location) => location.key);
+  },
+  _getCurrentImage: function () {
+    return state.images[state.currentImageIndex];
+  },
+  // TODO: Add in freezing for this data
+  getCurrentImage: function () { return this._getCurrentImage(); },
+
+  // Define our action interfaces
+  run: function (method, /* args */) {
     let args = [].slice.call(arguments, 1);
-    this[method].apply(this, args);
+    return actions[method].apply(actions, args);
+  },
+  rr /* run and render */: function () {
+    // Run our logic
+    this.run.apply(this, arguments);
     assert(this._renderFn, 'Store._renderFn was never set');
     this._renderFn();
 

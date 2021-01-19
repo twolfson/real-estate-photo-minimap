@@ -11,12 +11,16 @@ Next steps to finish this out:
       - Deep copy via either `lodash/deepCopy` or `JSON.stringify/parse` for hacks
         - https://stackoverflow.com/questions/39241046/deepcopy-in-react
 - Approach 2
-  - Freeze entire state and update everything massively (prop
+  - Freeze entire state and update everything on each action (prob inefficient)
 - Why we've stopped
   - Likely going to get headaches around the following:
   - Need to implement sort logic differently (i.e. on "Next" click -- prob just another method, but not bound to `render` call)
   - Moving to `this.state` in components makes us lose a lot of convenience methods, not sure what the common solution is -- really hoping it's not a massive component or lots of helpers
     - Would need to dig through more Redux examples which I don't want to spend time on
+    - Oh, consensus is to split up getters/setters mentally, https://medium.com/javascript-scene/10-tips-for-better-redux-architecture-69250425af44
+      - Setters are reducers
+      - Helpers can be exposed on state result
+      - They seem to expose `state` directly, methods and all
   - Pulling out one-off references to `Store` without having tests as backup (depends on last point's Redux learnings)
 
 ## Features
