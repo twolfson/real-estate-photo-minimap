@@ -10,7 +10,7 @@
     "react-dom": "~17.0.1",
     "react-draggable": "~4.4.3",
     "react-hyperscript": "~3.2.0",
-    "react-resizable": "xedef/react-resizable#e91b88cea6d9da55216c585c9d732b9137c5e2fd",
+    "react-resizable": "~1.11.0",
     "react-router-dom": "~5.2.0"
   },
   "devDependencies": {
