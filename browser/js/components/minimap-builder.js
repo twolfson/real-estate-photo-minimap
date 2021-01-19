@@ -1,4 +1,5 @@
 // Load in our dependencies
+const assert = require('assert');
 const h = require('react-hyperscript');
 const React = require('react');
 const ReactDOM = require('react-dom');

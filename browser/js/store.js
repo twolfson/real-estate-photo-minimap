@@ -61,8 +61,8 @@ let actions = {
     if (location.minimapInfo) {
       return;
     }
-    location.minimapInfo = {
-      boxes: state.location.map((location, i) => {
+    state.minimapInfo = {
+      boxes: state.locations.map((location, i) => {
         return {
           type: 'location',
           locationKey: location.key,
