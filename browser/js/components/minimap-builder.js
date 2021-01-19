@@ -36,8 +36,7 @@ class MinimapBuilder extends React.Component {
     let parentState = this.props.state;
     let locations = parentState.locations;
     return h('div', {style: {position: 'relative', height: '300px'}}, [
-      // h('span', {style: {position: 'absolute'}}, 'Minimap builder goes here'),
-      // h('img', {src: blueprintSvgSrc, style: {maxHeight: '100%', margin: '0 auto'}}),
+      h('img', {src: blueprintSvgSrc, style: {position: 'absolute', maxHeight: '100%', margin: '0 auto'}}),
     ].concat((() => {
       let minimapContent = [];
       parentState.minimapInfo.boxes.forEach((box) => {
@@ -70,7 +69,7 @@ class MinimapBuilder extends React.Component {
           onStart: () => { this.setState({dragging: true}); },
           onDrag: (evt, ui) => {
             // TODO: Move box to its own class and use temporary state until `onStop`
-            //   Currently this is hammering `localStorage`
+            //   Currently this is hammering `localStorage` -- also bad for UX
             Store.rr('updateMinimapBox', box.key, {left: ui.x, top: ui.y});
           },
           onStop: () => { this.setState({dragging: false}); },
