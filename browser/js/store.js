@@ -69,8 +69,6 @@ let actions = {
           locationKey: location.key,
           left: (i % 5) * 150,
           top: Math.floor(i / 5) * 150,
-          leftOffset: 0,
-          topOffset: 0,
           width: 100,
           height: 100,
         };
