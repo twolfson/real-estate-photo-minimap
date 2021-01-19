@@ -37,10 +37,16 @@ class MinimapBuilder extends React.Component {
       // h('span', {style: {position: 'absolute'}}, 'Minimap builder goes here'),
       // h('img', {src: blueprintSvgSrc, style: {maxHeight: '100%', margin: '0 auto'}}),
     ].concat(locations.filter((location) => location.name).map((location, i) => {
-      let left = (i % 5) * 150;
-      let top = Math.floor(i / 5) * 150;
-      let width = 100;
-      let height = 100;
+      // Create our default location info
+      if (!location.minimapInfo) {
+        location.minimapInfo = {
+          left: (i % 5) * 150,
+          top: Math.floor(i / 5) * 150,
+          width: 100,
+          height: 100,
+        }
+      }
+      let {left, top, width, height} = location.minimapInfo;
       return h(Draggable, {
         bounds: 'parent',
         onStart: () => { this.setState({dragging: true}); },
