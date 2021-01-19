@@ -4,10 +4,15 @@ const React = require('react');
 const ReactDOM = require('react-dom');
 const Draggable = require('react-draggable');
 const { Resizable, ResizableBox } = require('react-resizable');
-Resizable.prototype.resizeHandler = function (e) {
-  console.log('hi', arguments);
-  return (e) => {
+
+// Monkey patch resizable to work with draggable
+let _resizeHandler = Resizable.prototype.resizeHandler;
+Resizable.prototype.resizeHandler = function () {
+  let resultFn = _resizeHandler.apply(this, arguments);
+  return function (e) {
+    let result = resultFn.apply(this, arguments);
     e.stopPropagation();
+    return result;
   };
 };
 
