@@ -5,24 +5,6 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 
 <https://twolfson.github.io/real-estate-photo-minimap-public/>
 
-Next steps to finish this out:
-- Approach 1
-  - Deep copy objects + freeze them before handing them out of `Store` via getters
-      - Deep copy via either `lodash/deepCopy` or `JSON.stringify/parse` for hacks
-        - https://stackoverflow.com/questions/39241046/deepcopy-in-react
-- Approach 2
-  - Freeze entire state and update everything on each action (prob inefficient)
-- Why we've stopped
-  - Likely going to get headaches around the following:
-  - Need to implement sort logic differently (i.e. on "Next" click -- prob just another method, but not bound to `render` call)
-  - Moving to `this.state` in components makes us lose a lot of convenience methods, not sure what the common solution is -- really hoping it's not a massive component or lots of helpers
-    - Would need to dig through more Redux examples which I don't want to spend time on
-    - Oh, consensus is to split up getters/setters mentally, https://medium.com/javascript-scene/10-tips-for-better-redux-architecture-69250425af44
-      - Setters are reducers
-      - Helpers can be exposed on state result
-      - They seem to expose `state` directly, methods and all
-  - Pulling out one-off references to `Store` without having tests as backup (depends on last point's Redux learnings)
-
 ## Features
 - [x] Quick location categorization
 - [ ] Minimap creator
@@ -84,7 +66,6 @@ Next steps to finish this out:
 - [ ] Add "hint" notes to categorization page
   - Use ceiling fixtures (e.g. fan, light)
   - Use blinds/curtains colors
-- [ ] Add freezing/immutability to store + all data accessed via getters
 - [ ] Intro page on website
 - [ ] CRUD listing page (after first layout creation)
 - [ ] Accepting image list via `textarea` + instructions for various sites

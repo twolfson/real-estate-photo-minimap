@@ -103,26 +103,6 @@ let Store = {
   __actions: actions,
   __helpers: helpers,
 
-  // Define our helper methods
-  // TODO: Ditch helper methods once migrated to `setState` model
-  get locations() {
-    return state.locations;
-  },
-  get images() {
-    return state.images;
-  },
-  get currentImageIndex() {
-    return state.currentImageIndex;
-  },
-  getLocationKeys: function () {
-    return state.locations.map((location) => location.key);
-  },
-  _getCurrentImage: function () {
-    return state.images[state.currentImageIndex];
-  },
-  // TODO: Add in freezing for this data
-  getCurrentImage: function () { return helpers._getCurrentImage(); },
-
   // Define our action interfaces
   _renderState: null,
   regenerateRenderState: function () {

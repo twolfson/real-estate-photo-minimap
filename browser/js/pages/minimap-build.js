@@ -15,7 +15,11 @@ import blueprintSvgSrc from '../../../backups/1376-natoma.svg';
 class MinimapBuild extends React.Component {
   constructor(props) {
     super(props);
+
+    // Before handing off state, perform a synchronous sort on our data
     Store.run('sortImagesByLocationKey');
+
+    // Perform normal constructor actions
     this.state = Store._renderState;
     Store._renderFn = this.setState.bind(this);
   }
