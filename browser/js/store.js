@@ -58,7 +58,12 @@ let actions = {
   sortImagesByLocationKey: function () {
     // DEV: All browsers except IE stable sort, this is prob good enough -- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
     state.images.sort((imgA, imgB) => {
-      return imgA.locationKey > imgB.locationKey;
+      if (imgB.locationKey === imgA.locationKey) { return 0; }
+      if (imgA.locationKey === null /* and thus B isn't null */) { return  1; }
+      if (imgB.locationKey === null /* and thus A isn't null */) { return -1; }
+      if (imgA.locationKey < imgB.locationKey) { return -1; }
+      if (imgA.locationKey > imgB.locationKey) { return  1; }
+      throw new Error('Unexpected comparison case');
     });
   },
   setLocationForCurrentImage: function (locationKey) {
