@@ -10,13 +10,14 @@ const {Link} = require('react-router-dom');
 
 // Define our main page load hook
 class CategorizePhotos extends React.Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = Store._renderState;
     Store._renderFn = this.setState.bind(this);
   }
 
   render() {
+    let state = this.state;
     return h('.container', [
       h('.row', [
         h('.col-12', [
@@ -62,13 +63,13 @@ class CategorizePhotos extends React.Component {
                 ])
               ]);
             }
-            assert(Store.locations.length === 10, `Expected 10 locations but received ${Store.locations.length}`);
+            assert(state.locations.length === 10, `Expected 10 locations but received ${state.locations.length}`);
             return [
               h('.row.mb-3',
-                Store.locations.slice(0, 5).map(createInput)
+                state.locations.slice(0, 5).map(createInput)
               ),
               h('.row.mb-3',
-                Store.locations.slice(5, 10).map(createInput)
+                state.locations.slice(5, 10).map(createInput)
               )
             ];
           })()
@@ -78,7 +79,7 @@ class CategorizePhotos extends React.Component {
         h('.col-6', [
           h('div', 'Type or press location number to categorize image'),
           h('p', [
-            h('img.img-fluid', {src: Store.getCurrentImage().src, alt: 'Actively selected photo'})
+            h('img.img-fluid', {src: state.getCurrentImage().src, alt: 'Actively selected photo'})
           ]),
 
           h('p', [
@@ -89,13 +90,13 @@ class CategorizePhotos extends React.Component {
         ])
       ]),
       h('.row',
-        Store.images.map((img, i) => {
+        state.images.map((img, i) => {
           return h('.col-1.mb-1', [
             // DEV: We use a `div` as `::before` doesn't seem to work great with `img`
             h('div', {
               key: i,
               className: classnames({
-                'selected-image': i === Store.currentImageIndex,
+                'selected-image': i === state.currentImageIndex,
               }, img.locationKey ? `location-img location-${img.locationKey}-img` : '')
             }, [
               h('img.img-fluid', {
@@ -116,7 +117,7 @@ class CategorizePhotos extends React.Component {
             h(Link, {className: 'btn btn-primary', to: '/minimap-build'}, 'Continue'),
             h('br'),
             h('em.text-muted.small', `Uncategorized images (${
-              Store.images.filter((img) => !img.locationKey).length
+              state.images.filter((img) => !img.locationKey).length
             }) will be omitted`),
           ])
         ])
@@ -126,6 +127,7 @@ class CategorizePhotos extends React.Component {
 
   componentDidMount() {
     // When a key is pressed
+    let state = this.state;
     this._keyListener = (evt) => {
       // If the event is for an input, then stop
       // https://github.com/ccampbell/mousetrap/blob/1.6.5/mousetrap.js#L973-L1001
@@ -135,7 +137,7 @@ class CategorizePhotos extends React.Component {
 
       // Compare to known shortcuts
       // Location numbers
-      if (Store.getLocationKeys().includes(evt.key)) {
+      if (state.getLocationKeys().includes(evt.key)) {
         Store.rr('setLocationForCurrentImage', evt.key);
       // Skipping shortcut
       } else if (evt.key === 's') {

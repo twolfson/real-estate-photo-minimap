@@ -150,6 +150,7 @@ window.Store = Store; // Expose for debugging/practicality
 if (config.persistData && localStorage.stateBackup) {
   let _loadedState = JSON.parse(localStorage.stateBackup).state;
   state = _loadedState;
+  Store.regenerateRenderState();
 
   // eslint-disable-next-line no-console
   console.info('Loaded state from `localStorage`. ' +
