@@ -10,20 +10,29 @@ import blueprintSvgSrc from '../../../backups/1376-natoma.svg';
 
 // https://github.com/STRML/react-grid-layout/blob/1.2.0/lib/GridItem.jsx#L642-L646
 // Wrap in draggable as outer, then resizable as inner
+// TODO: Move comment
 
 // Define our component
 class MinimapBuilder extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {dragging: false};
+  }
+
   render() {
-    let state = this.props.state;
+    let locations = this.props.state.locations;
     return h('div', {style: {position: 'relative', height: '300px'}}, [
       // h('span', {style: {position: 'absolute'}}, 'Minimap builder goes here'),
       // h('img', {src: blueprintSvgSrc, style: {maxHeight: '100%', margin: '0 auto'}}),
-    ].concat(state.locations.filter((location) => location.name).map((location, i) => {
+    ].concat(locations.filter((location) => location.name).map((location, i) => {
       let left = (i % 5) * 150;
       let top = Math.floor(i / 5) * 150;
       let width = 100;
       let height = 100;
-      return h(Draggable, [
+      return h(Draggable, {
+        onStart: () => { this.setState({dragging: true}); },
+        onStop: () => { this.setState({dragging: false}); },
+      }, [
         h('div', {
           style: {
             // Vertical centering for span, https://css-tricks.com/centering-css-complete-guide/
@@ -31,7 +40,8 @@ class MinimapBuilder extends React.Component {
             flexDirection: 'column',
             justifyContent: 'center',
 
-            cursor: 'grab',
+            // TODO: Bind `cursor: grabbing` on grabbing
+            cursor: this.state.dragging ? 'grabbing' : 'grab',
             background: 'white',
             border: '3px solid black',
             position: 'absolute', left, top,

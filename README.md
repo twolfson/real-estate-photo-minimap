@@ -5,6 +5,8 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 
 <https://twolfson.github.io/real-estate-photo-minimap-public/>
 
+TODO: TODOs
+
 ## Features
 - [x] Quick location categorization
 - [ ] Minimap creator
