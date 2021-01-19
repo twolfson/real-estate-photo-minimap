@@ -37,26 +37,28 @@ let Store = {
   _renderFn: null,
 
   // Re-expose state for quick access publicly
-  state: state,
+  __state: state,
+  // Define our helper methods
   // TODO: Ditch `get` methods once migrated to `setState` model
   get locations() {
-    return this.state.locations;
+    return state.locations;
   },
   get images() {
-    return this.state.images;
+    return state.images;
   },
   get currentImageIndex() {
-    return this.state.currentImageIndex;
+    return state.currentImageIndex;
   },
-
-  // Define our helper methods
   getLocationKeys: function () {
     return state.locations.map((location) => location.key);
   },
-  getCurrentImage: function () {
+  _getCurrentImage: function () {
     return state.images[state.currentImageIndex];
   },
+  // TODO: Add in freezing for this data
+  getCurrentImage: function () { return this._getCurrentImage(); },
 
+  // Define our actions
   previousImage: function () {
     state.currentImageIndex = state.currentImageIndex - 1;
     if (state.currentImageIndex < 0) { state.currentImageIndex = state.images.length - 1; }
@@ -96,7 +98,7 @@ let Store = {
     // Serialize and save our state
     if (config.persistData) {
       localStorage.stateBackup = JSON.stringify({
-        state: this.state,
+        state: state,
         version: 'v1',
         timestamp: Date.now(),
       });
@@ -110,10 +112,7 @@ window.Store = Store; // Expose for debugging/practicality
 // TODO: Set up ability for user to clear their own cache (would be deletion in CRUD)
 if (config.persistData && localStorage.stateBackup) {
   let _loadedState = JSON.parse(localStorage.stateBackup).state;
-  Store.locations = _loadedState.locations;
-  Store.images = _loadedState.images;
-  Store.currentImageIndex = _loadedState.images.findIndex((img) => img.locationKey === null);
-  if (Store.currentImageIndex === -1) { Store.currentImageIndex = 0; }
+  state = _loadedState;
 
   // eslint-disable-next-line no-console
   console.info('Loaded state from `localStorage`. ' +
