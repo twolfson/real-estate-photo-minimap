@@ -7,6 +7,8 @@ const Draggable = require('react-draggable');
 const { Resizable, ResizableBox } = require('react-resizable');
 
 // Monkey patch resizable to work with draggable
+//   https://github.com/STRML/react-resizable/issues/18
+//   `div` not required, actually breaks things it seems
 let _resizeHandler = Resizable.prototype.resizeHandler;
 Resizable.prototype.resizeHandler = function () {
   let resultFn = _resizeHandler.apply(this, arguments);
@@ -54,6 +56,7 @@ class MinimapBuilder extends React.Component {
 
         // Render our box
         // https://github.com/STRML/react-grid-layout/blob/1.2.0/lib/GridItem.jsx#L642-L646
+        // TODO: Create `MinimapBox` class as we're currently setting grabbing state on the whole builder
         // TODO: If we add more handles, then we need to figure out updating left/top appropriately
         let {left, top, width, height} = box;
         minimapContent.push(h(Draggable, {
@@ -75,7 +78,7 @@ class MinimapBuilder extends React.Component {
             },
             style: {
               // Vertical centering for span, https://css-tricks.com/centering-css-complete-guide/
-              // TODO: Relocate all content to classes
+              // TODO: Relocate all content to classes -- haven't done this yet since unsure of finalization
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
