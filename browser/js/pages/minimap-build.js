@@ -49,8 +49,8 @@ class MinimapBuild extends React.Component {
       ]),
       h('.row', [
         h('.col-12.mb-3', [
-          h(MinimapBuilder, {className: 'p-1', style: {border: '1px solid black', height: '300px'}}, [
-
+          h('div.p-1', {style: {border: '1px solid black'}}, [
+            h(MinimapBuilder, {state})
           ])
         ])
       ]),
