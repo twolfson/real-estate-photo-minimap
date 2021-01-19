@@ -134,15 +134,15 @@ window.Store = Store; // Expose for debugging/practicality
 // Load in our saved state
 // TODO: Use distinct key for each minimap (part of CRUD build)
 // TODO: Set up ability for user to clear their own cache (would be deletion in CRUD)
-// if (config.persistData && localStorage.stateBackup) {
-//   let _loadedState = JSON.parse(localStorage.stateBackup).state;
-//   state = _loadedState;
-//   Store.regenerateRenderState();
+if (config.persistData && localStorage.stateBackup) {
+  let _loadedState = JSON.parse(localStorage.stateBackup).state;
+  state = _loadedState;
+  Store.regenerateRenderState();
 
-//   // eslint-disable-next-line no-console
-//   console.info('Loaded state from `localStorage`. ' +
-//     'To delete backup, run: `delete localStorage.stateBackup; window.refresh()`');
-// }
+  // eslint-disable-next-line no-console
+  console.info('Loaded state from `localStorage`. ' +
+    'To delete backup, run: `delete localStorage.stateBackup; window.refresh()`');
+}
 
 // Expose our store
 module.exports = Store;
