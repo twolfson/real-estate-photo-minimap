@@ -30,28 +30,32 @@ class MinimapBuilder extends React.Component {
       let top = Math.floor(i / 5) * 150;
       let width = 100;
       let height = 100;
-      // return h(Draggable, {
-        // bounds: 'parent',
-        // onStart: () => { this.setState({dragging: true}); },
-        // onStop: () => { this.setState({dragging: false}); },
-      // }, [
-      return h(ResizableBox, {
-        height, width,
-        style: {
-          // Vertical centering for span, https://css-tricks.com/centering-css-complete-guide/
-          display: 'flex',
-          flexDirection: 'column',
-          justifyContent: 'center',
-
-          cursor: this.state.dragging ? 'grabbing' : 'grab',
-          background: 'white',
-          border: '3px solid black',
-          position: 'absolute', left, top,
-        }
+      return h(Draggable, {
+        bounds: 'parent',
+        onStart: () => { this.setState({dragging: true}); },
+        onStop: () => { this.setState({dragging: false}); },
       }, [
-        h('.d-inline-block.text-center', [
-          h(`.d-inline-block.small.p-1.location-${location.key}-bg`, {
-          }, location.name)
+        h('div', [
+          h(ResizableBox, {
+            height, width,
+            style: {
+              // Vertical centering for span, https://css-tricks.com/centering-css-complete-guide/
+              // TODO: Relocate all content to classes
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+
+              cursor: this.state.dragging ? 'grabbing' : 'grab',
+              background: 'white',
+              border: '3px solid black',
+              position: 'absolute', left, top,
+            }
+          }, [
+            h('.d-inline-block.text-center', [
+              h(`.d-inline-block.small.p-1.location-${location.key}-bg`, {
+              }, location.name)
+            ])
+          ])
         ])
       ])
     })));
