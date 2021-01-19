@@ -21,3 +21,8 @@ As a stand-in for now, here's what we should test assuming that the current vers
 
 - Could do testing for serializing/restoring state but that's far from finished
 - Omitting even smaller one-offs (e.g. showing border on categorized images, updating remaining images count)
+
+## Store
+- Generates helper state (unfrozen) and render state (frozen)
+- Actions only interact with unfrozen state
+- `run` methods only interact with frozen state
