@@ -33,6 +33,7 @@ let state = {
     let img = {key: i.toString(), src: src, locationKey: null};
     return img;
   }),
+  minimapInfo: null,
   currentImageIndex: 0,
 };
 
@@ -54,6 +55,24 @@ let actions = {
   previousImage: function () {
     state.currentImageIndex = state.currentImageIndex - 1;
     if (state.currentImageIndex < 0) { state.currentImageIndex = state.images.length - 1; }
+  },
+  populateMinimapInfo: function () {
+    // If we already have minimap info, then do nothing
+    if (location.minimapInfo) {
+      return;
+    }
+    location.minimapInfo = {
+      boxes: state.location.map((location, i) => {
+        return {
+          type: 'location',
+          locationKey: location.key,
+          left: (i % 5) * 150,
+          top: Math.floor(i / 5) * 150,
+          width: 100,
+          height: 100,
+        };
+      })
+    };
   },
   sortImagesByLocationKey: function () {
     // DEV: All browsers except IE stable sort, this is prob good enough -- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort

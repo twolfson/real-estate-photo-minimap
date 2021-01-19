@@ -32,48 +32,62 @@ class MinimapBuilder extends React.Component {
   }
 
   render() {
-    let locations = this.props.state.locations;
+    let parentState = this.props.state;
+    let locations = parentState.locations;
     return h('div', {style: {position: 'relative', height: '300px'}}, [
       // h('span', {style: {position: 'absolute'}}, 'Minimap builder goes here'),
       // h('img', {src: blueprintSvgSrc, style: {maxHeight: '100%', margin: '0 auto'}}),
-    ].concat(locations.filter((location) => location.name).map((location, i) => {
-      // Create our default location info
-      if (!location.minimapInfo) {
-        location.minimapInfo = {
-          left: (i % 5) * 150,
-          top: Math.floor(i / 5) * 150,
-          width: 100,
-          height: 100,
-        }
-      }
-      let {left, top, width, height} = location.minimapInfo;
-      return h(Draggable, {
-        bounds: 'parent',
-        onStart: () => { this.setState({dragging: true}); },
-        onStop: () => { this.setState({dragging: false}); },
-      }, [
-        h(ResizableBox, {
-          height, width,
-          style: {
-            // Vertical centering for span, https://css-tricks.com/centering-css-complete-guide/
-            // TODO: Relocate all content to classes
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
+    ].concat((() => {
+      let minimapContent = [];
+      parentState.minimapInfo.boxes.forEach((box) => {
+        // Generate box content depending on box type
+        let content = null;
+        if (box.type === 'location') {
+          // Resolve our location
+          let location = locations.find((location) => location.key === box.locationKey);
+          assert(location, `Couldn't find location ${box.locationKey}`);
 
-            cursor: this.state.dragging ? 'grabbing' : 'grab',
-            background: 'white',
-            border: '3px solid black',
-            position: 'absolute', left, top,
+          // If the location is unused, skip it
+          if (!location.name) {
+            return;
           }
-        }, [
-          h('.d-inline-block.text-center', [
+
+          // Otherwise, generate content
+          content = h('.d-inline-block.text-center', [
             h(`.d-inline-block.small.p-1.location-${location.key}-bg`, {
             }, location.name)
+          ]);
+        } else {
+          throw new Error(`Unexpected box type ${box.type}`);
+        }
+
+        // Render our box
+        let {left, top, width, height} = box;
+        return h(Draggable, {
+          bounds: 'parent',
+          onStart: () => { this.setState({dragging: true}); },
+          onStop: () => { this.setState({dragging: false}); },
+        }, [
+          h(ResizableBox, {
+            height, width,
+            style: {
+              // Vertical centering for span, https://css-tricks.com/centering-css-complete-guide/
+              // TODO: Relocate all content to classes
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+
+              cursor: this.state.dragging ? 'grabbing' : 'grab',
+              background: 'white',
+              border: '3px solid black',
+              position: 'absolute', left, top,
+            }
+          }, [
+            content
           ])
-        ])
-      ])
-    })));
+        ]);
+      })
+    })()));
   }
 }
 module.exports = MinimapBuilder;

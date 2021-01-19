@@ -16,6 +16,7 @@ class MinimapBuild extends React.Component {
 
     // Before handing off state, perform a synchronous sort on our data
     Store.run('sortImagesByLocationKey');
+    Store.run('populateMinimapInfo');
 
     // Perform normal constructor actions
     this.state = Store._renderState;
