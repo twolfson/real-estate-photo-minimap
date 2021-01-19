@@ -66,12 +66,12 @@ class MinimapBuilder extends React.Component {
         let {left, top, leftOffset, topOffset, width, height} = box;
         minimapContent.push(h(Draggable, {
           bounds: 'parent',
-          positionOffset: {x: leftOffset, y: topOffset},
+          position: {x: leftOffset, y: topOffset},
           onStart: () => { this.setState({dragging: true}); },
-          onStop: (evt, ui) => {
-            this.setState({dragging: false});
+          onDrag: (evt, ui) => {
             Store.rr('updateMinimapBox', box.key, {leftOffset: ui.x, topOffset: ui.y});
           },
+          onStop: () => { this.setState({dragging: false}); },
         }, [
           h(ResizableBox, {
             height, width,
