@@ -64,7 +64,7 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 - [ ] Settle on license (probably dual license, maybe leave unlicensed/private for a while)
 
 #### Polish
-- [ ] Abstract common content like key listeners, page layouts
+- [ ] Abstract common content like page components, key listeners, page layouts
 - [ ] Behavior
   - [ ] Sort once when we navigate between pages, not on every render
 - [ ] Add analytics
