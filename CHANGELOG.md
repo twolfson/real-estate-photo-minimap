@@ -1,4 +1,6 @@
 # real-estate-photo-minimap
+1.5.0 - Added minimap builder via draggable/resizable
+
 1.4.1 - Fixed sort behavior to move `null` to end
 
 1.4.0 - Added state freezing and store isolation
