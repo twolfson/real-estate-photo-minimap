@@ -17,14 +17,6 @@ Resizable.prototype.resizeHandler = function () {
   };
 };
 
-// Fancy importing non-JS assets handling for demo
-// TODO: Remove SVG demo
-import blueprintSvgSrc from '../../../backups/1376-natoma.svg';
-
-// https://github.com/STRML/react-grid-layout/blob/1.2.0/lib/GridItem.jsx#L642-L646
-// Wrap in draggable as outer, then resizable as inner
-// TODO: Move comment
-
 // Define our component
 class MinimapBuilder extends React.Component {
   constructor(props) {
@@ -36,7 +28,6 @@ class MinimapBuilder extends React.Component {
     let parentState = this.props.state;
     let locations = parentState.locations;
     return h('div', {style: {position: 'relative', height: '300px'}}, [
-      h('img', {src: blueprintSvgSrc, style: {position: 'absolute', maxHeight: '100%', margin: '0 auto'}}),
     ].concat((() => {
       let minimapContent = [];
       parentState.minimapInfo.boxes.forEach((box) => {
@@ -62,6 +53,8 @@ class MinimapBuilder extends React.Component {
         }
 
         // Render our box
+        // https://github.com/STRML/react-grid-layout/blob/1.2.0/lib/GridItem.jsx#L642-L646
+        // TODO: If we add more handles, then we need to figure out updating left/top appropriately
         let {left, top, width, height} = box;
         minimapContent.push(h(Draggable, {
           bounds: 'parent',
