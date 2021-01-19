@@ -1,4 +1,6 @@
 # real-estate-photo-minimap
+1.4.1 - Fixed sort behavior to move `null` to end
+
 1.4.0 - Added state freezing and store isolation
 
 1.3.0 - Added routing and quick/dirty step 2 prototype page
