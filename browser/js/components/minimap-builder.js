@@ -78,7 +78,7 @@ class MinimapBuilder extends React.Component {
             },
             style: {
               // Vertical centering for span, https://css-tricks.com/centering-css-complete-guide/
-              // TODO: Relocate all content to classes -- haven't done this yet since unsure of finalization
+              // TODO: Relocate all inline CSS to classes -- haven't done this yet since unsure of finalization
               display: 'flex',
               flexDirection: 'column',
               justifyContent: 'center',
