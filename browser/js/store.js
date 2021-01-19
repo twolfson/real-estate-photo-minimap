@@ -58,7 +58,7 @@ let actions = {
   },
   populateMinimapInfo: function () {
     // If we already have minimap info, then do nothing
-    if (location.minimapInfo) {
+    if (state.minimapInfo) {
       return;
     }
     state.minimapInfo = {

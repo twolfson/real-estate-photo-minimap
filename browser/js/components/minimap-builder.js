@@ -63,12 +63,14 @@ class MinimapBuilder extends React.Component {
         }
 
         // Render our box
-        let {left, top, leftOffset, topOffset, width, height} = box;
+        let {left, top, width, height} = box;
         minimapContent.push(h(Draggable, {
           bounds: 'parent',
           position: {x: left, y: top},
           onStart: () => { this.setState({dragging: true}); },
           onDrag: (evt, ui) => {
+            // TODO: Move box to its own class and use temporary state until `onStop`
+            //   Currently this is hammering `localStorage`
             Store.rr('updateMinimapBox', box.key, {left: ui.x, top: ui.y});
           },
           onStop: () => { this.setState({dragging: false}); },
