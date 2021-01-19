@@ -13,16 +13,14 @@ import blueprintSvgSrc from '../../../backups/1376-natoma.svg';
 
 // Define our main page load hook
 class MinimapBuild extends React.Component {
-  constructor() {
-    super();
-    // TODO: Should use `this.state` instead of `Store` for content
-    // DEV: For now, this triggers new state due to unique object
-    let getState = () => { return {}; };
-    this.state = getState();
-    Store._renderFn = () => { this.setState(getState()); };
+  constructor(props) {
+    super(props);
+    this.state = Store._renderState;
+    Store._renderFn = this.setState.bind(this);
   }
 
   render() {
+    let state = this.state;
     return h('.container', [
       h('.row', [
         h('.col-12', [
@@ -77,13 +75,13 @@ class MinimapBuild extends React.Component {
                 ]),
               ]);
             }
-            assert(Store.locations.length === 10, `Expected 10 locations but received ${Store.locations.length}`);
+            assert(state.locations.length === 10, `Expected 10 locations but received ${state.locations.length}`);
             return [
               h('.row.mb-3',
-                Store.locations.slice(0, 5).map(createInput)
+                state.locations.slice(0, 5).map(createInput)
               ),
               h('.row.mb-3',
-                Store.locations.slice(5, 10).map(createInput)
+                state.locations.slice(5, 10).map(createInput)
               )
             ];
           })()
@@ -91,9 +89,9 @@ class MinimapBuild extends React.Component {
       ]),
       h('.row.mb-3', [
         h('.col-4', [
-          h('a', {href: Store.getCurrentImage().src, target: '_blank'}, [
+          h('a', {href: state.getCurrentImage().src, target: '_blank'}, [
             h('img.img-fluid', {
-              src: Store.getCurrentImage().src,
+              src: state.getCurrentImage().src,
               alt: 'Actively selected photo',
             })
           ])
@@ -105,7 +103,7 @@ class MinimapBuild extends React.Component {
             //   but we should prob not contaminate the Store order directly like that
             //   Maybe add something like an `orderId` key to each image and update/sort by that?
             //   To see it break: Use `.slice()` first as well as reset `localStorage`
-            Store.images.sort((imgA, imgB) => {
+            state.images.sort((imgA, imgB) => {
               return imgA.locationKey > imgB.locationKey;
             }).map((img, i) => {
               return h('.col.mb-1', [
@@ -113,7 +111,7 @@ class MinimapBuild extends React.Component {
                 h('div', {
                   key: i,
                   className: classnames({
-                    'selected-image': i === Store.currentImageIndex,
+                    'selected-image': i === state.currentImageIndex,
                   }, img.locationKey ? `location-img location-${img.locationKey}-img` : '')
                 }, [
                   h('img.img-fluid', {
@@ -151,6 +149,7 @@ class MinimapBuild extends React.Component {
 
   componentDidMount() {
     // When a key is pressed
+    let state = this.state;
     this._keyListener = (evt) => {
       // If the event is for an input, then stop
       // https://github.com/ccampbell/mousetrap/blob/1.6.5/mousetrap.js#L973-L1001
@@ -160,7 +159,7 @@ class MinimapBuild extends React.Component {
 
       // Compare to known shortcuts
       // Location numbers
-      if (Store.getLocationKeys().includes(evt.key)) {
+      if (state.getLocationKeys().includes(evt.key)) {
         Store.rr('goToFirstLocationImage', evt.key);
       // Arrow keys
       } else if (evt.key === 'ArrowLeft') {
