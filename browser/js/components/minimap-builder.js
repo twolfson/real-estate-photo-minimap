@@ -6,6 +6,7 @@ const Draggable = require('react-draggable');
 const { Resizable } = require('react-resizable');
 
 // Fancy importing non-JS assets handling for demo
+// TODO: Remove SVG demo
 import blueprintSvgSrc from '../../../backups/1376-natoma.svg';
 
 // https://github.com/STRML/react-grid-layout/blob/1.2.0/lib/GridItem.jsx#L642-L646
@@ -30,6 +31,7 @@ class MinimapBuilder extends React.Component {
       let width = 100;
       let height = 100;
       return h(Draggable, {
+        bounds: 'parent',
         onStart: () => { this.setState({dragging: true}); },
         onStop: () => { this.setState({dragging: false}); },
       }, [
@@ -40,7 +42,6 @@ class MinimapBuilder extends React.Component {
             flexDirection: 'column',
             justifyContent: 'center',
 
-            // TODO: Bind `cursor: grabbing` on grabbing
             cursor: this.state.dragging ? 'grabbing' : 'grab',
             background: 'white',
             border: '3px solid black',
