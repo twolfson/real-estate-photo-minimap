@@ -4,6 +4,8 @@
   "description": "Generate a minimap browser for real estate photos",
   "dependencies": {
     "classnames": "~2.2.6",
+    "deep-freeze": "0.0.1",
+    "lodash.clonedeep": "~4.5.0",
     "react": "~17.0.1",
     "react-dom": "~17.0.1",
     "react-hyperscript": "~3.2.0",

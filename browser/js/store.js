@@ -1,6 +1,8 @@
 // Load in our dependencies
 const assert = require('assert');
 const config = require('./config');
+const cloneDeep = require('lodash.clonedeep');
+const deepFreeze = require('deep-freeze');
 let demoData = require('../../data/demo.json');
 
 // Reset data in development
@@ -118,7 +120,8 @@ let Store = {
   // Define our action interfaces
   _renderState: null,
   regenerateRenderState: function () {
-    this._renderState = Object.assign({}, state, helpers);
+    let renderState = Object.assign({}, state, helpers);
+    this._renderState = deepFreeze(cloneDeep(renderState));
     return this._renderState;
   },
   run: function (method, /* args */) {
