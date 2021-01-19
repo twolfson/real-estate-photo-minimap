@@ -15,6 +15,7 @@ import blueprintSvgSrc from '../../../backups/1376-natoma.svg';
 class MinimapBuild extends React.Component {
   constructor(props) {
     super(props);
+    Store.run('sortImagesByLocationKey');
     this.state = Store._renderState;
     Store._renderFn = this.setState.bind(this);
   }
@@ -98,14 +99,7 @@ class MinimapBuild extends React.Component {
         ]),
         h('.col-8', [
           h('.row.row-cols-8',
-            // DEV: All browsers except IE stable sort, this is prob good enough -- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-            // TODO: This mutates our images in-place, thus Store receives new order, which is why left/right arrows are working right now
-            //   but we should prob not contaminate the Store order directly like that
-            //   Maybe add something like an `orderId` key to each image and update/sort by that?
-            //   To see it break: Use `.slice()` first as well as reset `localStorage`
-            state.images.sort((imgA, imgB) => {
-              return imgA.locationKey > imgB.locationKey;
-            }).map((img, i) => {
+            state.images.map((img, i) => {
               return h('.col.mb-1', [
                 // DEV: We use a `div` as `::before` doesn't seem to work great with `img`
                 h('div', {

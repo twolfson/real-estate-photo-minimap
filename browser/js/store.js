@@ -37,13 +37,6 @@ let state = {
 };
 
 let actions = {
-  previousImage: function () {
-    state.currentImageIndex = state.currentImageIndex - 1;
-    if (state.currentImageIndex < 0) { state.currentImageIndex = state.images.length - 1; }
-  },
-  nextImage: function () {
-    state.currentImageIndex = (state.currentImageIndex + 1) % state.images.length;
-  },
   goToFirstLocationImage: function (locationKey) {
     let firstLocationImageIndex = state.images.findIndex((img) => img.locationKey === locationKey);
     if (firstLocationImageIndex !== -1) {
@@ -55,6 +48,19 @@ let actions = {
     assert(!isNaN(index), `Index is NaN`);
     state.currentImageIndex = index;
   },
+  nextImage: function () {
+    state.currentImageIndex = (state.currentImageIndex + 1) % state.images.length;
+  },
+  previousImage: function () {
+    state.currentImageIndex = state.currentImageIndex - 1;
+    if (state.currentImageIndex < 0) { state.currentImageIndex = state.images.length - 1; }
+  },
+  sortImagesByLocationKey: function () {
+    // DEV: All browsers except IE stable sort, this is prob good enough -- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+    state.images.sort((imgA, imgB) => {
+      return imgA.locationKey > imgB.locationKey;
+    });
+  },
   setLocationForCurrentImage: function (locationKey) {
     let locationKeys = helpers.getLocationKeys();
     assert(locationKeys.includes(locationKey), `Location ${locationKey} isn't within locations`);
@@ -64,7 +70,7 @@ let actions = {
   setLocationName: function (locationKey, name) {
     let location = state.locations.find((location) => location.key === locationKey);
     location.name = name;
-  }
+  },
 };
 
 // Define our helper methods
@@ -126,13 +132,14 @@ let Store = {
   },
   run: function (method, /* args */) {
     let args = [].slice.call(arguments, 1);
-    return actions[method].apply(actions, args);
+    actions[method].apply(actions, args);
+    this.regenerateRenderState();
   },
   rr /* run and render */: function () {
     // Run our logic
     this.run.apply(this, arguments);
     assert(this._renderFn, 'Store._renderFn was never set');
-    this._renderFn(this.regenerateRenderState());
+    this._renderFn(this._renderState);
 
     // Serialize and save our state
     if (config.persistData) {
