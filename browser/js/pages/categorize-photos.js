@@ -12,11 +12,8 @@ const {Link} = require('react-router-dom');
 class CategorizePhotos extends React.Component {
   constructor() {
     super();
-    // TODO: Should use `this.state` instead of `Store` for content
-    // DEV: For now, this triggers new state due to unique object
-    let getState = () => { return {}; };
-    this.state = getState();
-    Store._renderFn = () => { this.setState(getState()); };
+    this.state = Store._renderState;
+    Store._renderFn = this.setState.bind(this);
   }
 
   render() {

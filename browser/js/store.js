@@ -116,6 +116,11 @@ let Store = {
   getCurrentImage: function () { return helpers._getCurrentImage(); },
 
   // Define our action interfaces
+  _renderState: null,
+  regenerateRenderState: function () {
+    this._renderState = Object.assign({}, state, helpers);
+    return this._renderState;
+  },
   run: function (method, /* args */) {
     let args = [].slice.call(arguments, 1);
     return actions[method].apply(actions, args);
@@ -124,8 +129,7 @@ let Store = {
     // Run our logic
     this.run.apply(this, arguments);
     assert(this._renderFn, 'Store._renderFn was never set');
-    let renderState = Object.assign({}, state, helpers);
-    this._renderFn(renderState);
+    this._renderFn(this.regenerateRenderState());
 
     // Serialize and save our state
     if (config.persistData) {
@@ -137,6 +141,7 @@ let Store = {
     }
   }
 };
+Store.regenerateRenderState();
 window.Store = Store; // Expose for debugging/practicality
 
 // Load in our saved state
