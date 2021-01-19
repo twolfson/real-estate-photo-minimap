@@ -1,6 +1,6 @@
 {
   "name": "real-estate-photo-minimap",
-  "version": "1.3.0",
+  "version": "1.4.0",
   "description": "Generate a minimap browser for real estate photos",
   "dependencies": {
     "classnames": "~2.2.6",
