@@ -54,10 +54,10 @@ let actions = {
     state.currentImageIndex = index;
   },
   setLocationForCurrentImage: function (locationKey) {
-    let locationKeys = this.getLocationKeys();
+    let locationKeys = helpers.getLocationKeys();
     assert(locationKeys.includes(locationKey), `Location ${locationKey} isn't within locations`);
-    this.getCurrentImage().locationKey = locationKey;
-    this.nextImage();
+    helpers.getCurrentImage().locationKey = locationKey;
+    actions.nextImage();
   },
   setLocationName: function (locationKey, name) {
     let location = state.locations.find((location) => location.key === locationKey);
@@ -65,16 +65,8 @@ let actions = {
   }
 };
 
-let Store = {
-  // Allow external context to set render callback
-  _renderFn: null,
-
-  // Re-expose state and actions for quick access publicly
-  __state: state,
-  __actions: actions,
-
-  // Define our helper methods
-  // TODO: Ditch `get` methods once migrated to `setState` model
+// Define our helper methods
+let helpers = {
   get locations() {
     return state.locations;
   },
@@ -91,7 +83,37 @@ let Store = {
     return state.images[state.currentImageIndex];
   },
   // TODO: Add in freezing for this data
-  getCurrentImage: function () { return this._getCurrentImage(); },
+  getCurrentImage: function () { return helpers._getCurrentImage(); },
+};
+
+let Store = {
+  // Allow external context to set render callback
+  _renderFn: null,
+
+  // Re-expose state and actions for quick access publicly
+  __state: state,
+  __actions: actions,
+  __helpers: helpers,
+
+  // Define our helper methods
+  // TODO: Ditch helper methods once migrated to `setState` model
+  get locations() {
+    return state.locations;
+  },
+  get images() {
+    return state.images;
+  },
+  get currentImageIndex() {
+    return state.currentImageIndex;
+  },
+  getLocationKeys: function () {
+    return state.locations.map((location) => location.key);
+  },
+  _getCurrentImage: function () {
+    return state.images[state.currentImageIndex];
+  },
+  // TODO: Add in freezing for this data
+  getCurrentImage: function () { return helpers._getCurrentImage(); },
 
   // Define our action interfaces
   run: function (method, /* args */) {
@@ -102,7 +124,8 @@ let Store = {
     // Run our logic
     this.run.apply(this, arguments);
     assert(this._renderFn, 'Store._renderFn was never set');
-    this._renderFn();
+    let renderState = Object.assign({}, state, helpers);
+    this._renderFn(renderState);
 
     // Serialize and save our state
     if (config.persistData) {
