@@ -35,26 +35,29 @@ class MinimapBuilder extends React.Component {
         onStart: () => { this.setState({dragging: true}); },
         onStop: () => { this.setState({dragging: false}); },
       }, [
-        h('div', {
-          style: {
-            // Vertical centering for span, https://css-tricks.com/centering-css-complete-guide/
-            display: 'flex',
-            flexDirection: 'column',
-            justifyContent: 'center',
-
-            cursor: this.state.dragging ? 'grabbing' : 'grab',
-            background: 'white',
-            border: '3px solid black',
-            position: 'absolute', left, top,
-            width, height,
-          }
+        h(Resizable, {
         }, [
-          h('.d-inline-block.text-center', [
-            h(`.d-inline-block.small.p-1.location-${location.key}-bg`, {
-            }, location.name)
+          h('div', {
+            style: {
+              // Vertical centering for span, https://css-tricks.com/centering-css-complete-guide/
+              display: 'flex',
+              flexDirection: 'column',
+              justifyContent: 'center',
+
+              cursor: this.state.dragging ? 'grabbing' : 'grab',
+              background: 'white',
+              border: '3px solid black',
+              position: 'absolute', left, top,
+              width, height,
+            }
+          }, [
+            h('.d-inline-block.text-center', [
+              h(`.d-inline-block.small.p-1.location-${location.key}-bg`, {
+              }, location.name)
+            ])
           ])
         ])
-      ]);
+      ])
     })));
   }
 }
