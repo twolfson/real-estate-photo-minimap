@@ -67,15 +67,19 @@ class MinimapBuilder extends React.Component {
           bounds: 'parent',
           position: {x: left, y: top},
           onStart: () => { this.setState({dragging: true}); },
-          onDrag: (evt, ui) => {
+          onDrag: (evt, data) => {
             // TODO: Move box to its own class and use temporary state until `onStop`
             //   Currently this is hammering `localStorage` -- also bad for UX
-            Store.rr('updateMinimapBox', box.key, {left: ui.x, top: ui.y});
+            Store.rr('updateMinimapBox', box.key, {left: data.x, top: data.y});
           },
           onStop: () => { this.setState({dragging: false}); },
         }, [
           h(ResizableBox, {
             height, width,
+            onResizeStop: (evt, data) => {
+              let {width, height} = data.size;
+              Store.rr('updateMinimapBox', box.key, {width, height});
+            },
             style: {
               // Vertical centering for span, https://css-tricks.com/centering-css-complete-guide/
               // TODO: Relocate all content to classes
