@@ -64,7 +64,7 @@ class MinimapBuilder extends React.Component {
 
         // Render our box
         let {left, top, width, height} = box;
-        return h(Draggable, {
+        minimapContent.push(h(Draggable, {
           bounds: 'parent',
           onStart: () => { this.setState({dragging: true}); },
           onStop: () => { this.setState({dragging: false}); },
@@ -86,8 +86,9 @@ class MinimapBuilder extends React.Component {
           }, [
             content
           ])
-        ]);
-      })
+        ]));
+      });
+      return minimapContent;
     })()));
   }
 }
