@@ -3,13 +3,11 @@ const assert = require('assert');
 const config = require('../config');
 const classnames = require('classnames');
 const h = require('react-hyperscript');
+const MinimapBuilder = require('../components/minimap-builder');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const Store = require('../store');
 const {Link} = require('react-router-dom');
-
-// Fancy importing non-JS assets handling for demo
-import blueprintSvgSrc from '../../../backups/1376-natoma.svg';
 
 // Define our main page load hook
 class MinimapBuild extends React.Component {
@@ -51,9 +49,8 @@ class MinimapBuild extends React.Component {
       ]),
       h('.row', [
         h('.col-12.mb-3', [
-          h('div.p-1', {style: {border: '1px solid black', height: '300px'}}, [
-            h('span', {style: {position: 'absolute'}}, 'Minimap builder goes here'),
-            h('img', {src: blueprintSvgSrc, style: {maxHeight: '100%', margin: '0 auto'}})
+          h(MinimapBuilder, {className: 'p-1', style: {border: '1px solid black', height: '300px'}}, [
+
           ])
         ])
       ]),
@@ -141,7 +138,6 @@ class MinimapBuild extends React.Component {
           ])
         ]),
       ]),
-
     ]);
   }
 
