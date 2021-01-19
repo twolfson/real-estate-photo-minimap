@@ -59,8 +59,6 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 
 #### Polish
 - [ ] Abstract common content like page components, key listeners, page layouts
-- [ ] Behavior
-  - [ ] Sort once when we navigate between pages, not on every render
 - [ ] Add analytics
 - [ ] Add error handling
 - [ ] Add "hint" notes to categorization page

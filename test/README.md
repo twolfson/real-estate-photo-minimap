@@ -26,3 +26,10 @@ As a stand-in for now, here's what we should test assuming that the current vers
 - Generates helper state (unfrozen) and render state (frozen)
 - Actions only interact with unfrozen state
 - `run` methods only interact with frozen state
+- `sort`
+  - Will compare `null` equal to `null`
+  - Will put `null` at back of list when it's first
+  - Will put `null` at back of list when it's second
+  - Will sort `1` in front of `2` when `1` is first
+  - Will sort `1` in front of `2` when `1` is second
+  - Won't change order both images have value of `1`
