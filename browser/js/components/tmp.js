@@ -27,9 +27,19 @@ class MinimapBuilder extends React.Component {
   }
 
   render() {
-    return h('div', {style: {position: 'relative', height: '300px'}}, [
+    return h('div', {
+      ref: (containerEl) => { this.containerEl = containerEl; },
+      style: {position: 'relative', height: '300px'},
+    }, [
       h('h1', 'hi')
     ]);
+  }
+
+  componentDidMount() {
+    this.containerEl.textContent = 'yoooo';
+  }
+  componentWillUnmount() {
+    // Unmount logic goes here
   }
 }
 module.exports = MinimapBuilder;
