@@ -66,6 +66,76 @@ class Floorplan extends React.Component {
 
   componentDidMount() {
     // Based on: https://github.com/twolfson/blueprint3d/blob/ba841406daeacc294ace175876bf5b36b70845b3/example/js/example.js
+    /*
+     * Floorplanner controls
+     */
+    var ViewerFloorplanner = function(blueprint3d) {
+
+      var canvasWrapper = '#floorplanner';
+
+      // buttons
+      var move = '#move';
+      var remove = '#delete';
+      var draw = '#draw';
+
+      var activeStlye = 'btn-primary disabled';
+
+      this.floorplanner = blueprint3d.floorplanner;
+
+      var scope = this;
+
+      function init() {
+
+        $( window ).resize( scope.handleWindowResize );
+        scope.handleWindowResize();
+
+        // mode buttons
+        scope.floorplanner.modeResetCallbacks.add(function(mode) {
+          $(draw).removeClass(activeStlye);
+          $(remove).removeClass(activeStlye);
+          $(move).removeClass(activeStlye);
+          if (mode == BP3D.Floorplanner.floorplannerModes.MOVE) {
+              $(move).addClass(activeStlye);
+          } else if (mode == BP3D.Floorplanner.floorplannerModes.DRAW) {
+              $(draw).addClass(activeStlye);
+          } else if (mode == BP3D.Floorplanner.floorplannerModes.DELETE) {
+              $(remove).addClass(activeStlye);
+          }
+
+          if (mode == BP3D.Floorplanner.floorplannerModes.DRAW) {
+            $("#draw-walls-hint").show();
+            scope.handleWindowResize();
+          } else {
+            $("#draw-walls-hint").hide();
+          }
+        });
+
+        $(move).click(function(){
+          scope.floorplanner.setMode(BP3D.Floorplanner.floorplannerModes.MOVE);
+        });
+
+        $(draw).click(function(){
+          scope.floorplanner.setMode(BP3D.Floorplanner.floorplannerModes.DRAW);
+        });
+
+        $(remove).click(function(){
+          scope.floorplanner.setMode(BP3D.Floorplanner.floorplannerModes.DELETE);
+        });
+      }
+
+      this.updateFloorplanView = function() {
+        scope.floorplanner.reset();
+      }
+
+      this.handleWindowResize = function() {
+        // Disabled: Resizing to full window height
+        // $(canvasWrapper).height(window.innerHeight - $(canvasWrapper).offset().top);
+        scope.floorplanner.resizeView();
+      };
+
+      init();
+    };
+
     // main setup
     var opts = {
       floorplannerElement: 'floorplanner-canvas',
@@ -74,10 +144,10 @@ class Floorplan extends React.Component {
       textureDir: "models/textures/",
       widget: false
     }
-    var blueprint3d = new BP3D.Blueprint3d(opts);
+    var blueprint3d = this.blueprint3d = new BP3D.Blueprint3d(opts);
     window.blueprint3d = blueprint3d;
 
-    var viewerFloorplanner = new ViewerFloorplanner(blueprint3d);
+    var viewerFloorplanner = this.viewerFloorplanner = new ViewerFloorplanner(blueprint3d);
     viewerFloorplanner.updateFloorplanView();
     viewerFloorplanner.handleWindowResize();
     blueprint3d.model.floorplan.update();
@@ -89,6 +159,8 @@ class Floorplan extends React.Component {
   }
   componentWillUnmount() {
     delete window.blueprint3d;
+    delete this.blueprint3d;
+    delete this.viewerFloorplanner;
   }
 }
 module.exports = Floorplan;
