@@ -7,6 +7,10 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 
 TODO: Flatten out `minimapInfo.boxes` to `minimap.items` so everything has a `type` and we can use less switching logic as well as have everything at the same order
 
+- Multiselect partially implemented on another branch, lots of small work in theory though
+- Feel like boxes might be limiting so should second guess it
+  - e.g. Current layout cuts off hallway awkwardly but unsure there are other good simple solutions
+
 ## Features
 - [x] Quick location categorization
 - [ ] Minimap creator
