@@ -93,6 +93,28 @@ Key point: We need to handle merging/splitting with adjacent walls
 Once that's done though, we can change up hover state easily/nicely
 """
 
+...
+Revisiting https://furnishup.github.io/blueprint3d/example/#
+We might actually be able to use this
+It's super clean and relatively close to what we'd build
+Although it's lacking good UX behavior at times =/
+
+...
+Realizing "floorplan" is the best term to search for
+"""
+Another decent floorplan variant
+
+https://github.com/dcarubia/floor-plan-lab
+https://floorplanlab.com/
+Better drawing functionality than we had but no dragging support at all for walls...
+
+Looked at others but nothing noteworthy
+
+Prob best to play with the 3D one we found and see how easy it is to fix up:
+- Only collapse walls on drag stop
+- Ensure sane data structures
+"""
+
 ## Features
 - [x] Quick location categorization
 - [ ] Minimap creator
