@@ -6,6 +6,11 @@ const ReactDOM = require('react-dom');
 const Draggable = require('react-draggable');
 const { Resizable, ResizableBox } = require('react-resizable');
 
+// Vendor dependencies
+// TODO: Relocate the entire construction of blueprint3d into its own file
+const THREE = require('three.js');
+const jQuery = require('blueprint3d/example/js/jquery.js');
+
 // Monkey patch resizable to work with draggable
 //   https://github.com/STRML/react-resizable/issues/18
 //   `div` not required, actually breaks things it seems
