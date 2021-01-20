@@ -13,19 +13,20 @@ const jQuery = require('blueprint3d/example/js/jquery.js');
 // Define our component
 class Floorplan extends React.Component {
   render() {
-    return h('div', {
-      ref: (containerEl) => { this.containerEl = containerEl; },
+    return h('#floorplanner', {
       style: {position: 'relative', height: '300px'},
     }, [
-      h('h1', 'hi')
+      h('canvas#floorplanner-canvas'),
+      h('#floorplanner-controls', [
+        h('button#move.btn.btn-sm.btn-outline-secondary.mr-1',   'Move walls/corners'),
+        h('button#draw.btn.btn-sm.btn-outline-secondary.mr-1',   'Draw/split walls'),
+        h('button#delete.btn.btn-sm.btn-outline-secondary.mr-1', 'Delete walls'),
+      ]),
+      h('#draw-walls-hint', 'Press the "Esc" key to stop drawing walls'),
     ]);
   }
 
   componentDidMount() {
-    this.containerEl.textContent = 'yoooo';
-    setTimeout(() => {
-      this.setState({count: 1});
-    }, 1000);
   }
   componentWillUnmount() {
     // Unmount logic goes here
