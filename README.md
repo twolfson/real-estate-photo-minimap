@@ -11,6 +11,15 @@ TODO: Flatten out `minimapInfo.boxes` to `minimap.items` so everything has a `ty
 - Feel like boxes might be limiting so should second guess it
   - e.g. Current layout cuts off hallway awkwardly but unsure there are other good simple solutions
 
+TODO: Adjust order of items (first is highest)
+TODO: Don't crowd target space with initial items
+TODO: Add "Add box" button and right click to delete functionality
+TODO: Add 4 way resize
+
+TODO: Having selection (required for multiselect) likely implies needing arrow keys which has headaches of UX for when to use arrow keys in minimap vs for photos
+
+TODO: Stop hammering localStorage via a `rr({persist: false})` flag
+
 ## Features
 - [x] Quick location categorization
 - [ ] Minimap creator
