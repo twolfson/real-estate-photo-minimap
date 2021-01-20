@@ -20,6 +20,79 @@ TODO: Having selection (required for multiselect) likely implies needing arrow k
 
 TODO: Stop hammering localStorage via a `rr({persist: false})` flag
 
+We tried out another variant outside of boxes -- i.e. building via line segments
+Results can be seen in `dev/gridlines.builder`
+
+While it can be more flexible, the UX isn't great
+After realizing this, we went on a long tangent:
+tl;dr - Build a blueprint tool, it will be all walls with smart splitting on add
+"""
+Take notes on `master` about it
+Solution would be to use line drawing (with grid snapping/not)
+and at that point, we're rebuilding SVG
+so might as well take time to use an established repo
+
+Which we were hesitant about due to...
+Not being able to do everything programmatically we want, in an easy manner
+
+But now we realize that things like text bounded in a box is prob not so practical for visuals
+
+But then pen tool confusion...
+
+Ugh, no winning here =/
+
+Oh, and pen tool is kind of broken in Method editor... yay...
+and SVG edit is kind of shit for drawing...
+
+Maybe we should just clone Figma?
+
+Tried out PenTool, also not great... Poor hit state and lack of deletion
+
+Ugh, such a big build if we do it...
+
+- Pen tool itself
+    - Snapping to lines
+    - Snapping to points
+    - Add/delete support
+    - Understanding wtf a vector network is -- Pretty confident it's a graph internally (i.e. nodes + edges + faces (for fills)), then exports as separate paths (which is only when explicitly done)
+- Select support
+- Arrow keys
+- Draggable
+- Resizable
+- Possible even text support
+
+So many headaches here...
+
+Like I know I can do it
+but imagining weeks of work =/
+
+...
+Or y'know... find a blueprint tool that we can use
+Maybe that UX is what we should focus on
+Click start in a grid, move to target location for width/height, move in other direction to set size
+Tearing down walls isn't that -- but instead they add doors and such
+
+Neat: https://github.com/cvdlab/react-planner
+That one allows for just drawing walls in series, still kind of like box model more
+
+"blueprint cad tool github" was great
+
+https://github.com/furnishup/blueprint3d
+Awesome but lacks drawing windows and such in 2D...
+
+https://i0.wp.com/www.lifeofanarchitect.com/wp-content/uploads/2019/08/Architectural-Sketch-Series-Schematic-Design-03.jpg?resize=1200%2C520&ssl=1
+Oh duh! We make it dashed or dotted to simulate opening
+
+It doesn't seem like we need to do bulk resizable like we're worrying about either
+More grab/drag wall
+
+So essentially it becomes eraser tool + cursor tool + add tool
+
+...
+Key point: We need to handle merging/splitting with adjacent walls
+Once that's done though, we can change up hover state easily/nicely
+"""
+
 ## Features
 - [x] Quick location categorization
 - [ ] Minimap creator
