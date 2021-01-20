@@ -8,6 +8,14 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 TODO: Persist changes to `blueprint3d`
 TODO: Document `npm install` vs `npm link` workflow
 
+Sanity checks:
+TODO: Verify we are doing decent teardown between pages
+
+Before landing:
+TODO: Fix up buttons
+TODO: Handle export state
+TODO: Integrate with other page
+
 TODO: Flatten out `minimapInfo.boxes` to `minimap.items` so everything has a `type` and we can use less switching logic as well as have everything at the same order
 
 - Multiselect partially implemented on another branch, lots of small work in theory though
