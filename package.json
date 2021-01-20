@@ -3,6 +3,7 @@
   "version": "1.5.0",
   "description": "Generate a minimap browser for real estate photos",
   "dependencies": {
+    "blueprint3d": "twolfson/blueprint3d#90d3302",
     "classnames": "~2.2.6",
     "deep-freeze": "0.0.1",
     "lodash.clonedeep": "~4.5.0",
