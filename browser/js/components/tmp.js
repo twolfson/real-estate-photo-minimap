@@ -23,20 +23,24 @@ Resizable.prototype.resizeHandler = function () {
 class MinimapBuilder extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {count: 0};
   }
 
   render() {
+    console.log('wat');
     return h('div', {
       ref: (containerEl) => { this.containerEl = containerEl; },
       style: {position: 'relative', height: '300px'},
     }, [
-      h('h1', 'hi')
+      h('h1', 'hi' + this.state.count)
     ]);
   }
 
   componentDidMount() {
     this.containerEl.textContent = 'yoooo';
+    setTimeout(() => {
+      this.setState({count: 1});
+    }, 1000);
   }
   componentWillUnmount() {
     // Unmount logic goes here
