@@ -1,0 +1,18 @@
+// Based on: https://github.com/twolfson/blueprint3d/blob/81a18379ba845406395be2bc76a5ba8e1634453b/example/css/example.css
+#floorplanner-controls {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+#draw-walls-hint {
+  position: absolute;
+  left: 20px;
+  bottom: 20px;
+  background-color: rgba(0, 0, 0, 0.50);
+  color: #ffffff;
+  padding: 5px 10px;
+  z-index: 10;
+  display: none;
+  pointer-events: none; /* Added: Disallow text selection so we can draw under it */
+}
