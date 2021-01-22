@@ -83,10 +83,14 @@ class Floorplan extends React.Component {
       this.floorplanner = blueprint3d.floorplanner;
 
       var scope = this;
+      var destroyCallbacks = $.Callbacks();
 
       function init() {
 
-        $( window ).resize( scope.handleWindowResize );
+        $( window ).on('resize', scope.handleWindowResize);
+        destroyCallbacks.add(function () {
+          $( window ).off('resize', scope.handleWindowResize);
+        });
         scope.handleWindowResize();
 
         // mode buttons
@@ -110,16 +114,19 @@ class Floorplan extends React.Component {
           }
         });
 
-        $(move).click(function(){
+        $(move).on('click', function(){
           scope.floorplanner.setMode(BP3D.Floorplanner.floorplannerModes.MOVE);
         });
-
-        $(draw).click(function(){
+        $(draw).on('click', function(){
           scope.floorplanner.setMode(BP3D.Floorplanner.floorplannerModes.DRAW);
         });
-
-        $(remove).click(function(){
+        $(remove).on('click', function(){
           scope.floorplanner.setMode(BP3D.Floorplanner.floorplannerModes.DELETE);
+        });
+        destroyCallbacks.add(function () {
+          $(move).off('click');
+          $(draw).off('click');
+          $(remove).off('click');
         });
       }
 
@@ -131,6 +138,12 @@ class Floorplan extends React.Component {
         // Disabled: Resizing to full window height
         // $(canvasWrapper).height(window.innerHeight - $(canvasWrapper).offset().top);
         scope.floorplanner.resizeView();
+      };
+
+      this.destroy = function() {
+        destroyCallbacks.fire();
+        destroyCallbacks.empty();
+        destroyCallbacks = null;
       };
 
       init();
@@ -160,6 +173,7 @@ class Floorplan extends React.Component {
   componentWillUnmount() {
     delete window.blueprint3d;
     delete this.blueprint3d;
+    this.viewerFloorplanner.destroy();
     delete this.viewerFloorplanner;
   }
 }
