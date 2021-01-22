@@ -5,10 +5,6 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 
 <https://twolfson.github.io/real-estate-photo-minimap-public/>
 
-TODO: Persist changes to `blueprint3d`
-TODO: Document `npm install` vs `npm link` workflow
-
-Sanity checks:
 TODO: Add draggable room labels
 TODO: Play with actual UX, build a floorplan for latest place
 
@@ -16,6 +12,8 @@ Before landing:
 TODO: Fix up buttons
 TODO: Handle export state
 TODO: Integrate with other page
+TODO: Persist changes to `blueprint3d`
+TODO: Document `npm install` vs `npm link` workflow
 
 TODO: Flatten out `minimapInfo.boxes` to `minimap.items` so everything has a `type` and we can use less switching logic as well as have everything at the same order
 
