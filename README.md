@@ -184,6 +184,8 @@ Prob best to play with the 3D one we found and see how easy it is to fix up:
 - [ ] On final page (with share links), prompt for donations
 - [ ] Footer info to demo page (e.g. attribution, donation info)
 - [ ] Prompt user on BR/BA count to prepopulate fields
+- [ ] Set max height on images
+- [ ] Play with React Dev Tools to see performance issues as well as move off of `[].concat` to use nested arrays
 
 ## Getting started
 To run our repo locally, run the following:
