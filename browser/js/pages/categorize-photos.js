@@ -89,12 +89,11 @@ class CategorizePhotos extends React.Component {
           ])
         ])
       ]),
-      h('.row',
+      h('.row', [
         state.images.map((img, i) => {
-          return h('.col-1.mb-1', [
+          return h('.col-1.mb-1', {key: i}, [
             // DEV: We use a `div` as `::before` doesn't seem to work great with `img`
             h('div', {
-              key: i,
               className: classnames({
                 'selected-image': i === state.currentImageIndex,
               }, img.locationKey ? `location-img location-${img.locationKey}-img` : '')
@@ -108,7 +107,7 @@ class CategorizePhotos extends React.Component {
             ])
           ]);
         })
-      ),
+      ]),
       h('.row', [
         h('.col-6', [
         ]),
