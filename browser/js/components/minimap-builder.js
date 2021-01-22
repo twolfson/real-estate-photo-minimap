@@ -30,71 +30,73 @@ class MinimapBuilder extends React.Component {
     let parentState = this.props.state;
     let locations = parentState.locations;
     return h('div', {style: {position: 'relative', height: '300px'}}, [
-    ].concat((() => {
-      let minimapContent = [];
-      parentState.minimapInfo.boxes.forEach((box) => {
-        // Generate box content depending on box type
-        let content = null;
-        if (box.type === 'location') {
-          // Resolve our location
-          let location = locations.find((location) => location.key === box.locationKey);
-          assert(location, `Couldn't find location ${box.locationKey}`);
+      (() => {
+        let minimapContent = [];
+        parentState.minimapInfo.boxes.forEach((box, i) => {
+          // Generate box content depending on box type
+          let content = null;
+          if (box.type === 'location') {
+            // Resolve our location
+            let location = locations.find((location) => location.key === box.locationKey);
+            assert(location, `Couldn't find location ${box.locationKey}`);
 
-          // If the location is unused, skip it
-          if (!location.name) {
-            return;
+            // If the location is unused, skip it
+            if (!location.name) {
+              return;
+            }
+
+            // Otherwise, generate content
+            content = h('.d-inline-block.text-center', [
+              h(`.d-inline-block.small.p-1.location-${location.key}-bg`, {
+              }, location.name)
+            ]);
+          } else {
+            throw new Error(`Unexpected box type ${box.type}`);
           }
 
-          // Otherwise, generate content
-          content = h('.d-inline-block.text-center', [
-            h(`.d-inline-block.small.p-1.location-${location.key}-bg`, {
-            }, location.name)
-          ]);
-        } else {
-          throw new Error(`Unexpected box type ${box.type}`);
-        }
-
-        // Render our box
-        // https://github.com/STRML/react-grid-layout/blob/1.2.0/lib/GridItem.jsx#L642-L646
-        // TODO: Create `MinimapBox` class as we're currently setting grabbing state on the whole builder
-        // TODO: If we add more handles, then we need to figure out updating left/top appropriately
-        let {left, top, width, height} = box;
-        minimapContent.push(h(Draggable, {
-          bounds: 'parent',
-          position: {x: left, y: top},
-          onStart: () => { this.setState({dragging: true}); },
-          onDrag: (evt, data) => {
-            // TODO: Move box to its own class and use temporary state until `onStop`
-            //   Currently this is hammering `localStorage` -- also bad for UX
-            Store.rr('updateMinimapBox', box.key, {left: data.x, top: data.y});
-          },
-          onStop: () => { this.setState({dragging: false}); },
-        }, [
-          h(ResizableBox, {
-            height, width,
-            onResizeStop: (evt, data) => {
-              let {width, height} = data.size;
-              Store.rr('updateMinimapBox', box.key, {width, height});
+          // Render our box
+          // https://github.com/STRML/react-grid-layout/blob/1.2.0/lib/GridItem.jsx#L642-L646
+          // TODO: Create `MinimapBox` class as we're currently setting grabbing state on the whole builder
+          // TODO: If we add more handles, then we need to figure out updating left/top appropriately
+          let {left, top, width, height} = box;
+          minimapContent.push(h(Draggable, {
+            key: i,
+            bounds: 'parent',
+            position: {x: left, y: top},
+            onStart: () => { this.setState({dragging: true}); },
+            onDrag: (evt, data) => {
+              // TODO: Move box to its own class and use temporary state until `onStop`
+              //   Currently this is hammering `localStorage` -- also bad for UX
+              Store.rr('updateMinimapBox', box.key, {left: data.x, top: data.y});
             },
-            style: {
-              // Vertical centering for span, https://css-tricks.com/centering-css-complete-guide/
-              // TODO: Relocate all inline CSS to classes -- haven't done this yet since unsure of finalization
-              display: 'flex',
-              flexDirection: 'column',
-              justifyContent: 'center',
-
-              cursor: this.state.dragging ? 'grabbing' : 'grab',
-              background: 'white',
-              border: '3px solid black',
-              position: 'absolute',
-            }
+            onStop: () => { this.setState({dragging: false}); },
           }, [
-            content
-          ])
-        ]));
-      });
-      return minimapContent;
-    })()));
+            h(ResizableBox, {
+              height, width,
+              onResizeStop: (evt, data) => {
+                let {width, height} = data.size;
+                Store.rr('updateMinimapBox', box.key, {width, height});
+              },
+              style: {
+                // Vertical centering for span, https://css-tricks.com/centering-css-complete-guide/
+                // TODO: Relocate all inline CSS to classes -- haven't done this yet since unsure of finalization
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
+
+                cursor: this.state.dragging ? 'grabbing' : 'grab',
+                background: 'white',
+                border: '3px solid black',
+                position: 'absolute',
+              }
+            }, [
+              content
+            ])
+          ]));
+        });
+        return minimapContent;
+      })()
+    ]);
   }
 }
 module.exports = MinimapBuilder;

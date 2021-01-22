@@ -42,7 +42,7 @@ class CategorizePhotos extends React.Component {
         ])
       ]),
       h('.row', [
-        h('.col-12',
+        h('.col-12', [
           (() => {
             function createInput(location) {
               return h('.col-2', {key: location.key}, [
@@ -65,15 +65,15 @@ class CategorizePhotos extends React.Component {
             }
             assert(state.locations.length === 10, `Expected 10 locations but received ${state.locations.length}`);
             return [
-              h('.row.mb-3',
+              h('.row.mb-3', {key: 'location-row-0'}, [
                 state.locations.slice(0, 5).map(createInput)
-              ),
-              h('.row.mb-3',
+              ]),
+              h('.row.mb-3', {key: 'location-row-1'}, [
                 state.locations.slice(5, 10).map(createInput)
-              )
+              ])
             ];
           })()
-        )
+        ])
       ]),
       h('.row', [
         h('.col-6', [
@@ -89,12 +89,11 @@ class CategorizePhotos extends React.Component {
           ])
         ])
       ]),
-      h('.row',
+      h('.row', [
         state.images.map((img, i) => {
-          return h('.col-1.mb-1', [
+          return h('.col-1.mb-1', {key: i}, [
             // DEV: We use a `div` as `::before` doesn't seem to work great with `img`
             h('div', {
-              key: i,
               className: classnames({
                 'selected-image': i === state.currentImageIndex,
               }, img.locationKey ? `location-img location-${img.locationKey}-img` : '')
@@ -108,7 +107,7 @@ class CategorizePhotos extends React.Component {
             ])
           ]);
         })
-      ),
+      ]),
       h('.row', [
         h('.col-6', [
         ]),

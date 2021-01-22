@@ -62,7 +62,7 @@ class MinimapBuild extends React.Component {
         ])
       ]),
       h('.row', [
-        h('.col-12',
+        h('.col-12', [
           (() => {
             function createInput(location) {
               return h('.col-2', {key: location.key}, [
@@ -81,15 +81,15 @@ class MinimapBuild extends React.Component {
             }
             assert(state.locations.length === 10, `Expected 10 locations but received ${state.locations.length}`);
             return [
-              h('.row.mb-3',
+              h('.row.mb-3', {key: 'location-row-0'}, [
                 state.locations.slice(0, 5).map(createInput)
-              ),
-              h('.row.mb-3',
+              ]),
+              h('.row.mb-3', {key: 'location-row-1'}, [
                 state.locations.slice(5, 10).map(createInput)
-              )
+              ])
             ];
           })()
-        )
+        ])
       ]),
       h('.row.mb-3', [
         h('.col-4', [
@@ -101,9 +101,9 @@ class MinimapBuild extends React.Component {
           ])
         ]),
         h('.col-8', [
-          h('.row.row-cols-8',
+          h('.row.row-cols-8', [
             state.images.map((img, i) => {
-              return h('.col.mb-1', [
+              return h('.col.mb-1', {key: i}, [
                 // DEV: We use a `div` as `::before` doesn't seem to work great with `img`
                 h('div', {
                   key: i,
@@ -120,7 +120,7 @@ class MinimapBuild extends React.Component {
                 ])
               ]);
             })
-          )
+          ])
         ])
       ]),
       h('.row', [
