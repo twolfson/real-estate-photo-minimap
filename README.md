@@ -9,6 +9,8 @@ TODO: Persist changes to `blueprint3d`
 TODO: Document `npm install` vs `npm link` workflow
 
 Sanity checks:
+TODO: Add draggable room labels
+TODO: Play with actual UX, build a floorplan for latest place
 TODO: Verify we are doing decent teardown between pages
 
 Before landing:
