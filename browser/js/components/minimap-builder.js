@@ -47,6 +47,7 @@ class MinimapBuilder extends React.Component {
           // TODO: Create `MinimapBox` class as we're currently setting grabbing state on the whole builder
           // TODO: If we add more handles, then we need to figure out updating left/top appropriately
           let {left, top} = box;
+          // TODO: Relocate default state setting elsewhere
           // let left, top;
           // if (i === 0) {
           //   left = 534;
