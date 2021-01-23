@@ -4,13 +4,16 @@ const h = require('react-hyperscript');
 const React = require('react');
 const ReactDOM = require('react-dom');
 
+// A lot of the content in this file is copy/paste/modify from `example` in `blueprint3d
+// https://github.com/twolfson/blueprint3d/tree/90d33027ab67c456acd769cfeb38bbdee42e092d/example
+
 // Vendor dependencies
-// TODO: Relocate the entire construction of blueprint3d into its own file
 // https://github.com/twolfson/blueprint3d/blob/90d33027ab67c456acd769cfeb38bbdee42e092d/example/index.html#L10-L15
 window.THREE = require('three.js');
 window.$ = require('blueprint3d/example/js/jquery.js');
 void require('blueprint3d/example/js/blueprint3d.js');
 
+// Helper functions
 const bootstrapIcon = (svgStr, style) => {
   return h('svg', {
     xmlns: 'http://www.w3.org/2000/svg', width: '16', height: '16',
@@ -172,7 +175,10 @@ class Floorplan extends React.Component {
   }
   componentWillUnmount() {
     delete window.blueprint3d;
+
+    // There is no `destroy` function yet (noted as a README task)
     delete this.blueprint3d;
+
     this.viewerFloorplanner.destroy();
     delete this.viewerFloorplanner;
   }

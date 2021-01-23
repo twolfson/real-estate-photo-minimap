@@ -195,7 +195,10 @@ Prob best to play with the 3D one we found and see how easy it is to fix up:
 - [ ] Footer info to demo page (e.g. attribution, donation info)
 - [ ] Prompt user on BR/BA count to prepopulate fields
 - [ ] Set max height on images
-- [ ] Play with React Dev Tools to see performance issues as well as move off of `[].concat` to use nested arrays
+- [x] Play with React Dev Tools to see performance issues as well as move off of `[].concat` to use nested arrays
+
+#### Low priority
+- [ ] Add `destroy` cleanup for `Blueprint3d` (not a lot of memory leaks expected)
 
 ## Getting started
 To run our repo locally, run the following:
