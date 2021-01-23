@@ -9,6 +9,7 @@ DONE: Add draggable room labels
 TODO: Play with actual UX, build a floorplan for latest place
   - Ugh, everything seems so great but first thought is multiselect and move =/ And that includes labels...
     - It's too fundamental of a UX feature to abandon it
+    - I guess they had pan as their multiselect + move but I don't think I'll have enough time to build it
 TODO: Rename `box` to `label` in many places, once UX verified -- lots of `minimap-build` can be simplified
 TODO: Delete unused CSS classes
 
