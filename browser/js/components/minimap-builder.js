@@ -1,5 +1,6 @@
 // Load in our dependencies
 const assert = require('assert');
+const Floorplan = require('./floorplan');
 const h = require('react-hyperscript');
 const React = require('react');
 const ReactDOM = require('react-dom');
@@ -16,6 +17,7 @@ class MinimapBuilder extends React.Component {
     let parentState = this.props.state;
     let locations = parentState.locations;
     return h('div', {style: {position: 'relative', height: '300px'}}, [
+      h(Floorplan),
       (() => {
         let minimapContent = [];
         parentState.minimapInfo.boxes.forEach((box, i) => {

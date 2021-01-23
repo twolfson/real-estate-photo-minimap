@@ -160,7 +160,7 @@ class Floorplan extends React.Component {
       textureDir: 'models/textures/',
       widget: false
     }
-    var blueprint3d = this.blueprint3d = new BP3D.Blueprint3d(opts);
+    var blueprint3d = this.blueprint3d = new window.BP3D.Blueprint3d(opts);
     window.blueprint3d = blueprint3d;
 
     var viewerFloorplanner = this.viewerFloorplanner = new ViewerFloorplanner(blueprint3d);
