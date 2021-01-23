@@ -5,8 +5,10 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 
 <https://twolfson.github.io/real-estate-photo-minimap-public/>
 
-TODO: Add draggable room labels
+DONE: Add draggable room labels
 TODO: Play with actual UX, build a floorplan for latest place
+  - Ugh, everything seems so great but first thought is multiselect and move =/ And that includes labels...
+    - It's too fundamental of a UX feature to abandon it
 TODO: Rename `box` to `label` in many places, once UX verified -- lots of `minimap-build` can be simplified
 TODO: Delete unused CSS classes
 
