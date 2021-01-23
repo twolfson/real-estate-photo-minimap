@@ -4,20 +4,6 @@ const h = require('react-hyperscript');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const Draggable = require('react-draggable');
-const { Resizable, ResizableBox } = require('react-resizable');
-
-// Monkey patch resizable to work with draggable
-//   https://github.com/STRML/react-resizable/issues/18
-//   `div` not required, actually breaks things it seems
-let _resizeHandler = Resizable.prototype.resizeHandler;
-Resizable.prototype.resizeHandler = function () {
-  let resultFn = _resizeHandler.apply(this, arguments);
-  return function (e) {
-    let result = resultFn.apply(this, arguments);
-    e.stopPropagation();
-    return result;
-  };
-};
 
 // Define our component
 class MinimapBuilder extends React.Component {
@@ -58,7 +44,7 @@ class MinimapBuilder extends React.Component {
           // https://github.com/STRML/react-grid-layout/blob/1.2.0/lib/GridItem.jsx#L642-L646
           // TODO: Create `MinimapBox` class as we're currently setting grabbing state on the whole builder
           // TODO: If we add more handles, then we need to figure out updating left/top appropriately
-          let {left, top, width, height} = box;
+          let {left, top} = box;
           minimapContent.push(h(Draggable, {
             key: i,
             bounds: 'parent',
@@ -71,22 +57,9 @@ class MinimapBuilder extends React.Component {
             },
             onStop: () => { this.setState({dragging: false}); },
           }, [
-            h(ResizableBox, {
-              height, width,
-              onResizeStop: (evt, data) => {
-                let {width, height} = data.size;
-                Store.rr('updateMinimapBox', box.key, {width, height});
-              },
+            h('div', {
               style: {
-                // Vertical centering for span, https://css-tricks.com/centering-css-complete-guide/
-                // TODO: Relocate all inline CSS to classes -- haven't done this yet since unsure of finalization
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-
                 cursor: this.state.dragging ? 'grabbing' : 'grab',
-                background: 'white',
-                border: '3px solid black',
                 position: 'absolute',
               }
             }, [

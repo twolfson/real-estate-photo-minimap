@@ -7,6 +7,8 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 
 TODO: Add draggable room labels
 TODO: Play with actual UX, build a floorplan for latest place
+TODO: Rename `box` to `label` in many places, once UX verified -- lots of `minimap-build` can be simplified
+TODO: Delete unused CSS classes
 
 Before landing:
 TODO: Fix up buttons
