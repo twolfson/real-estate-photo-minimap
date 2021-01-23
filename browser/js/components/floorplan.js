@@ -154,6 +154,7 @@ class Floorplan extends React.Component {
 
     // main setup
     var opts = {
+      containerElement: 'floorplanner-parent',
       floorplannerElement: 'floorplanner-canvas',
       threeElement: '#viewer',
       threeCanvasElement: 'three-canvas',

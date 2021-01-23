@@ -16,7 +16,8 @@ class MinimapBuilder extends React.Component {
   render() {
     let parentState = this.props.state;
     let locations = parentState.locations;
-    return h('div', {style: {position: 'relative', height: '300px'}}, [
+    // DEV: Id is required for proper `mouseleave` tracking in Floorplan/Blueprint3D
+    return h('div#floorplanner-parent', {style: {position: 'relative', height: '300px'}}, [
       h(Floorplan),
       (() => {
         let minimapContent = [];
