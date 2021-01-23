@@ -48,8 +48,8 @@ class CategorizePhotos extends React.Component {
               return h('.col-2', {key: location.key}, [
                 h('.input-group', [
                   h('.input-group-prepend', [
-                    h('span', {
-                      className: `input-group-text location-${location.key}-bg`,
+                    h('span.input-group-text', {
+                      className: `location-${location.key}-bg`,
                       role: 'button',
                       onClick: () => { Store.rr('setLocationForCurrentImage', location.key); },
                     }, location.key),
