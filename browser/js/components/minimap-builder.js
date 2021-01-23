@@ -46,7 +46,15 @@ class MinimapBuilder extends React.Component {
           // https://github.com/STRML/react-grid-layout/blob/1.2.0/lib/GridItem.jsx#L642-L646
           // TODO: Create `MinimapBox` class as we're currently setting grabbing state on the whole builder
           // TODO: If we add more handles, then we need to figure out updating left/top appropriately
-          let {left, top} = box;
+          // let {left, top} = box;
+          let left, top;
+          if (i === 0) {
+            left = 534;
+            top = 131;
+          } else {
+            left = 1005;
+            top = 10 + (i-1) * 32;
+          }
           minimapContent.push(h(Draggable, {
             key: i,
             bounds: 'parent',
