@@ -12,6 +12,10 @@ TODO: Play with actual UX, build a floorplan for latest place
     - I guess they had pan as their multiselect + move but I don't think I'll have enough time to build it
 TODO: Rename `box` to `label` in many places, once UX verified -- lots of `minimap-build` can be simplified
 TODO: Delete unused CSS classes
+TODO: Multiselect should have support to
+  - Use foreign objects like text (currently we're breaking `mouseleave` sadly with our `Draggable` elements
+  - Make a room selected once enough of its walls are (i.e. all its corners)
+      - (prob cross-hatch pattern, maybe something simpler)
 
 Before landing:
 TODO: Fix up buttons
