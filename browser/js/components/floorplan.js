@@ -28,7 +28,7 @@ const bootstrapIcon = (svgStr, style) => {
 class Floorplan extends React.Component {
   render() {
     return h('#floorplanner', {
-      style: {position: 'relative', height: '300px'},
+      style: {position: 'absolute', height: '100%', width: '100%'},
     }, [
       h('canvas#floorplanner-canvas'),
       h('#floorplanner-controls', [
