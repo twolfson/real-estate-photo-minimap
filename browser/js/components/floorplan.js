@@ -201,13 +201,14 @@ class Floorplan extends React.Component {
     // Shorten UUIDs
     let corners = floorplan.corners;
     let cornerKeyMap = {};
+    let newCorners = {};
     let counter = 1;
-    for (let cornerKey of Object.keys(corners)) {
-      let newKey = cornerKeyMap[cornerKey] = counter.toString();
+    for (let oldKey of Object.keys(corners)) {
+      let newKey = cornerKeyMap[oldKey] = counter.toString();
       counter += 1;
-      corners[newKey] = corners[cornerKey];
-      delete corners[cornerKey];
+      newCorners[newKey] = corners[oldKey];
     }
+    corners = floorplan.corners = newCorners;
     floorplan.walls.forEach((wall) => {
       if (wall.corner1) { wall.corner1 = cornerKeyMap[wall.corner1]; }
       if (wall.corner2) { wall.corner2 = cornerKeyMap[wall.corner2]; }
@@ -272,15 +273,17 @@ class Floorplan extends React.Component {
       delete floorplan.newFloorTextures;
 
       // Shorten UUIDs
+      // DEV: We can't mutate our object in place as keys might be the same
       let corners = floorplan.corners;
       let cornerKeyMap = {};
+      let newCorners = {};
       let counter = 1;
-      for (let cornerKey of Object.keys(corners)) {
-        let newKey = cornerKeyMap[cornerKey] = counter.toString();
+      for (let oldKey of Object.keys(corners)) {
+        let newKey = cornerKeyMap[oldKey] = counter.toString();
         counter += 1;
-        corners[newKey] = corners[cornerKey];
-        delete corners[cornerKey];
+        newCorners[newKey] = corners[oldKey];
       }
+      corners = floorplan.corners = newCorners;
       floorplan.walls.forEach((wall) => {
         if (wall.corner1) { wall.corner1 = cornerKeyMap[wall.corner1]; }
         if (wall.corner2) { wall.corner2 = cornerKeyMap[wall.corner2]; }
