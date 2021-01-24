@@ -5,7 +5,6 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 
 <https://twolfson.github.io/real-estate-photo-minimap-public/>
 
-DONE: Add draggable room labels
 TODO: Play with actual UX, build a floorplan for latest place
   - Ugh, everything seems so great but first thought is multiselect and move =/ And that includes labels...
     - It's too fundamental of a UX feature to abandon it
@@ -16,11 +15,18 @@ TODO: Multiselect should have support to
   - Nice to have: Allow selecting + moving foreign objects like text
   - Nice to have: Make a room selected once enough of its walls are (i.e. all its corners)
       - (prob cross-hatch pattern, maybe something simpler)
-TODO: Nice to have: Click + drag on a room itself
+TODO: Nice to have: Click + drag on a room itself -- would be:
+  If there are at least 3 walls selected
+  And they are continuous
+  And point in mouse down is in would be triangle
+  Then show hover grow
+  As well as allow dragging
+TODO: Use CSS variables to share background/color of labels
+TODO: Update room names to come from Store
 
 Before landing:
 TODO: Fix up buttons
-TODO: Handle export state
+TODO: Add state saving for floorplan + text labels
 TODO: Integrate with other page
 TODO: Persist changes to `blueprint3d`
 TODO: Document `npm install` vs `npm link` workflow
