@@ -220,7 +220,48 @@ class Floorplan extends React.Component {
     blueprint3d.model.floorplan.update();
     blueprint3d.model.floorplan.roomLoadedCallbacks.fire();
 
-    // When anyone interacts with our floorplan
+    // When anyone interacts with our floorplan (though not on drag)
+    let saveState = () => {
+      // DEV: It's okay that the data is serialized as a string, as this isolates state contamination with the floorplan
+      let floorplanDataStr = blueprint3d.model.exportSerialized();
+      let floorplanData = JSON.parse(floorplanDataStr);
+      let floorplan = floorplanData.floorplan;
+
+      // Scrub unused data
+      floorplan.walls.forEach((wall) => {
+        delete wall.frontTexture;
+        delete wall.backTexture;
+      });
+      delete floorplan.wallTextures;
+      delete floorplan.floorTextures;
+      delete floorplan.newFloorTextures;
+
+      // Shorten UUIDs
+      let corners = floorplan.corners;
+      let cornerKeyMap = {};
+      let counter = 1;
+      for (let cornerKey of Object.keys(corners)) {
+        let newKey = cornerKeyMap[cornerKey] = counter.toString();
+        counter += 1;
+        corners[newKey] = corners[cornerKey];
+        delete corners[cornerKey];
+      }
+      floorplan.walls.forEach((wall) => {
+        if (wall.corner1) { wall.corner1 = cornerKeyMap[wall.corner1]; }
+        if (wall.corner2) { wall.corner2 = cornerKeyMap[wall.corner2]; }
+      });
+
+      // Shorten length floats (e.g. 32.83499999 -> 32.835)
+      for (let corner of Object.values(corners)) {
+        corner.x = Math.round(corner.x * 1000)/1000;
+        corner.y = Math.round(corner.y * 1000)/1000;
+      }
+
+      console.log(JSON.stringify(floorplan));
+    };
+    $('#' + opts.containerElement).on('mousedown', saveState);
+    $('#' + opts.containerElement).on('mouseup', saveState);
+    saveState();
   }
   componentWillUnmount() {
     this.destroy();

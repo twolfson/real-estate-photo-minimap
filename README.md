@@ -218,6 +218,7 @@ Prob best to play with the 3D one we found and see how easy it is to fix up:
 - [ ] Add `destroy` cleanup for `Blueprint3d` (not a lot of memory leaks expected)
 - [ ] Add undo history for blueprint
 - [ ] Copy/paste walls somehow
+- [ ] Reduce UUID size for corners in minimap
 
 ## Getting started
 To run our repo locally, run the following:
