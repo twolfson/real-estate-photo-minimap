@@ -75,6 +75,14 @@ class Floorplan extends React.Component {
   }
 
   componentDidMount() {
+    // Create teardown callbacks
+    var destroyCallbacks = [];
+    this.destroy = () => {
+      destroyCallbacks.forEach((fn) => fn());
+      destroyCallbacks = null;
+      delete this.destroy;
+    };
+
     // Based on: https://github.com/twolfson/blueprint3d/blob/ba841406daeacc294ace175876bf5b36b70845b3/example/js/example.js
     /*
      * Floorplanner controls
@@ -93,12 +101,10 @@ class Floorplan extends React.Component {
       this.floorplanner = blueprint3d.floorplanner;
 
       var scope = this;
-      var destroyCallbacks = $.Callbacks();
-
       function init() {
 
         $( window ).on('resize', scope.handleWindowResize);
-        destroyCallbacks.add(function () {
+        destroyCallbacks.push(function () {
           $( window ).off('resize', scope.handleWindowResize);
         });
         scope.handleWindowResize();
@@ -133,7 +139,7 @@ class Floorplan extends React.Component {
         $(remove).on('click', function(){
           scope.floorplanner.setMode(BP3D.Floorplanner.floorplannerModes.DELETE);
         });
-        destroyCallbacks.add(function () {
+        destroyCallbacks.push(function () {
           $(move).off('click');
           $(draw).off('click');
           $(remove).off('click');
@@ -150,12 +156,6 @@ class Floorplan extends React.Component {
         scope.floorplanner.resizeView();
       };
 
-      this.destroy = function() {
-        destroyCallbacks.fire();
-        destroyCallbacks.empty();
-        destroyCallbacks = null;
-      };
-
       init();
     };
 
@@ -168,6 +168,7 @@ class Floorplan extends React.Component {
       textureDir: 'models/textures/',
       widget: false
     }
+    // There is no `destroy` function yet (noted as a README task)
     var blueprint3d = this.blueprint3d = new window.BP3D.Blueprint3d(opts);
     window.blueprint3d = blueprint3d;
 
@@ -209,7 +210,6 @@ class Floorplan extends React.Component {
         y = (i-1) * 64 - 240; // cm
       }
       if (!trueLabels[i].name) { return; }
-      console.log(trueLabels[i].name);
       blueprint3d.model.floorplan.newTextLabel(
         x,
         y,
@@ -220,14 +220,12 @@ class Floorplan extends React.Component {
     blueprint3d.model.floorplan.update();
     blueprint3d.model.floorplan.roomLoadedCallbacks.fire();
 
+    // When anyone interacts with our floorplan
   }
   componentWillUnmount() {
+    this.destroy();
     delete window.blueprint3d;
-
-    // There is no `destroy` function yet (noted as a README task)
     delete this.blueprint3d;
-
-    this.viewerFloorplanner.destroy();
     delete this.viewerFloorplanner;
   }
 }
