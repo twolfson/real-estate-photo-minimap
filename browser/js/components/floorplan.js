@@ -196,7 +196,7 @@ class Floorplan extends React.Component {
         x = 379;
         y = 20;
       } else {
-        x = 1180;
+        x = 1330;
         y = (i-1) * 64 - 240;
       }
       blueprint3d.model.floorplan.newTextLabel(
