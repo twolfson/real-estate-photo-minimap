@@ -198,12 +198,11 @@ class Floorplan extends React.Component {
       {text: 'Building Hallway' /* Long name test */, background: '#fd5fda', color: 'white'}, // Pink
     ];
     // TODO: Use true state
-    // TODO: Fix `scrollTop` bug
     let trueLabels = Store._renderState.locations;
     labels.forEach((labelData, i) => {
       var x, y;
       if (i === 0) {
-        x = 379; // cm
+        x = 396; // cm
         y = 20; // cm
       } else {
         x = 1330; // cm
