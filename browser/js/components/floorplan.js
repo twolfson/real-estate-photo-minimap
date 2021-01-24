@@ -193,11 +193,11 @@ class Floorplan extends React.Component {
     labels.forEach((labelData, i) => {
       var x, y;
       if (i === 0) {
-        x = 379;
-        y = 20;
+        x = 379; // cm
+        y = 20; // cm
       } else {
-        x = 1330;
-        y = (i-1) * 64 - 240;
+        x = 1330; // cm
+        y = (i-1) * 64 - 240; // cm
       }
       blueprint3d.model.floorplan.newTextLabel(
         x,
