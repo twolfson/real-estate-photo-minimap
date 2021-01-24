@@ -7,6 +7,9 @@ const ReactDOM = require('react-dom');
 // A lot of the content in this file is copy/paste/modify from `example` in `blueprint3d
 // https://github.com/twolfson/blueprint3d/tree/90d33027ab67c456acd769cfeb38bbdee42e092d/example
 
+import styles from '../../css/_location-colors.scss';
+console.log(styles);
+
 // Vendor dependencies
 // https://github.com/twolfson/blueprint3d/blob/90d33027ab67c456acd769cfeb38bbdee42e092d/example/index.html#L10-L15
 window.THREE = require('three.js');

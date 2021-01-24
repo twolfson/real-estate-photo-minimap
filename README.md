@@ -5,13 +5,6 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 
 <https://twolfson.github.io/real-estate-photo-minimap-public/>
 
-DONE: Play with actual UX, build a floorplan for latest place
-  - Ugh, everything seems so great but first thought is multiselect and move =/ And that includes labels...
-    - It's too fundamental of a UX feature to abandon it
-    - I guess they had pan as their multiselect + move but I don't think I'll have enough time to build it
-  - Feels pretty good now, there's nice to haves like:
-    - Copy/paste walls somehow
-    - Undo functionality
 TODO: Rename `box` to `label` in many places, once UX verified -- lots of `minimap-build` can be simplified
 TODO: Delete unused CSS classes
 TODO: Multiselect should have support to
@@ -224,6 +217,7 @@ Prob best to play with the 3D one we found and see how easy it is to fix up:
 #### Low priority
 - [ ] Add `destroy` cleanup for `Blueprint3d` (not a lot of memory leaks expected)
 - [ ] Add undo history for blueprint
+- [ ] Copy/paste walls somehow
 
 ## Getting started
 To run our repo locally, run the following:
