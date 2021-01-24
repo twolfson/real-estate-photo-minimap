@@ -10,8 +10,6 @@ DONE: Play with actual UX, build a floorplan for latest place
     - It's too fundamental of a UX feature to abandon it
     - I guess they had pan as their multiselect + move but I don't think I'll have enough time to build it
   - Feels pretty good now, there's nice to haves like:
-    - Make split its own tool
-    - Allow keep drawing walls until switch back tools
     - Copy/paste walls somehow
     - Undo functionality
 TODO: Rename `box` to `label` in many places, once UX verified -- lots of `minimap-build` can be simplified
@@ -37,13 +35,6 @@ TODO: Persist changes to `blueprint3d`
 TODO: Document `npm install` vs `npm link` workflow
 
 """
-Better draw mechanics
-Mouse down to add corner
-
-Highlight orange or green to show terminate loop
-Still stay in tool on terminate
-Prob don't need infinite draw
-
 Shortened floor plan JSON
 And seriously. Just store as data. It'll be shorter without escaping
 """
