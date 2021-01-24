@@ -183,44 +183,10 @@ class Floorplan extends React.Component {
     // Another model option: https://github.com/furnishup/blueprint3d/blob/cac8b62c1a3839e929334bdc125bf8a74866be9e/example/js/example.js#L472
 
     // Load our custom small rectangle
-    // console.log(blueprint3d.model.exportSerialized())
-    // blueprint3d.model.loadSerialized('{"floorplan":{"corners":{"f90da5e3-9e0e-eba7-173d-eb0b071e838e":{"x":330.8349999999999,"y":144.77999999999994},"da026c08-d76a-a944-8e7b-096b752da9ed":{"x":534.0350000000002,"y":144.77999999999994},"4e3d65cb-54c0-0681-28bf-bddcc7bdb571":{"x":534.0350000000002,"y":-59.639212402343716},"71d4f128-ae80-3d58-9bd2-711c6ce6cdf2":{"x":330.8349999999999,"y":-59.639212402343716}},"walls":[{"corner1":"71d4f128-ae80-3d58-9bd2-711c6ce6cdf2","corner2":"f90da5e3-9e0e-eba7-173d-eb0b071e838e","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0}},{"corner1":"f90da5e3-9e0e-eba7-173d-eb0b071e838e","corner2":"da026c08-d76a-a944-8e7b-096b752da9ed","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0}},{"corner1":"da026c08-d76a-a944-8e7b-096b752da9ed","corner2":"4e3d65cb-54c0-0681-28bf-bddcc7bdb571","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0}},{"corner1":"4e3d65cb-54c0-0681-28bf-bddcc7bdb571","corner2":"71d4f128-ae80-3d58-9bd2-711c6ce6cdf2","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0}}],"wallTextures":[],"floorTextures":{},"newFloorTextures":{}},"items":[]}');
-    let floorplanDataStr = '{"floorplan":{"corners":{"f90da5e3-9e0e-eba7-173d-eb0b071e838e":{"x":330.8349999999999,"y":144.77999999999994},"da026c08-d76a-a944-8e7b-096b752da9ed":{"x":534.0350000000002,"y":144.77999999999994},"4e3d65cb-54c0-0681-28bf-bddcc7bdb571":{"x":534.0350000000002,"y":-59.639212402343716},"71d4f128-ae80-3d58-9bd2-711c6ce6cdf2":{"x":330.8349999999999,"y":-59.639212402343716}},"walls":[{"corner1":"71d4f128-ae80-3d58-9bd2-711c6ce6cdf2","corner2":"f90da5e3-9e0e-eba7-173d-eb0b071e838e","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0}},{"corner1":"f90da5e3-9e0e-eba7-173d-eb0b071e838e","corner2":"da026c08-d76a-a944-8e7b-096b752da9ed","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0}},{"corner1":"da026c08-d76a-a944-8e7b-096b752da9ed","corner2":"4e3d65cb-54c0-0681-28bf-bddcc7bdb571","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0}},{"corner1":"4e3d65cb-54c0-0681-28bf-bddcc7bdb571","corner2":"71d4f128-ae80-3d58-9bd2-711c6ce6cdf2","frontTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0},"backTexture":{"url":"rooms/textures/wallmap.png","stretch":true,"scale":0}}],"wallTextures":[],"floorTextures":{},"newFloorTextures":{}},"items":[]}';
-    let floorplanData = JSON.parse(floorplanDataStr);
-    let floorplan = floorplanData.floorplan;
-
-    // Scrub unused data
-    floorplan.walls.forEach((wall) => {
-      delete wall.frontTexture;
-      delete wall.backTexture;
-    });
-    delete floorplan.wallTextures;
-    delete floorplan.floorTextures;
-    delete floorplan.newFloorTextures;
-
-    // Shorten UUIDs
-    let corners = floorplan.corners;
-    let cornerKeyMap = {};
-    let newCorners = {};
-    let counter = 1;
-    for (let oldKey of Object.keys(corners)) {
-      let newKey = cornerKeyMap[oldKey] = counter.toString();
-      counter += 1;
-      newCorners[newKey] = corners[oldKey];
-    }
-    corners = floorplan.corners = newCorners;
-    floorplan.walls.forEach((wall) => {
-      if (wall.corner1) { wall.corner1 = cornerKeyMap[wall.corner1]; }
-      if (wall.corner2) { wall.corner2 = cornerKeyMap[wall.corner2]; }
-    });
-
-    // Shorten length floats (e.g. 32.83499999 -> 32.835)
-    for (let corner of Object.values(corners)) {
-      corner.x = Math.round(corner.x * 1000)/1000;
-      corner.y = Math.round(corner.y * 1000)/1000;
-    }
-    blueprint3d.model.loadSerialized(JSON.stringify({floorplan: floorplan, items: []}));
-
+    blueprint3d.model.loadSerialized(JSON.stringify({
+      floorplan: {"corners":{"1":{"x":330.835,"y":144.78},"2":{"x":534.035,"y":144.78},"3":{"x":534.035,"y":-59.639},"4":{"x":330.835,"y":-59.639}},"walls":[{"corner1":"4","corner2":"1"},{"corner1":"1","corner2":"2"},{"corner1":"2","corner2":"3"},{"corner1":"3","corner2":"4"}]},
+      items: []
+    }));
     window.floorplanner = blueprint3d.floorplanner; // Exposed for `TextLabel` requirement
     let labels = [
       {text: 'Room 1', background: '#0084ce', color: 'white'}, // Blue
