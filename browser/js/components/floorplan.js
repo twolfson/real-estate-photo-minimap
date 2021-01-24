@@ -7,8 +7,12 @@ const ReactDOM = require('react-dom');
 // A lot of the content in this file is copy/paste/modify from `example` in `blueprint3d
 // https://github.com/twolfson/blueprint3d/tree/90d33027ab67c456acd769cfeb38bbdee42e092d/example
 
-import styles from '../../css/_location-colors.scss';
-console.log(styles);
+// DEV: We tried loading SCSS via fancy `import` call but ran into issues, going for simpler way
+const locationColorsScss = require('fs').readFileSync(__dirname + '/../../css/_location-colors.scss', 'utf8');
+let data = {};
+for (match of locationColorsScss.matchAll(/\$(location-\d+-bg): ([^;]+);/g)) { data[match[1]] = match[2]; }
+for (match of locationColorsScss.matchAll(/\$(location-\d+-fg): ([^;]+);/g)) { data[match[1]] = match[2]; }
+assert.strictEqual(Object.keys(data).length, 20, 'Missing keys imported from `locationColorsScss`');
 
 // Vendor dependencies
 // https://github.com/twolfson/blueprint3d/blob/90d33027ab67c456acd769cfeb38bbdee42e092d/example/index.html#L10-L15
