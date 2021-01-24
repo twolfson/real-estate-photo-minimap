@@ -190,6 +190,9 @@ class Floorplan extends React.Component {
       {text: 'Room 9', background: '#701d85', color: 'white'}, // Purple
       {text: 'Building Hallway' /* Long name test */, background: '#fd5fda', color: 'white'}, // Pink
     ];
+    // TODO: Use true state
+    // TODO: Fix `scrollTop` bug
+    let trueLabels = Store._renderState.locations;
     labels.forEach((labelData, i) => {
       var x, y;
       if (i === 0) {
@@ -199,10 +202,12 @@ class Floorplan extends React.Component {
         x = 1330; // cm
         y = (i-1) * 64 - 240; // cm
       }
+      if (!trueLabels[i].name) { return; }
+      console.log(trueLabels[i].name);
       blueprint3d.model.floorplan.newTextLabel(
         x,
         y,
-        labelData.text,
+        trueLabels[i].name,
         labelData.background,
         labelData.color);
     });
