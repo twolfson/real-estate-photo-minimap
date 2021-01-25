@@ -62,12 +62,15 @@ let actions = {
       return;
     }
     state.minimap = {
-      floorplan: {"corners":{"1":{"x":330.835,"y":144.78},"2":{"x":534.035,"y":144.78},"3":{"x":534.035,"y":-59.639},"4":{"x":330.835,"y":-59.639}},"walls":[{"corner1":"4","corner2":"1"},{"corner1":"1","corner2":"2"},{"corner1":"2","corner2":"3"},{"corner1":"3","corner2":"4"}]},
+      // console.log(JSON.stringify(Store._renderState.minimap.floorplan))
+      floorplan: {"corners":{"1":{"x":1023.747,"y":378.46},"2":{"x":1226.947,"y":378.46},"3":{"x":1226.947,"y":174.041},"4":{"x":1023.747,"y":174.041}},"walls":[{"corner1":"4","corner2":"1"},{"corner1":"1","corner2":"2"},{"corner1":"2","corner2":"3"},{"corner1":"3","corner2":"4"}]},
       textLabels: state.locations.map((location, i) => {
         return {
+          // console.log(JSON.stringify(Store._renderState.minimap.textLabels[0]))
+          // console.log(JSON.stringify(Store._renderState.minimap.textLabels[1]))
           locationKey: location.key,
-          x: (i === 0) ? 396 : 1330, // cm
-          y: (i === 0) ? 20 : (i-1) * 64 - 240, // cm
+          x: (i === 0) ? 1088 : 2023, // cm
+          y: (i === 0) ? 250 : (i-1) * 64 + 16, // cm
         };
       })
     };
