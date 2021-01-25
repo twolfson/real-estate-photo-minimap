@@ -1,3 +1,4 @@
+/* eslint-disable quotes,max-len,eqeqeq,space-before-function-paren,padded-blocks,consistent-this,space-infix-ops,space-in-parens,space-before-blocks */
 // Load in our dependencies
 const assert = require('assert');
 const h = require('react-hyperscript');
@@ -10,15 +11,16 @@ const Store = require('../store');
 // DEV: We tried loading SCSS via fancy `import` call but ran into issues, going for simpler way
 const locationColorsStr = require('fs').readFileSync(__dirname + '/../../css/_location-colors.scss', 'utf8');
 let locationColors = {};
-for (match of locationColorsStr.matchAll(/\$(location-\d+-bg): ([^;]+);/g)) { locationColors[match[1]] = match[2]; }
-for (match of locationColorsStr.matchAll(/\$(location-\d+-fg): ([^;]+);/g)) { locationColors[match[1]] = match[2]; }
+for (let match of locationColorsStr.matchAll(/\$(location-\d+-bg): ([^;]+);/g)) { locationColors[match[1]] = match[2]; }
+for (let match of locationColorsStr.matchAll(/\$(location-\d+-fg): ([^;]+);/g)) { locationColors[match[1]] = match[2]; }
 assert.strictEqual(Object.keys(locationColors).length, 20, 'Missing keys imported from `locationColorsStr`');
 
 // Vendor dependencies
 // https://github.com/twolfson/blueprint3d/blob/90d33027ab67c456acd769cfeb38bbdee42e092d/example/index.html#L10-L15
 window.THREE = require('three.js');
-window.$ = require('blueprint3d/example/js/jquery.js');
-void require('blueprint3d/example/js/blueprint3d.js');
+const $ = window.$ = require('blueprint3d/example/js/jquery.js');
+void require('blueprint3d/example/js/blueprint3d.js'); // eslint-disable-line global-require
+const BP3D = window.BP3D;
 
 // Helper functions
 const bootstrapIcon = (svgStr, style) => {
@@ -39,7 +41,6 @@ class Floorplan extends React.Component {
   }
 
   render() {
-    let state = this.state;
     return h('#floorplanner', {
       style: {position: 'relative', height: '300px'},
     }, [
@@ -95,9 +96,6 @@ class Floorplan extends React.Component {
      * Floorplanner controls
      */
     var ViewerFloorplanner = function(blueprint3d) {
-
-      var canvasWrapper = '#floorplanner';
-
       // buttons
       var move = '#move';
       var remove = '#delete';
@@ -156,7 +154,7 @@ class Floorplan extends React.Component {
 
       this.updateFloorplanView = function() {
         scope.floorplanner.reset();
-      }
+      };
 
       this.handleWindowResize = function() {
         // Disabled: Resizing to full window height
@@ -175,7 +173,7 @@ class Floorplan extends React.Component {
       threeCanvasElement: 'three-canvas',
       textureDir: 'models/textures/',
       widget: false
-    }
+    };
     // There is no `destroy` function yet (noted as a README task)
     var blueprint3d = this.blueprint3d = new window.BP3D.Blueprint3d(opts);
     window.blueprint3d = blueprint3d;
