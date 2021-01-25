@@ -3,6 +3,7 @@ const assert = require('assert');
 const h = require('react-hyperscript');
 const React = require('react');
 const ReactDOM = require('react-dom');
+const Store = require('../store');
 
 // A lot of the content in this file is copy/paste/modify from `example` in `blueprint3d
 // https://github.com/twolfson/blueprint3d/tree/90d33027ab67c456acd769cfeb38bbdee42e092d/example
@@ -33,7 +34,13 @@ const bootstrapIcon = (svgStr, style) => {
 
 // Define our component
 class Floorplan extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = props.state;
+  }
+
   render() {
+    let state = this.state;
     return h('#floorplanner', {
       style: {position: 'absolute', height: '100%', width: '100%'},
     }, [
@@ -76,6 +83,7 @@ class Floorplan extends React.Component {
 
   componentDidMount() {
     // Create teardown callbacks
+    let state = this.state;
     var destroyCallbacks = [];
     this.destroy = () => {
       destroyCallbacks.forEach((fn) => fn());
@@ -185,18 +193,18 @@ class Floorplan extends React.Component {
 
     // Load our floorplan and text labels
     blueprint3d.model.loadSerialized(JSON.stringify({
-      floorplan: Store._renderState.minimap.floorplan,
+      floorplan: state.minimap.floorplan,
       items: []
     }));
     window.floorplanner = blueprint3d.floorplanner; // Exposed for `TextLabel` requirement
-    let locations = Store._renderState.locations;
+    let locations = state.locations;
     let textLabelMap = {};
     locations.forEach((location, i) => {
       // If our location has no name, then skip it
       if (!location.name) { return; }
 
       // Resolve our styling info
-      let _storeLabel = Store._renderState.minimap.textLabels.find((label) => label.locationKey === location.key);
+      let _storeLabel = state.minimap.textLabels.find((label) => label.locationKey === location.key);
       let background = locationColors[`location-${location.key}-bg`];
       let color = locationColors[`location-${location.key}-fg`];
       assert(background, `Missing background for ${location.key}`);
@@ -252,7 +260,7 @@ class Floorplan extends React.Component {
       }
 
       // Generate our text label info
-      let _storeLabels = Store._renderState.minimap.textLabels.map((_storeLabel) => {
+      let _storeLabels = state.minimap.textLabels.map((_storeLabel) => {
         // If our label is in the minimap (i.e. has a name), update it
         let locationKey = _storeLabel.locationKey;
         if (textLabelMap.hasOwnProperty(locationKey)) {
