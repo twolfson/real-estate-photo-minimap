@@ -2,7 +2,6 @@
 const assert = require('assert');
 const h = require('react-hyperscript');
 const React = require('react');
-const ReactDOM = require('react-dom');
 const Store = require('../store');
 
 // A lot of the content in this file is copy/paste/modify from `example` in `blueprint3d

@@ -6,12 +6,8 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 <https://twolfson.github.io/real-estate-photo-minimap-public/>
 
 Before landing:
-TODO: Clean up `components/` folder (only need 1 file right now)
-TODO: Rename `box` to `label` in many places, once UX verified -- lots of `minimap-build` can be simplified
-TODO: Stop using `_renderState`, use `this.state` as we should
 TODO: Document `npm install` vs `npm link` workflow
 TODO: Fix lint errors
-ON_LAND: Persist changes to `blueprint3d`
 NOTE_FOR_CHANGELOG: Don't crowd target space with initial items
 
 ## Features

@@ -7,9 +7,11 @@ let demoData = require('../../data/demo.json');
 
 // Reset data in development
 // DEV: `if` check is to prevent this from ever leaking into production
+/* eslint-disable max-len */
 // if (config.persistData) {
 //   localStorage.stateBackup =  JSON.stringify({state: require('../../backups/1376-natoma-with-sort-and-new-names.json')});
 // }
+/* eslint-enable max-len */
 
 // Model singleton
 // DEV: Inspired by Redux but not explicitly Redux due to learning overhead
@@ -63,14 +65,14 @@ let actions = {
     }
     state.minimap = {
       // console.log(JSON.stringify(Store._renderState.minimap.floorplan))
-      floorplan: {"corners":{"1":{"x":1023.747,"y":378.46},"2":{"x":1226.947,"y":378.46},"3":{"x":1226.947,"y":174.041},"4":{"x":1023.747,"y":174.041}},"walls":[{"corner1":"4","corner2":"1"},{"corner1":"1","corner2":"2"},{"corner1":"2","corner2":"3"},{"corner1":"3","corner2":"4"}]},
+      floorplan: {"corners":{"1":{"x":1023.747,"y":378.46},"2":{"x":1226.947,"y":378.46},"3":{"x":1226.947,"y":174.041},"4":{"x":1023.747,"y":174.041}},"walls":[{"corner1":"4","corner2":"1"},{"corner1":"1","corner2":"2"},{"corner1":"2","corner2":"3"},{"corner1":"3","corner2":"4"}]}, // eslint-disable-line
       textLabels: state.locations.map((location, i) => {
         return {
           // console.log(JSON.stringify(Store._renderState.minimap.textLabels[0]))
           // console.log(JSON.stringify(Store._renderState.minimap.textLabels[1]))
           locationKey: location.key,
           x: (i === 0) ? 1088 : 2023, // cm
-          y: (i === 0) ? 250 : (i-1) * 64 + 16, // cm
+          y: (i === 0) ? 250 : (i - 1) * 64 + 16, // cm
         };
       })
     };
@@ -87,9 +89,9 @@ let actions = {
     });
   },
   setLocationForCurrentImage: function (locationKey) {
-    let locationKeys = helperState.getLocationKeys();
+    let locationKeys = helperState.getLocationKeys(); // eslint-disable-line no-use-before-define
     assert(locationKeys.includes(locationKey), `Location ${locationKey} isn't within locations`);
-    helperState.getCurrentImage().locationKey = locationKey;
+    helperState.getCurrentImage().locationKey = locationKey; // eslint-disable-line no-use-before-define
     actions.nextImage();
   },
   setLocationName: function (locationKey, name) {
