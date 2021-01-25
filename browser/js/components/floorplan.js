@@ -96,7 +96,8 @@ class Floorplan extends React.Component {
       var remove = '#delete';
       var draw = '#draw';
 
-      var activeStlye = 'btn-primary disabled';
+      var activeClass = 'btn-primary';
+      var inactiveClass = 'btn-outline-secondary';
 
       this.floorplanner = blueprint3d.floorplanner;
 
@@ -111,15 +112,15 @@ class Floorplan extends React.Component {
 
         // mode buttons
         scope.floorplanner.modeResetCallbacks.add(function(mode) {
-          $(draw).removeClass(activeStlye);
-          $(remove).removeClass(activeStlye);
-          $(move).removeClass(activeStlye);
+          $(draw).removeClass(activeClass).addClass(inactiveClass);
+          $(remove).removeClass(activeClass).addClass(inactiveClass);
+          $(move).removeClass(activeClass).addClass(inactiveClass);
           if (mode == BP3D.Floorplanner.floorplannerModes.MOVE) {
-              $(move).addClass(activeStlye);
+            $(move).addClass(activeClass).removeClass(inactiveClass);
           } else if (mode == BP3D.Floorplanner.floorplannerModes.DRAW) {
-              $(draw).addClass(activeStlye);
+            $(draw).addClass(activeClass).removeClass(inactiveClass);
           } else if (mode == BP3D.Floorplanner.floorplannerModes.DELETE) {
-              $(remove).addClass(activeStlye);
+            $(remove).addClass(activeClass).removeClass(inactiveClass);
           }
 
           if (mode == BP3D.Floorplanner.floorplannerModes.DRAW) {
