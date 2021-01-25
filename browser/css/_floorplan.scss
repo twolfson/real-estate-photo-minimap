@@ -16,3 +16,8 @@
   display: none;
   pointer-events: none; /* Added: Disallow text selection so we can draw under it */
 }
+
+// Allow outlined buttons to standout by not showing grid behind them
+#floorplanner .btn-outline-secondary:not(:focus):not(:hover) {
+  background: white;
+}
