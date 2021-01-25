@@ -20,6 +20,7 @@ TODO: Nice to have: Click + drag on a room itself -- would be:
 TODO: Use CSS variables to share background/color of labels
 TODO: Update room names to come from Store
 TODO: Update `populate` logic
+TODO: Stop using `_renderState`, use `this.state` as we should
 
 Before landing:
 TODO: Fix up buttons

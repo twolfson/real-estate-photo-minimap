@@ -58,20 +58,16 @@ let actions = {
   },
   populateMinimap: function () {
     // If we already have minimap info, then do nothing
-    if (state.minimap) {
-      return;
-    }
+    // if (state.minimap) {
+    //   return;
+    // }
     state.minimap = {
       floorplan: {"corners":{"1":{"x":330.835,"y":144.78},"2":{"x":534.035,"y":144.78},"3":{"x":534.035,"y":-59.639},"4":{"x":330.835,"y":-59.639}},"walls":[{"corner1":"4","corner2":"1"},{"corner1":"1","corner2":"2"},{"corner1":"2","corner2":"3"},{"corner1":"3","corner2":"4"}]},
-      boxes: state.locations.map((location, i) => {
+      textLabels: state.locations.map((location, i) => {
         return {
-          key: `location-${location.key}`,
-          type: 'location',
           locationKey: location.key,
-          left: (i % 5) * 150,
-          top: Math.floor(i / 5) * 150,
-          width: 100,
-          height: 100,
+          x: (i === 0) ? 396 : 1330, // cm
+          y: (i === 0) ? 20 : (i-1) * 64 - 240, // cm
         };
       })
     };
