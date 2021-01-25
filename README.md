@@ -5,14 +5,9 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 
 <https://twolfson.github.io/real-estate-photo-minimap-public/>
 
-Before landing:
-TODO: Document `npm install` vs `npm link` workflow
-TODO: Fix lint errors
-NOTE_FOR_CHANGELOG: Don't crowd target space with initial items
-
 ## Features
 - [x] Quick location categorization
-- [ ] Minimap creator
+- [x] Minimap creator
 - [ ] Minimap browser
   - Nice polish: Final order is based on zig-zag library shelf pattern (i.e. riiiiight, down, left, riiiiight)
   - Figma sketch: https://www.figma.com/proto/iEBsOuvBRFDVHn8yiTJOOP/Real-estate-layout-tool?node-id=0%3A3&frame-preset-name=Desktop&scaling=min-zoom
@@ -70,6 +65,21 @@ npm start
 Our site will be accessible via <http://localhost:5000/>
 
 ## Documentation
+### Development
+If you're updating a dependency (e.g. `blueprint3d`), then you can use a linked version via `npm link`:
+
+```bash
+# Inside blueprint3d
+# Set up a global link for our `blueprint3d` folder
+npm link
+
+# Inside real-estate-photo-minimap
+# Link `node_modules/blueprint3d` to our global `blueprint3d` folder
+npm link blueprint3d
+```
+
+Any new builds in `blueprint3d` should now automatically be picked up in future builds
+
 ### Minimap builder
 Our minimap builder is a very heavily modified version of <https://github.com/furnishup/blueprint3d>
 
@@ -79,5 +89,6 @@ Our minimap builder is a very heavily modified version of <https://github.com/fu
 Before arriving at that library, we explored/attempted other approaches:
 
 - Boxes with labels in center or empty boxes, partially completed in `1.5.0` but lacked robust functionality
+  - Also initial revision had drawback of crowding target space, though likely could be fixed
 - Gridline-based builder, explored in `dev/gridlines.builder` but not promising for straight lines nor click/drag
 - Other approaches considered: <https://raw.githubusercontent.com/twolfson/real-estate-photo-minimap/dev/integrate.floorplan/README.md?token=AAG4KWGAIEUOCRMG3A7VCHLABYJS2>
