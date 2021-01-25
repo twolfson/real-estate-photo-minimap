@@ -6,18 +6,13 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 <https://twolfson.github.io/real-estate-photo-minimap-public/>
 
 Before landing:
+TODO: Clean up `components/` folder (only need 1 file right now)
 TODO: Rename `box` to `label` in many places, once UX verified -- lots of `minimap-build` can be simplified
 TODO: Delete unused CSS classes
 TODO: Stop using `_renderState`, use `this.state` as we should
-TODO: Fix up buttons
-TODO: Add state saving for floorplan + text labels
-TODO: Integrate with other page
-TODO: Persist changes to `blueprint3d`
 TODO: Document `npm install` vs `npm link` workflow
-TODO: Stop origin from moving with new content (it breaks our text label placement)
 
-TODO: Flatten out `minimapInfo.boxes` to `minimap.items` so everything has a `type` and we can use less switching logic as well as have everything at the same order
-
+ON_LAND: Persist changes to `blueprint3d`
 NOTE_FOR_CHANGELOG: Don't crowd target space with initial items
 
 ## Features

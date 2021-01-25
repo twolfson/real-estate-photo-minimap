@@ -40,7 +40,6 @@
 }
 
 // Custom CSS styles
-
 .location-1-bg { background-color: $location-1-bg; color: $location-1-fg; }
 .location-2-bg { background-color: $location-2-bg; color: $location-2-fg; }
 .location-3-bg { background-color: $location-3-bg; color: $location-3-fg; }
@@ -74,32 +73,3 @@
 .location-0-img { border: 2px solid $location-0-bg; }
 .location-0-img::before { content: '0'; background-color: $location-0-bg; color: $location-0-fg; }
 .selected-image { outline: 2px solid black; }
-
-.location-1-box { border: 2px solid $location-1-bg; }
-.location-2-box { border: 2px solid $location-2-bg; }
-.location-3-box { border: 2px solid $location-3-bg; }
-.location-4-box { border: 2px solid $location-4-bg; }
-.location-5-box { border: 2px solid $location-5-bg; }
-.location-6-box { border: 2px solid $location-6-bg; }
-.location-7-box { border: 2px solid $location-7-bg; }
-.location-8-box { border: 2px solid $location-8-bg; }
-.location-9-box { border: 2px solid $location-9-bg; }
-.location-0-box { border: 2px solid $location-0-bg; }
-.location-box__img {
-  height: 100px;
-  width: auto;
-}
-.location-box__img-1,
-.location-box__img-2 {
-  position: relative;
-}
-.location-box__img-1 {
-  z-index: -1;
-  margin-top: -88px;
-  margin-left: 12px;
-}
-.location-box__img-2 {
-  z-index: -2;
-  margin-top: -88px;
-  margin-left: 24px;
-}
