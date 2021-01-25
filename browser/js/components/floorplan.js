@@ -190,22 +190,24 @@ class Floorplan extends React.Component {
     }));
     window.floorplanner = blueprint3d.floorplanner; // Exposed for `TextLabel` requirement
     let locations = Store._renderState.locations;
+    let textLabelMap = {};
     locations.forEach((location, i) => {
       // If our location has no name, then skip it
       if (!location.name) { return; }
 
       // Resolve our styling info
-      let label = Store._renderState.minimap.textLabels.find((label) => label.locationKey === location.key);
+      let _storeLabel = Store._renderState.minimap.textLabels.find((label) => label.locationKey === location.key);
       let background = locationColors[`location-${location.key}-bg`];
       let color = locationColors[`location-${location.key}-fg`];
       assert(background, `Missing background for ${location.key}`);
       assert(color, `Missing color for ${location.key}`);
 
-      // Add our new text label
-      blueprint3d.model.floorplan.newTextLabel(
-        label.x, label.y,
+      // Add our new text label and track it for save
+      let textLabel = blueprint3d.model.floorplan.newTextLabel(
+        _storeLabel.x, _storeLabel.y,
         location.name,
         background, color);
+      textLabelMap[_storeLabel.locationKey] = textLabel;
     });
     blueprint3d.model.floorplan.update();
     blueprint3d.model.floorplan.roomLoadedCallbacks.fire();
@@ -249,8 +251,23 @@ class Floorplan extends React.Component {
         corner.y = Math.round(corner.y * 1000)/1000;
       }
 
+      // Generate our text label info
+      let _storeLabels = Store._renderState.minimap.textLabels.map((_storeLabel) => {
+        // If our label is in the minimap (i.e. has a name), update it
+        let locationKey = _storeLabel.locationKey;
+        if (textLabelMap.hasOwnProperty(locationKey)) {
+          return Object.assign({}, _storeLabel, {
+            x: textLabelMap[locationKey].x,
+            y: textLabelMap[locationKey].y,
+          });
+        // Otherwise, return our unaltered content
+        } else {
+          return _storeLabel;
+        }
+      });
+
       // Save our results
-      Store.rr('updateMinimap', {floorplan: floorplan});
+      Store.rr('updateMinimap', {floorplan: floorplan, textLabels: _storeLabels});
     };
     $('#' + opts.containerElement).on('mousedown', saveState);
     $('#' + opts.containerElement).on('mouseup', saveState);
