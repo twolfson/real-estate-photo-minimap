@@ -1,4 +1,6 @@
 # real-estate-photo-minimap
+1.6.1 - Upgraded `blueprint3d` with removed THREE.js dependency (500kb)
+
 1.6.0 - Replaced boxes minimap builder with floorplan builder
 
 1.5.0 - Added minimap builder via draggable/resizable
