@@ -184,7 +184,6 @@ class Floorplan extends React.Component {
     // Another model option: https://github.com/furnishup/blueprint3d/blob/cac8b62c1a3839e929334bdc125bf8a74866be9e/example/js/example.js#L472
 
     // Load our floorplan and text labels
-    // TODO: Use true state
     blueprint3d.model.loadSerialized(JSON.stringify({
       floorplan: Store._renderState.minimap.floorplan,
       items: []

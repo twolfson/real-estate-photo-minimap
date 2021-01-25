@@ -8,23 +8,15 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 Before landing:
 TODO: Clean up `components/` folder (only need 1 file right now)
 TODO: Rename `box` to `label` in many places, once UX verified -- lots of `minimap-build` can be simplified
-TODO: Delete unused CSS classes
 TODO: Stop using `_renderState`, use `this.state` as we should
 TODO: Document `npm install` vs `npm link` workflow
-
+TODO: Fix lint errors
 ON_LAND: Persist changes to `blueprint3d`
 NOTE_FOR_CHANGELOG: Don't crowd target space with initial items
 
 ## Features
 - [x] Quick location categorization
 - [ ] Minimap creator
-  - Very heavily modified version of <https://github.com/furnishup/blueprint3d>
-    - e.g. Merge on drag end, selection support, text label support
-    - Documented in: https://github.com/twolfson/blueprint3d/tree/dev/personal.fork
-  - Other variants attempted:
-    - Boxes with labels in center or empty boxes, partially completed in `1.5.0` but lacked robust functionality
-    - Gridline-based builder, explored in `dev/gridlines.builder` but not promising for straight lines nor click/drag
-  - Other approaches considered: <https://raw.githubusercontent.com/twolfson/real-estate-photo-minimap/dev/integrate.floorplan/README.md?token=AAG4KWGAIEUOCRMG3A7VCHLABYJS2>
 - [ ] Minimap browser
   - Nice polish: Final order is based on zig-zag library shelf pattern (i.e. riiiiight, down, left, riiiiight)
   - Figma sketch: https://www.figma.com/proto/iEBsOuvBRFDVHn8yiTJOOP/Real-estate-layout-tool?node-id=0%3A3&frame-preset-name=Desktop&scaling=min-zoom
@@ -80,3 +72,16 @@ npm start
 ```
 
 Our site will be accessible via <http://localhost:5000/>
+
+## Documentation
+### Minimap builder
+Our minimap builder is a very heavily modified version of <https://github.com/furnishup/blueprint3d>
+
+- e.g. Merge on drag end, selection support, text label support
+- Documented in: https://github.com/twolfson/blueprint3d/tree/dev/personal.fork
+
+Before arriving at that library, we explored/attempted other approaches:
+
+- Boxes with labels in center or empty boxes, partially completed in `1.5.0` but lacked robust functionality
+- Gridline-based builder, explored in `dev/gridlines.builder` but not promising for straight lines nor click/drag
+- Other approaches considered: <https://raw.githubusercontent.com/twolfson/real-estate-photo-minimap/dev/integrate.floorplan/README.md?token=AAG4KWGAIEUOCRMG3A7VCHLABYJS2>
