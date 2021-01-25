@@ -42,7 +42,7 @@ class Floorplan extends React.Component {
   render() {
     let state = this.state;
     return h('#floorplanner', {
-      style: {position: 'absolute', height: '100%', width: '100%'},
+      style: {position: 'relative', height: '300px'},
     }, [
       h('canvas#floorplanner-canvas'),
       h('#floorplanner-controls', [

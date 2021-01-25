@@ -3,7 +3,7 @@ const assert = require('assert');
 const config = require('../config');
 const classnames = require('classnames');
 const h = require('react-hyperscript');
-const MinimapBuilder = require('../components/minimap-builder');
+const Floorplan = require('../components/floorplan');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const Store = require('../store');
@@ -51,7 +51,7 @@ class MinimapBuild extends React.Component {
       h('.row', [
         h('.col-12.mb-3', [
           h('div', {style: {border: '1px solid black'}}, [
-            h(MinimapBuilder, {state})
+            h(Floorplan, {state})
           ])
         ])
       ]),
