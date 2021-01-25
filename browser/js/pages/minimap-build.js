@@ -1,11 +1,9 @@
 // Load in our dependencies
 const assert = require('assert');
-const config = require('../config');
 const classnames = require('classnames');
 const h = require('react-hyperscript');
 const Floorplan = require('../components/floorplan');
 const React = require('react');
-const ReactDOM = require('react-dom');
 const Store = require('../store');
 const {Link} = require('react-router-dom');
 
@@ -36,7 +34,7 @@ class MinimapBuild extends React.Component {
           //   li Associate locations with blueprint image
           h('.mb-3', [
             h('.progress', {style: {height: '1.5rem'}}, [
-              h('.progress-bar', {role: 'progressbar', style: {width: '33%', textDecoration: 'line-through'}}, '1 - Categorize images'),
+              h('.progress-bar', {role: 'progressbar', style: {width: '33%', textDecoration: 'line-through'}}, '1 - Categorize images'), // eslint-disable-line max-len
               h('.progress-bar', {role: 'progressbar', style: {width: '33%'}}, '2 - Build minimap'), // eslint-disable-line max-len
               h('.progress-bar.progressbar-muted', {role: 'progressbar', style: {width: '34%'}}, '3 - Assocate blueprint'), // eslint-disable-line max-len
             ])
@@ -162,7 +160,7 @@ class MinimapBuild extends React.Component {
       } else if (evt.key === 'ArrowRight') {
         Store.rr('nextImage');
       }
-    }
+    };
     window.addEventListener('keydown', this._keyListener);
   }
   componentWillUnmount() {

@@ -1,10 +1,8 @@
 // Load in our dependencies
 const assert = require('assert');
-const config = require('../config');
 const classnames = require('classnames');
 const h = require('react-hyperscript');
 const React = require('react');
-const ReactDOM = require('react-dom');
 const Store = require('../store');
 const {Link} = require('react-router-dom');
 
@@ -147,7 +145,7 @@ class CategorizePhotos extends React.Component {
       } else if (evt.key === 'ArrowRight') {
         Store.rr('nextImage');
       }
-    }
+    };
     window.addEventListener('keydown', this._keyListener);
   }
   componentWillUnmount() {
