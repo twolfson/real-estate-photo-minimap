@@ -96,7 +96,7 @@ class Floorplan extends React.Component {
       var remove = '#delete';
       var draw = '#draw';
 
-      var activeClass = 'btn-primary';
+      var activeClass = 'btn-outline-primary active';
       var inactiveClass = 'btn-outline-secondary';
 
       this.floorplanner = blueprint3d.floorplanner;

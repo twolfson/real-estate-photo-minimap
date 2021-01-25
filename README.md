@@ -14,6 +14,7 @@ TODO: Add state saving for floorplan + text labels
 TODO: Integrate with other page
 TODO: Persist changes to `blueprint3d`
 TODO: Document `npm install` vs `npm link` workflow
+TODO: Stop origin from moving with new content (it breaks our text label placement)
 
 TODO: Flatten out `minimapInfo.boxes` to `minimap.items` so everything has a `type` and we can use less switching logic as well as have everything at the same order
 
