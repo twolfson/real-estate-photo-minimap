@@ -21,7 +21,6 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 - [ ] Settle on license (probably dual license, maybe leave unlicensed/private for a while)
 
 #### Polish
-- [ ] Reduce repo size, when we moved added `blueprint3d` we jumped from 200kb to 800kb -- `npm run build -- --detailed-report 10` says THREE is reposnbile for 500kb
 - [ ] Use center points for text labels (e.g. starting position in demo is no longer dead center)
 - [ ] Abstract common content like page components, key listeners, page layouts
 - [ ] Add analytics
