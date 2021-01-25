@@ -19,6 +19,7 @@ TODO: Nice to have: Click + drag on a room itself -- would be:
   As well as allow dragging
 TODO: Use CSS variables to share background/color of labels
 TODO: Update room names to come from Store
+TODO: Update `populate` logic
 
 Before landing:
 TODO: Fix up buttons

@@ -184,7 +184,7 @@ class Floorplan extends React.Component {
 
     // Load our custom small rectangle
     blueprint3d.model.loadSerialized(JSON.stringify({
-      floorplan: {"corners":{"1":{"x":330.835,"y":144.78},"2":{"x":534.035,"y":144.78},"3":{"x":534.035,"y":-59.639},"4":{"x":330.835,"y":-59.639}},"walls":[{"corner1":"4","corner2":"1"},{"corner1":"1","corner2":"2"},{"corner1":"2","corner2":"3"},{"corner1":"3","corner2":"4"}]},
+      floorplan: Store._renderState.minimap.floorplan,
       items: []
     }));
     window.floorplanner = blueprint3d.floorplanner; // Exposed for `TextLabel` requirement
@@ -261,7 +261,8 @@ class Floorplan extends React.Component {
         corner.y = Math.round(corner.y * 1000)/1000;
       }
 
-      console.log(JSON.stringify(floorplan));
+      // Save our results
+      Store.rr('updateMinimap', {floorplan: floorplan});
     };
     $('#' + opts.containerElement).on('mousedown', saveState);
     $('#' + opts.containerElement).on('mouseup', saveState);

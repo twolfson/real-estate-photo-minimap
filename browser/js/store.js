@@ -33,7 +33,7 @@ let state = {
     let img = {key: i.toString(), src: src, locationKey: null};
     return img;
   }),
-  minimapInfo: null,
+  minimap: null,
   currentImageIndex: 0,
 };
 
@@ -56,12 +56,13 @@ let actions = {
     state.currentImageIndex = state.currentImageIndex - 1;
     if (state.currentImageIndex < 0) { state.currentImageIndex = state.images.length - 1; }
   },
-  populateMinimapInfo: function () {
+  populateMinimap: function () {
     // If we already have minimap info, then do nothing
-    if (state.minimapInfo) {
+    if (state.minimap) {
       return;
     }
-    state.minimapInfo = {
+    state.minimap = {
+      floorplan: {"corners":{"1":{"x":330.835,"y":144.78},"2":{"x":534.035,"y":144.78},"3":{"x":534.035,"y":-59.639},"4":{"x":330.835,"y":-59.639}},"walls":[{"corner1":"4","corner2":"1"},{"corner1":"1","corner2":"2"},{"corner1":"2","corner2":"3"},{"corner1":"3","corner2":"4"}]},
       boxes: state.locations.map((location, i) => {
         return {
           key: `location-${location.key}`,
@@ -96,10 +97,8 @@ let actions = {
     let location = state.locations.find((location) => location.key === locationKey);
     location.name = name;
   },
-  updateMinimapBox: function (boxKey, data) {
-    let box = state.minimapInfo.boxes.find((box) => box.key === boxKey);
-    // TODO: Add validation that `data` keys are only positional
-    Object.assign(box, data);
+  updateMinimap: function (data) {
+    Object.assign(state.minimap, data);
   }
 };
 
