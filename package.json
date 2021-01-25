@@ -3,15 +3,14 @@
   "version": "1.6.0",
   "description": "Generate a minimap browser for real estate photos",
   "dependencies": {
-    "blueprint3d": "github:twolfson/blueprint3d#8911cc8",
+    "blueprint3d": "github:twolfson/blueprint3d#3816fdf",
     "classnames": "~2.2.6",
     "deep-freeze": "0.0.1",
     "lodash.clonedeep": "~4.5.0",
     "react": "~17.0.1",
     "react-dom": "~17.0.1",
     "react-hyperscript": "~3.2.0",
-    "react-router-dom": "~5.2.0",
-    "three.js": "~0.77.1"
+    "react-router-dom": "~5.2.0"
   },
   "devDependencies": {
     "eslint": "~7.18.0",

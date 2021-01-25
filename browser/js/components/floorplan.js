@@ -17,7 +17,6 @@ assert.strictEqual(Object.keys(locationColors).length, 20, 'Missing keys importe
 
 // Vendor dependencies
 // https://github.com/twolfson/blueprint3d/blob/90d33027ab67c456acd769cfeb38bbdee42e092d/example/index.html#L10-L15
-window.THREE = require('three.js');
 const $ = window.$ = require('blueprint3d/example/js/jquery.js');
 void require('blueprint3d/example/js/blueprint3d.js'); // eslint-disable-line global-require
 const BP3D = window.BP3D;
