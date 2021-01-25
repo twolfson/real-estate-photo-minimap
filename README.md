@@ -90,5 +90,6 @@ Before arriving at that library, we explored/attempted other approaches:
 
 - Boxes with labels in center or empty boxes, partially completed in `1.5.0` but lacked robust functionality
   - Also initial revision had drawback of crowding target space, though likely could be fixed
-- Gridline-based builder, explored in `dev/gridlines.builder` but not promising for straight lines nor click/drag
+  - Started a `multiselect` exploration but stopped for some reason, <https://github.com/twolfson/real-estate-photo-minimap/tree/a43e6a4bb4e1207b98e5eacc92c5dc886bd62aae>
+- Gridline-based builder, explored in <https://github.com/twolfson/real-estate-photo-minimap/tree/59a0d8291b67a53e5318f1334d3948498e5cab7a> but not promising for straight lines nor click/drag
 - Other approaches considered: <https://raw.githubusercontent.com/twolfson/real-estate-photo-minimap/dev/integrate.floorplan/README.md?token=AAG4KWGAIEUOCRMG3A7VCHLABYJS2>
