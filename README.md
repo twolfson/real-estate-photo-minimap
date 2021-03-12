@@ -47,6 +47,7 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 - [ ] Copy/paste walls somehow in blueprint
 - [ ] Click + drag on a room itself (i.e. if there are at least 3 walls selected AND they are continuous AND clicked location inside would be n-gon, then show hover grow as well as allow dragging)
 - [ ] Arrow key support for blueprint (would complicate UX with arrow keys for photos)
+- [ ] Click + drag a room label to swap labels (so it swaps the numbers for all matched images, since text only would be silly)
 
 ## Getting started
 To run our repo locally, run the following:
