@@ -1,6 +1,6 @@
 {
   "name": "real-estate-photo-minimap",
-  "version": "1.6.1",
+  "version": "1.7.0",
   "description": "Generate a minimap browser for real estate photos",
   "dependencies": {
     "blueprint3d": "github:twolfson/blueprint3d#3816fdf",
