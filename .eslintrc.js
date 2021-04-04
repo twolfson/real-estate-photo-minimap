@@ -26,6 +26,9 @@ module.exports = {
   rules: {
     'comma-dangle': OFF,
     'object-curly-spacing': OFF,
+
+    // Fight recommneded defaults
+    'react/prop-types': OFF,
   },
 
   // Configure our environment
