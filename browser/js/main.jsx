@@ -1,7 +1,7 @@
 // Load in our dependencies
 const assert = require('assert');
 const CategorizePhotos = require('./pages/CategorizePhotos');
-const MinimapBuild = require('./pages/minimap-build');
+const MinimapBuild = require('./pages/MinimapBuild');
 const React = require('react');
 const ReactDOM = require('react-dom');
 const {HashRouter, Switch, Route} = require('react-router-dom');
