@@ -84,6 +84,10 @@ class Floorplan extends React.Component {
   }
 
   componentDidMount() {
+    // DEV: We could use React `ref` to interact with our HTML element
+    //   but this variant makes it easier to pull updates for `blueprint3d`
+    //   For reference, in both cases, React won't clean up `canvas` until it's removed from the virtual DOM
+
     // Create teardown callbacks
     let state = this.state;
     var destroyCallbacks = [];
