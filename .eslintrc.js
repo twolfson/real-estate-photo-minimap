@@ -3,10 +3,12 @@ const WARN = 'warn';
 // const ERROR = 'error';
 module.exports = {
   // Inherit from our package
-  extends: 'eslint-config-twolfson',
-
-  // https://github.com/facebook/create-react-app/blob/v4.0.3/packages/eslint-config-react-app/base.js
-  plugins: ['react'],
+  extends: [
+    'eslint-config-twolfson',
+    'plugin:react/recommended',
+    'plugin:jsx-a11y/recommended',
+    'plugin:react-hooks/recommended'
+  ],
 
   parserOptions: {
     ecmaVersion: 2017,
@@ -24,9 +26,6 @@ module.exports = {
   rules: {
     'comma-dangle': OFF,
     'object-curly-spacing': OFF,
-
-    'react/jsx-uses-vars': WARN,
-    'react/jsx-uses-react': WARN,
   },
 
   // Configure our environment
