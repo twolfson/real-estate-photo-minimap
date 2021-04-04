@@ -15,9 +15,18 @@ module.exports = {
     },
   },
 
+  settings: {
+    react: {
+      version: 'detect',
+    },
+  },
+
   rules: {
     'comma-dangle': OFF,
     'object-curly-spacing': OFF,
+
+    'react/jsx-uses-vars': WARN,
+    'react/jsx-uses-react': WARN,
   },
 
   // Configure our environment
