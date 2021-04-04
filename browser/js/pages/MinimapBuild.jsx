@@ -1,7 +1,6 @@
 // Load in our dependencies
 const assert = require('assert');
 const classnames = require('classnames');
-const h = require('react-hyperscript');
 const Floorplan = require('../components/floorplan');
 const React = require('react');
 const Store = require('../store');
@@ -134,25 +133,23 @@ class MinimapBuild extends React.Component {
           </div>
         </div>
       </div>
-      {/*
-      h('.row', [
-        h('.col-6', [
-          h('p', [
-            h(Link, {className: 'btn btn-primary', to: '/'}, 'Back'),
-            h('br'),
-            h('em.text-muted.small', 'Progress will be persisted'),
-          ])
-        ]),
-        h('.col-6.text-right', [
-          h('p', [
-            // h(Link, {className: 'btn btn-primary', to: '/minimap-review'}, 'Continue'),
-            h('button', {className: 'btn btn-primary', disabled: true}, 'Continue'),
-            h('br'),
-            h('em.text-muted.small', 'Not yet implemented'),
-          ])
-        ]),
-      ]),
-      */}
+      <div className="row">
+        <div className="col-6">
+          <p>
+            <Link className="btn btn-primary" to="/">Back</Link>
+            <br />
+            <em className="text-muted small">Progress will be persisted</em>
+          </p>
+        </div>
+        <div className="col-6 text-right">
+          <p>
+            {/* <Link className="btn btn-primary" to="/minimap-review">Continue</Link> */}
+            <button className="btn btn-primary" disabled={true}>Continue</button>
+            <br />
+            <em className="text-muted small">Not yet implemented</em>
+          </p>
+        </div>
+      </div>
     </div>;
   }
 
