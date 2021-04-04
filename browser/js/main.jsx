@@ -1,6 +1,6 @@
 // Load in our dependencies
 const assert = require('assert');
-const CategorizePhotos = require('./pages/categorize-photos');
+const CategorizePhotos = require('./pages/CategorizePhotos');
 const MinimapBuild = require('./pages/minimap-build');
 const React = require('react');
 const ReactDOM = require('react-dom');
