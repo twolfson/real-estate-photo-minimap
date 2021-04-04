@@ -39,6 +39,22 @@
   }
 }
 
+// Allow button to have no default styles are all (useful for a11y)
+// https://github.com/tailwindlabs/tailwindcss/blob/v1.9.6/src/plugins/css/preflight.css#L27-L40
+// https://github.com/tailwindlabs/tailwindcss/blob/v1.9.6/src/plugins/css/preflight.css#L165-L181
+.btn-unstyled {
+  background-color: transparent;
+  background-image: none;
+  // Fix for Firefox/IE, see source for reference
+  &:focus {
+    outline: 1px dotted;
+    outline: 5px auto -webkit-focus-ring-color;
+  }
+  padding: 0;
+  line-height: inherit;
+  color: inherit;
+}
+
 // Custom CSS styles
 .location-1-bg { background-color: $location-1-bg; color: $location-1-fg; }
 .location-2-bg { background-color: $location-2-bg; color: $location-2-fg; }
@@ -72,4 +88,9 @@
 .location-9-img::before { content: '9'; background-color: $location-9-bg; color: $location-9-fg; }
 .location-0-img { border: 2px solid $location-0-bg; }
 .location-0-img::before { content: '0'; background-color: $location-0-bg; color: $location-0-fg; }
-.selected-image { outline: 2px solid black; }
+.selected-image {
+  &,
+  &:focus {
+    outline: 2px solid black;
+  }
+}
