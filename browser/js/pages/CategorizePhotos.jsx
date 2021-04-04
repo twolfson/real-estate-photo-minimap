@@ -16,24 +16,33 @@ class CategorizePhotos extends React.Component {
 
   render() {
     let state = this.state;
-    return h('.container', [
-      h('.row', [
-        h('.col-12', [
-          h('h1', 'real-estate-photo-minimap'),
-          h('p', 'We\'ll create a blueprint layout with grouped images, at up to 10 locations, in 3 steps'),
-          // ol
-          //   li Upload and categorize image with location
-          //   li Upload blueprint image from external tool
-          //   li Associate locations with blueprint image
-          h('.mb-3', [
-            h('.progress', {style: {height: '1.5rem'}}, [
-              h('.progress-bar', {role: 'progressbar', style: {width: '33%'}}, '1 - Categorize images'),
-              h('.progress-bar.progressbar-muted', {role: 'progressbar', style: {width: '33%'}}, '2 - Upload blueprint'), // eslint-disable-line max-len
-              h('.progress-bar.progressbar-muted', {role: 'progressbar', style: {width: '34%'}}, '3 - Assocate blueprint'), // eslint-disable-line max-len
-            ])
-          ])
-        ])
-      ]),
+    return <div className="container">
+      <div className="row">
+        <div className="col-12">
+          <h1>real-estate-photo-minimap</h1>
+          <p>We'll create a blueprint layout with grouped images, at up to 10 locations, in 3 steps</p>
+          {/*
+          More descriptive text if we have more space:
+          ol
+            li Upload and categorize image with location
+            li Upload blueprint image from external tool
+            li Associate locations with blueprint image
+          */}
+          <div className="mb-3">
+            <div className="progress" style={{height: '1.5rem'}}>
+              <div className="progress-bar" role="progressbar" style={{width: '33%'}}>
+                1 - Categorize images
+              </div>
+              <div className="progress-bar progressbar-muted" role="progressbar" style={{width: '33%'}}>
+                2 - Upload blueprint
+              </div>
+              <div className="progress-bar progressbar-muted" role="progressbar" style={{width: '34%'}}>
+                3 - Assocate blueprint
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
       h('.row', [
         h('.col-12', [
           h('h3', 'Associate uploaded images with locations')
@@ -119,7 +128,7 @@ class CategorizePhotos extends React.Component {
           ])
         ])
       ]),
-    ]);
+    </div>;
   }
 
   componentDidMount() {
