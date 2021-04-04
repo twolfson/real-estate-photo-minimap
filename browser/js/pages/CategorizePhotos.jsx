@@ -55,12 +55,11 @@ class CategorizePhotos extends React.Component {
               return <div className="col-2" key={location.key}>
                 <div className="input-group">
                   <div className="input-group-prepend">
-                    <span className={`input-group-text location-${location.key}-bg`}
-                      role="button"
+                    <button className={`input-group-text location-${location.key}-bg`}
                       onClick={() => { Store.rr('setLocationForCurrentImage', location.key); }}
                     >
                       {location.key}
-                    </span>
+                    </button>
                   </div>
                   <input className="form-control"
                     type="text" value={location.name}
