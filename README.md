@@ -22,6 +22,8 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 
 #### Polish
 - [ ] Use center points for text labels (e.g. starting position in demo is no longer dead center)
+  - Position center for first
+  - Others are left until moved (so everything gets `position: center` when x or y changes)
 - [ ] Abstract common content like page components, key listeners, page layouts
 - [ ] Add analytics
 - [ ] Add error handling
