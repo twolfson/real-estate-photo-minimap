@@ -100,7 +100,7 @@ class CategorizePhotos extends React.Component {
       <div className="row">
         {state.images.map((img, i) => {
           return <div className="col-1 mb-1" key={i}>
-            {/* DEV: We use a `div` as `::before` doesn't seem to work great with `img`*/}
+            {/* DEV: We use a `button` as `::before` doesn't seem to work great with `img`*/}
             <button
               className={classnames('btn-unstyled', {
                 'selected-image': i === state.currentImageIndex,
