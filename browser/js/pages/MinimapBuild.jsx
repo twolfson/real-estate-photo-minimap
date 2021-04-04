@@ -50,54 +50,58 @@ class MinimapBuild extends React.Component {
           </div>
         </div>
       </div>
-      {/*
-      h('.row', [
-        h('.col-12', [
-          h('h3', 'Build minimap/blueprint with each location')
-        ])
-      ]),
-      h('.row', [
-        h('.col-12.mb-3', [
-          h('div', {style: {border: '1px solid black'}}, [
-            h(Floorplan, {state})
-          ])
-        ])
-      ]),
-      h('.row', [
-        h('.col-12', [
-          h('p', 'Navigate the buttons and images below for convenient reference')
-        ])
-      ]),
-      h('.row', [
-        h('.col-12', [
-          (() => {
+      <div className="row">
+        <div className="col-12">
+          <h3>Build minimap/blueprint with each location</h3>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12 mb-3">
+          <div style={{border: '1px solid black'}}>
+            <Floorplan state={state} />
+          </div>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12">
+          <p>Navigate the buttons and images below for convenient reference</p>
+        </div>
+      </div>
+      <div className="row">
+        <div className="col-12">
+          {(() => {
             function createInput(location) {
-              return h('.col-2', {key: location.key}, [
-                h(`.input-group.input-group-as-btn-group`, [
-                  h(`.input-group-prepend`, [
-                    h(`button.input-group-text.location-${location.key}-bg`, {
-                      onClick: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
-                    }, location.key),
-                  ]),
-                  h(`button.form-control-plaintext.location-${location.key}-bg`, {
-                    readOnly: true,
-                    onClick: (evt) => { Store.rr('goToFirstLocationImage', location.key); },
-                  }, location.name)
-                ]),
-              ]);
+              return <div className="col-2" key={location.key}>
+                <div className={`input-group input-group-as-btn-group`}>
+                  <div className={`input-group-prepend`}>
+                    <button className={`input-group-text location-${location.key}-bg`}
+                      onClick={(evt) => { Store.rr('goToFirstLocationImage', location.key); }}
+                    >
+                      {location.key}
+                    </button>
+                  </div>
+                  <button className={`form-control-plaintext location-${location.key}-bg`}
+                    readOnly={true}
+                    onClick={(evt) => { Store.rr('goToFirstLocationImage', location.key); }}
+                  >
+                    {location.name}
+                  </button>
+                </div>
+              </div>;
             }
             assert(state.locations.length === 10, `Expected 10 locations but received ${state.locations.length}`);
-            return [
-              h('.row.mb-3', {key: 'location-row-0'}, [
-                state.locations.slice(0, 5).map(createInput)
-              ]),
-              h('.row.mb-3', {key: 'location-row-1'}, [
-                state.locations.slice(5, 10).map(createInput)
-              ])
-            ];
-          })()
-        ])
-      ]),
+            return <>
+              <div className="row mb-3">
+                {state.locations.slice(0, 5).map(createInput)}
+              </div>
+              <div className="row mb-3">
+                {state.locations.slice(5, 10).map(createInput)}
+              </div>
+            </>;
+          })()}
+        </div>
+      </div>
+      {/*
       h('.row.mb-3', [
         h('.col-4', [
           h('a', {href: state.getCurrentImage().src, target: '_blank'}, [
