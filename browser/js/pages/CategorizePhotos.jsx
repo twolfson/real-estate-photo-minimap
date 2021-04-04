@@ -1,7 +1,6 @@
 // Load in our dependencies
 const assert = require('assert');
 const classnames = require('classnames');
-const h = require('react-hyperscript');
 const React = require('react');
 const Store = require('../store');
 const {Link} = require('react-router-dom');
@@ -117,21 +116,21 @@ class CategorizePhotos extends React.Component {
           </div>;
         })}
       </div>
-      {/*
-      h('.row', [
-        h('.col-6', [
-        ]),
-        h('.col-6.text-right', [
-          h('p', [
-            h(Link, {className: 'btn btn-primary', to: '/minimap-build'}, 'Continue'),
-            h('br'),
-            h('em.text-muted.small', `Uncategorized images (${
-              state.images.filter((img) => !img.locationKey).length
-            }) will be omitted`),
-          ])
-        ])
-      ]),
-      */}
+      <div className="row">
+        <div className="col-6"></div>
+        <div className="col-6 text-right">
+          <p>
+            <Link className="btn btn-primary" to="/minimap-build">Continue</Link>
+            <br />
+            <em className="text-muted small">
+              {(() => {
+                let uncategorizedImages = state.images.filter((img) => !img.locationKey);
+                return <>Uncategorized images ({uncategorizedImages.length}) will be omitted</>;
+              })()}
+            </em>
+          </p>
+        </div>
+      </div>
     </div>;
   }
 
