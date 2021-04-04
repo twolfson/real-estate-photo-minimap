@@ -82,40 +82,42 @@ class CategorizePhotos extends React.Component {
           })()}
         </div>
       </div>
-      {/*
-      h('.row', [
-        h('.col-6', [
-          h('div', 'Type or press location number to categorize image'),
-          h('p', [
-            h('img.img-fluid', {src: state.getCurrentImage().src, alt: 'Actively selected photo'})
-          ]),
+      <div className="row">
+        <div className="col-6">
+          <div>Type or press location number to categorize image</div>
+          <p>
+            {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
+            <img className="img-fluid" src={state.getCurrentImage().src} alt="Actively selected photo" />
+          </p>
 
-          h('p', [
-            'or ',
-            h('button.btn.btn-secondary', {onClick: () => { Store.rr('nextImage'); }}, 'skip to next image'),
-            h('span.text-muted', ' (shortcut: s)'),
-          ])
-        ])
-      ]),
-      h('.row', [
-        state.images.map((img, i) => {
-          return h('.col-1.mb-1', {key: i}, [
-            // DEV: We use a `div` as `::before` doesn't seem to work great with `img`
-            h('div', {
-              className: classnames({
+          <p>
+            or{' '}
+            <button className="btn btn-secondary"
+              onClick={() => { Store.rr('nextImage'); }}>skip to next image</button>
+            <span className="text-muted"> (shortcut: s)</span>
+          </p>
+        </div>
+      </div>
+      <div className="row">
+        {state.images.map((img, i) => {
+          return <div className="col-1 mb-1" key={i}>
+            {/* DEV: We use a `div` as `::before` doesn't seem to work great with `img`*/}
+            <button
+              className={classnames('btn-unstyled', {
                 'selected-image': i === state.currentImageIndex,
-              }, img.locationKey ? `location-img location-${img.locationKey}-img` : '')
-            }, [
-              h('img.img-fluid', {
-                src: img.src,
-                role: 'button',
-                alt: `Photo ${i} thumbnail`,
-                onClick: () => { Store.rr('goToImage', i); }
-              })
-            ])
-          ]);
-        })
-      ]),
+              }, img.locationKey ? `location-img location-${img.locationKey}-img` : '')}
+              onClick={() => { Store.rr('goToImage', i); }}
+            >
+              {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
+              <img className="img-fluid"
+                src={img.src}
+                alt={`Photo ${i} thumbnail`}
+              />
+            </button>
+          </div>;
+        })}
+      </div>
+      {/*
       h('.row', [
         h('.col-6', [
         ]),
