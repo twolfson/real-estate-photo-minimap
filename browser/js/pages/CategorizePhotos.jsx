@@ -33,7 +33,7 @@ class CategorizePhotos extends React.Component {
                 1 - Categorize images
               </div>
               <div className="progress-bar progressbar-muted" role="progressbar" style={{width: '33%'}}>
-                2 - Upload blueprint
+                2 - Build minimap
               </div>
               <div className="progress-bar progressbar-muted" role="progressbar" style={{width: '34%'}}>
                 3 - Assocate blueprint
