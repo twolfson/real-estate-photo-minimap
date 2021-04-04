@@ -4,8 +4,15 @@ const WARN = 'warn';
 module.exports = {
   // Inherit from our package
   extends: 'eslint-config-twolfson',
+
+  // https://github.com/facebook/create-react-app/blob/v4.0.3/packages/eslint-config-react-app/base.js
+  plugins: ['react'],
+
   parserOptions: {
     ecmaVersion: 2017,
+    ecmaFeatures: {
+      jsx: true,
+    },
   },
 
   rules: {
