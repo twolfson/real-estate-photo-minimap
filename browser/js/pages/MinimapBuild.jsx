@@ -4,15 +4,19 @@ const classnames = require('classnames');
 const Floorplan = require('../components/Floorplan');
 const React = require('react');
 const { Link } = require('react-router-dom');
-const { useStore } = require('../hooks/store');
+const { useStore, _useUnfrozenStore } = require('../hooks/store');
 
 // Define our page
 function MinimapBuild() {
+  // Before handing off state, perform a synchronous sort on our data
+  // DEV: This is a hack to guarantee this data is available on direct page visit
+  let _unfrozenState = _useUnfrozenStore();
+  _unfrozenState._sortImagesByLocationKey(_unfrozenState);
+  _unfrozenState._populateMinimap(_unfrozenState);
+
+  // Load in the rest of our hooks
   let state = useStore();
 
-  // Before handing off state, perform a synchronous sort on our data
-  state.sortImagesByLocationKey();
-  state.populateMinimap();
 
   // Perform our render
   return <div className="container">
