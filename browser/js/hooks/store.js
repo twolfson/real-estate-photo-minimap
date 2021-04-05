@@ -36,11 +36,7 @@ let useStore = zustand(function (set) {
     }),
     minimap: null,
     currentImageIndex: 0,
-  };
-});
-exports.useStore = useStore;
-
-let actions = {
+  /*
   goToFirstLocationImage: function (locationKey) {
     let firstLocationImageIndex = state.images.findIndex((img) => img.locationKey === locationKey);
     if (firstLocationImageIndex !== -1) {
@@ -82,8 +78,8 @@ let actions = {
     // DEV: All browsers except IE stable sort, this is prob good enough -- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
     state.images.sort((imgA, imgB) => {
       if (imgB.locationKey === imgA.locationKey) { return 0; }
-      if (imgA.locationKey === null /* and thus B isn't null */) { return  1; }
-      if (imgB.locationKey === null /* and thus A isn't null */) { return -1; }
+      if (imgA.locationKey === null *//* and thus B isn't null *//*) { return  1; }
+      if (imgB.locationKey === null *//* and thus A isn't null *//*) { return -1; }
       if (imgA.locationKey < imgB.locationKey) { return -1; }
       if (imgA.locationKey > imgB.locationKey) { return  1; }
       throw new Error('Unexpected comparison case');
@@ -95,14 +91,23 @@ let actions = {
     helperState.getCurrentImage().locationKey = locationKey; // eslint-disable-line no-use-before-define
     actions.nextImage();
   },
-  setLocationName: function (locationKey, name) {
-    let location = state.locations.find((location) => location.key === locationKey);
-    location.name = name;
-  },
+  */
+    setLocationName: function (locationKey, name) {
+      return set((state) => {
+        let { locations } = state;
+        let location = locations.find((location) => location.key === locationKey);
+        location.name = name;
+        return { locations };
+      });
+    },
+  /*
   updateMinimap: function (data) {
     Object.assign(state.minimap, data);
   }
-};
+  */
+  };
+});
+exports.useStore = useStore;
 
 // Helper getters
 function useLocationKeys() {
