@@ -2,12 +2,41 @@
 const assert = require('assert');
 const classnames = require('classnames');
 const React = require('react');
-const { useStore } = require('../hooks/store');
 const { Link } = require('react-router-dom');
+const { useStore } = require('../hooks/store');
 
-// Define our main page load hook
+// Define our page
 function CategorizePhotos() {
   let state = useStore();
+
+  React.useEffect(() => {
+    // When a key is pressed
+    let _keyListener = (evt) => {
+      // If the event is for an input, then stop
+      // https://github.com/ccampbell/mousetrap/blob/1.6.5/mousetrap.js#L973-L1001
+      if (['INPUT', 'SELECT', 'TEXTAREA'].includes(evt.target.tagName)) {
+        return;
+      }
+
+      // Compare to known shortcuts
+      // Location numbers
+      if (state.getLocationKeys().includes(evt.key)) {
+        state.setLocationForCurrentImage(evt.key);
+      // Skipping shortcut
+      } else if (evt.key === 's') {
+        state.nextImage();
+      // Arrow keys
+      } else if (evt.key === 'ArrowLeft') {
+        state.previousImage();
+      } else if (evt.key === 'ArrowRight') {
+        state.nextImage();
+      }
+    };
+    window.addEventListener('keydown', _keyListener);
+    return () => {
+      window.removeEventListener('keydown', _keyListener);
+    };
+  });
 
   return <div className="container">
     <div className="row">
@@ -126,40 +155,7 @@ function CategorizePhotos() {
       </div>
     </div>
   </div>;
-
-  /*
-  componentDidMount() {
-    // When a key is pressed
-    let state = this.state;
-    this._keyListener = (evt) => {
-      // If the event is for an input, then stop
-      // https://github.com/ccampbell/mousetrap/blob/1.6.5/mousetrap.js#L973-L1001
-      if (['INPUT', 'SELECT', 'TEXTAREA'].includes(evt.target.tagName)) {
-        return;
-      }
-
-      // Compare to known shortcuts
-      // Location numbers
-      if (state.getLocationKeys().includes(evt.key)) {
-        Store.rr('setLocationForCurrentImage', evt.key);
-      // Skipping shortcut
-      } else if (evt.key === 's') {
-        Store.rr('nextImage');
-      // Arrow keys
-      } else if (evt.key === 'ArrowLeft') {
-        Store.rr('previousImage');
-      } else if (evt.key === 'ArrowRight') {
-        Store.rr('nextImage');
-      }
-    };
-    window.addEventListener('keydown', this._keyListener);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this._keyListener);
-    delete this._keyListener;
-  }
-  */
-};
+}
 
 // Export our module
 module.exports = CategorizePhotos;
