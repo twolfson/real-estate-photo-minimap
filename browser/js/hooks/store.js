@@ -15,7 +15,7 @@ let demoData = require('../../../data/demo.json');
 /* eslint-enable max-len */
 
 // Build our initial Zustand store
-let useStore = zustand(function (set) {
+let useStore = zustand(function (setState, getState) {
   return {
     // DEV: We use keys instead of array index as we want to associate it loosely (e.g. different shortcuts)
     locations: [
@@ -39,7 +39,7 @@ let useStore = zustand(function (set) {
 
     // Actions
     goToFirstLocationImage: function (locationKey) {
-      return set((state) => {
+      return setState((state) => {
         let firstLocationImageIndex = state.images.findIndex((img) => img.locationKey === locationKey);
         if (firstLocationImageIndex !== -1) {
           return { currentImageIndex: firstLocationImageIndex };
@@ -91,7 +91,7 @@ let useStore = zustand(function (set) {
   },
   */
     setLocationForCurrentImage: function (locationKey) {
-      return set((state) => {
+      return setState((state) => {
         let locationKeys = useLocationKeys();
         assert(locationKeys.includes(locationKey), `Location ${locationKey} isn't within locations`);
         useCurrentImage().locationKey = locationKey;
@@ -99,7 +99,7 @@ let useStore = zustand(function (set) {
       });
     },
     setLocationName: function (locationKey, name) {
-      return set((state) => {
+      return setState((state) => {
         let { locations } = state;
         let location = locations.find((location) => location.key === locationKey);
         location.name = name;
@@ -111,23 +111,19 @@ let useStore = zustand(function (set) {
     Object.assign(state.minimap, data);
   }
   */
+
+    // Helper getters
+    getLocationKeys: function () {
+      return getState().locations.map((location) => location.key);
+    },
+
+    getCurrentImage: function () {
+      let state = getState();
+      return state.images[state.currentImageIndex];
+    },
   };
 });
 exports.useStore = useStore;
-
-// Helper getters
-function _useLocationKeys(state) {
-  return state.locations.map((location) => location.key);
-}
-function useLocationKeys() {
-  return useStore(_useLocationKeys);
-}
-exports.useLocationKeys = useLocationKeys;
-
-function useCurrentImage() {
-  return useStore((state) => state.images[state.currentImageIndex]);
-}
-exports.useCurrentImage = useCurrentImage;
 
 /*
 let Store = {

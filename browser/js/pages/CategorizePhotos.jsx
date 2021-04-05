@@ -8,7 +8,6 @@ const { Link } = require('react-router-dom');
 // Define our main page load hook
 function CategorizePhotos() {
   let state = useStore();
-  let currentImage = useCurrentImage();
 
   return <div className="container">
     <div className="row">
@@ -81,7 +80,7 @@ function CategorizePhotos() {
         <div>Type or press location number to categorize image</div>
         <p>
           {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
-          <img className="img-fluid" src={currentImage.src} alt="Actively selected photo" />
+          <img className="img-fluid" src={state.getCurrentImage().src} alt="Actively selected photo" />
         </p>
 
         <p>
