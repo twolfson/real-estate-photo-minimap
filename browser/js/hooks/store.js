@@ -104,7 +104,6 @@ let _useStore = zustand(function (setState, getState) {
     },
     setLocationName: function (locationKey, name) {
       return setState((state) => {
-        console.log('wat', state.locations[0]);
         let location = state.locations.find((location) => location.key === locationKey);
         location.name = name;
       });
@@ -128,6 +127,9 @@ let _useStore = zustand(function (setState, getState) {
 });
 exports.useStore = function () {
   // Proxy Zustand to guarantee no accidental mutations (e.g. `.sort()`)
+  // DEV: This would appear if we updated a value async from the `render` call
+  //   but also can update state without hitting `hooks/store` which is a code smell
+  //   See: https://github.com/twolfson/real-estate-photo-minimap/blob/c5b41c0b67cbb4260e96d586f907d78df3cf987b/browser/js/pages/CategorizePhotos.jsx#L11-L13
   let state = _useStore.apply(this, arguments);
   return deepFreeze(cloneDeep(state));
 };

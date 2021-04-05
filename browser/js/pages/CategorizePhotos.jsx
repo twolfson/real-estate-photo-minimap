@@ -8,9 +8,6 @@ const { Link } = require('react-router-dom');
 // Define our main page load hook
 function CategorizePhotos() {
   let state = useStore();
-  console.log('huh', state.locations[0]);
-  state.locations[0].name = 'foo';
-  console.log('huh', state.locations[0]);
 
   return <div className="container">
     <div className="row">
