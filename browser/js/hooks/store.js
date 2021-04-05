@@ -64,38 +64,40 @@ let _useStore = zustand(function (setState, getState) {
         if (state.currentImageIndex < 0) { state.currentImageIndex = state.images.length - 1; }
       });
     },
-  /*
-  populateMinimap: function () {
-    // If we already have minimap info, then do nothing
-    if (state.minimap) {
-      return;
-    }
-    state.minimap = {
-      // console.log(JSON.stringify(Store._renderState.minimap.floorplan))
-      floorplan: {"corners":{"1":{"x":1023.747,"y":378.46},"2":{"x":1226.947,"y":378.46},"3":{"x":1226.947,"y":174.041},"4":{"x":1023.747,"y":174.041}},"walls":[{"corner1":"4","corner2":"1"},{"corner1":"1","corner2":"2"},{"corner1":"2","corner2":"3"},{"corner1":"3","corner2":"4"}]}, // eslint-disable-line
-      textLabels: state.locations.map((location, i) => {
-        return {
-          // console.log(JSON.stringify(Store._renderState.minimap.textLabels[0]))
-          // console.log(JSON.stringify(Store._renderState.minimap.textLabels[1]))
-          locationKey: location.key,
-          x: (i === 0) ? 1088 : 2023, // cm
-          y: (i === 0) ? 250 : (i - 1) * 64 + 16, // cm
+    populateMinimap: function () {
+      return setState((state) => {
+        // If we already have minimap info, then do nothing
+        if (state.minimap) {
+          return;
+        }
+        state.minimap = {
+          // console.log(JSON.stringify(Store._renderState.minimap.floorplan))
+          floorplan: {"corners":{"1":{"x":1023.747,"y":378.46},"2":{"x":1226.947,"y":378.46},"3":{"x":1226.947,"y":174.041},"4":{"x":1023.747,"y":174.041}},"walls":[{"corner1":"4","corner2":"1"},{"corner1":"1","corner2":"2"},{"corner1":"2","corner2":"3"},{"corner1":"3","corner2":"4"}]}, // eslint-disable-line
+          textLabels: state.locations.map((location, i) => {
+            return {
+              // console.log(JSON.stringify(Store._renderState.minimap.textLabels[0]))
+              // console.log(JSON.stringify(Store._renderState.minimap.textLabels[1]))
+              locationKey: location.key,
+              x: (i === 0) ? 1088 : 2023, // cm
+              y: (i === 0) ? 250 : (i - 1) * 64 + 16, // cm
+            };
+          })
         };
-      })
-    };
-  },
-  sortImagesByLocationKey: function () {
-    // DEV: All browsers except IE stable sort, this is prob good enough -- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
-    state.images.sort((imgA, imgB) => {
-      if (imgB.locationKey === imgA.locationKey) { return 0; }
-      if (imgA.locationKey === null *//* and thus B isn't null *//*) { return  1; }
-      if (imgB.locationKey === null *//* and thus A isn't null *//*) { return -1; }
-      if (imgA.locationKey < imgB.locationKey) { return -1; }
-      if (imgA.locationKey > imgB.locationKey) { return  1; }
-      throw new Error('Unexpected comparison case');
-    });
-  },
-  */
+      });
+    },
+    sortImagesByLocationKey: function () {
+      return setState((state) => {
+        // DEV: All browsers except IE stable sort, this is prob good enough -- https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+        state.images.sort((imgA, imgB) => {
+          if (imgB.locationKey === imgA.locationKey) { return 0; }
+          if (imgA.locationKey === null /* and thus B isn't null */) { return  1; }
+          if (imgB.locationKey === null /* and thus A isn't null */) { return -1; }
+          if (imgA.locationKey < imgB.locationKey) { return -1; }
+          if (imgA.locationKey > imgB.locationKey) { return  1; }
+          throw new Error('Unexpected comparison case');
+        });
+      });
+    },
     setLocationForCurrentImage: function (locationKey) {
       return setState((state) => {
         let locationKeys = state.getLocationKeys();
