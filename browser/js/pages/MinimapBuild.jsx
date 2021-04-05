@@ -93,8 +93,8 @@ function MinimapBuild() {
         {(() => {
           function createInput(location) {
             return <div className="col-2" key={location.key}>
-              <div className={`input-group input-group-as-btn-group`}>
-                <div className={`input-group-prepend`}>
+              <div className="input-group input-group-as-btn-group">
+                <div className="input-group-prepend">
                   <button className={`input-group-text location-${location.key}-bg`}
                     onClick={(evt) => { state.goToFirstLocationImage(location.key); }}
                   >
