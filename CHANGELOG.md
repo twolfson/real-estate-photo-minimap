@@ -1,4 +1,6 @@
 # real-estate-photo-minimap
+1.8.0 - Moved from bespoke `Store` to `zustand` and React Hooks
+
 1.7.0 - Transitioned from `react-hyperscript` to JSX to minimize unclear "missing `])`" errors
   - Subtasks included:
   - Verifying no missed `,` in output
