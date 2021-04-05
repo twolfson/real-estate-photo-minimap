@@ -36,7 +36,7 @@ function CategorizePhotos() {
     return () => {
       window.removeEventListener('keydown', _keyListener);
     };
-  });
+  }, []);
 
   return <div className="container">
     <div className="row">

@@ -2,7 +2,7 @@
 // Load in our dependencies
 const assert = require('assert');
 const React = require('react');
-const Store = require('../hooks/store');
+const { useStore } = require('../hooks/store');
 
 // A lot of the content in this file is copy/paste/modify from `example` in `blueprint3d
 // https://github.com/twolfson/blueprint3d/tree/90d33027ab67c456acd769cfeb38bbdee42e092d/example
@@ -21,77 +21,27 @@ void require('blueprint3d/example/js/blueprint3d.js'); // eslint-disable-line gl
 const BP3D = window.BP3D;
 
 // Helper functions
-const BootstrapIcon = ({ svgStr, style }) => {
+function BootstrapIcon({ svgStr, ...props }) {
   return <svg
     xmlns="http://www.w3.org/2000/svg" width="16" height="16"
     fill="currentColor" viewBox="0 0 16 16"
-    style={style || null}
+    {...props}
   >
     <path fillRule="evenodd" d={svgStr} />
   </svg>;
 };
 
 // Define our component
-class Floorplan extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = props.state;
-  }
-
-  render() {
-    return <div id="floorplanner"
-      style={{position: 'relative', height: '300px'}}
-    >
-      <canvas id="floorplanner-canvas" />
-      <div id="floorplanner-controls">
-        <div>
-          <button id="move" className="btn btn-sm btn-outline-secondary mb-1 text-left"
-            style={{minWidth: '120px'}}
-          >
-            {/* https://icons.getbootstrap.com/icons/arrows-move/ */}
-            <BootstrapIcon
-              svgStr="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z"
-            />
-            &nbsp;&nbsp;Move
-          </button>
-        </div>
-        <div>
-          <button id="draw" className="btn btn-sm btn-outline-secondary mb-1 text-left"
-            style={{minWidth: '120px'}}
-          >
-            {/* https://icons.getbootstrap.com/icons/pencil-fill/ */}
-            <BootstrapIcon
-              svgStr="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
-              style={{marginTop: '-2px'}}
-            />
-            &nbsp;&nbsp;Draw/split
-          </button>
-        </div>
-        <div>
-          <button id="delete" className="btn btn-sm btn-outline-secondary mb-1 text-left"
-            style={{minWidth: '120px'}}
-          >
-            {/* https://icons.getbootstrap.com/icons/eraser-fill/ */}
-            <BootstrapIcon
-              svgStr="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"
-            />
-            &nbsp;&nbsp;Delete
-          </button>
-        </div>
-      </div>
-      <div id="draw-walls-hint">Press the &quot;Esc&quot; key to stop drawing walls</div>
-    </div>;
-  }
-
-  componentDidMount() {
+function Floorplan() {
+  let state = useStore();
+  React.useEffect(() => {
     // DEV: We could use React `ref` to interact with our HTML element
     //   but this variant makes it easier to pull updates for `blueprint3d`
     //   For reference, in both cases, React won't clean up `canvas` until it's removed from the virtual DOM
 
     // Create teardown callbacks
-    let state = this.state;
     var destroyCallbacks = [];
-    this.destroy = () => {
+    let _destroy = () => {
       destroyCallbacks.forEach((fn) => fn());
       destroyCallbacks = null;
       delete this.destroy;
@@ -278,17 +228,61 @@ class Floorplan extends React.Component {
       });
 
       // Save our results
-      Store.rr('updateMinimap', {floorplan: floorplan, textLabels: _storeLabels});
+      state.updateMinimap({floorplan: floorplan, textLabels: _storeLabels});
     };
     $('#' + opts.containerElement).on('mousedown', saveState);
     $('#' + opts.containerElement).on('mouseup', saveState);
     saveState();
-  }
-  componentWillUnmount() {
-    this.destroy();
-    delete window.blueprint3d;
-    delete this.blueprint3d;
-    delete this.viewerFloorplanner;
-  }
+
+    return () => {
+      _destroy();
+      delete window.blueprint3d;
+      delete this.blueprint3d;
+      delete this.viewerFloorplanner;
+    };
+  }, []);
+
+  return <div id="floorplanner"
+    style={{position: 'relative', height: '300px'}}
+  >
+    <canvas id="floorplanner-canvas" />
+    <div id="floorplanner-controls">
+      <div>
+        <button id="move" className="btn btn-sm btn-outline-secondary mb-1 text-left"
+          style={{minWidth: '120px'}}
+        >
+          {/* https://icons.getbootstrap.com/icons/arrows-move/ */}
+          <BootstrapIcon
+            svgStr="M7.646.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 1.707V5.5a.5.5 0 0 1-1 0V1.707L6.354 2.854a.5.5 0 1 1-.708-.708l2-2zM8 10a.5.5 0 0 1 .5.5v3.793l1.146-1.147a.5.5 0 0 1 .708.708l-2 2a.5.5 0 0 1-.708 0l-2-2a.5.5 0 0 1 .708-.708L7.5 14.293V10.5A.5.5 0 0 1 8 10zM.146 8.354a.5.5 0 0 1 0-.708l2-2a.5.5 0 1 1 .708.708L1.707 7.5H5.5a.5.5 0 0 1 0 1H1.707l1.147 1.146a.5.5 0 0 1-.708.708l-2-2zM10 8a.5.5 0 0 1 .5-.5h3.793l-1.147-1.146a.5.5 0 0 1 .708-.708l2 2a.5.5 0 0 1 0 .708l-2 2a.5.5 0 0 1-.708-.708L14.293 8.5H10.5A.5.5 0 0 1 10 8z"
+          />
+          &nbsp;&nbsp;Move
+        </button>
+      </div>
+      <div>
+        <button id="draw" className="btn btn-sm btn-outline-secondary mb-1 text-left"
+          style={{minWidth: '120px'}}
+        >
+          {/* https://icons.getbootstrap.com/icons/pencil-fill/ */}
+          <BootstrapIcon
+            svgStr="M12.854.146a.5.5 0 0 0-.707 0L10.5 1.793 14.207 5.5l1.647-1.646a.5.5 0 0 0 0-.708l-3-3zm.646 6.061L9.793 2.5 3.293 9H3.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.5h.5a.5.5 0 0 1 .5.5v.207l6.5-6.5zm-7.468 7.468A.5.5 0 0 1 6 13.5V13h-.5a.5.5 0 0 1-.5-.5V12h-.5a.5.5 0 0 1-.5-.5V11h-.5a.5.5 0 0 1-.5-.5V10h-.5a.499.499 0 0 1-.175-.032l-.179.178a.5.5 0 0 0-.11.168l-2 5a.5.5 0 0 0 .65.65l5-2a.5.5 0 0 0 .168-.11l.178-.178z"
+            style={{marginTop: '-2px'}}
+          />
+          &nbsp;&nbsp;Draw/split
+        </button>
+      </div>
+      <div>
+        <button id="delete" className="btn btn-sm btn-outline-secondary mb-1 text-left"
+          style={{minWidth: '120px'}}
+        >
+          {/* https://icons.getbootstrap.com/icons/eraser-fill/ */}
+          <BootstrapIcon
+            svgStr="M8.086 2.207a2 2 0 0 1 2.828 0l3.879 3.879a2 2 0 0 1 0 2.828l-5.5 5.5A2 2 0 0 1 7.879 15H5.12a2 2 0 0 1-1.414-.586l-2.5-2.5a2 2 0 0 1 0-2.828l6.879-6.879zm.66 11.34L3.453 8.254 1.914 9.793a1 1 0 0 0 0 1.414l2.5 2.5a1 1 0 0 0 .707.293H7.88a1 1 0 0 0 .707-.293l.16-.16z"
+          />
+          &nbsp;&nbsp;Delete
+        </button>
+      </div>
+    </div>
+    <div id="draw-walls-hint">Press the &quot;Esc&quot; key to stop drawing walls</div>
+  </div>;
 }
 module.exports = Floorplan;

@@ -41,7 +41,7 @@ function MinimapBuild() {
     return () => {
       window.removeEventListener('keydown', _keyListener);
     };
-  });
+  }, []);
 
   // Perform our render
   return <div className="container">
@@ -79,7 +79,7 @@ function MinimapBuild() {
     <div className="row">
       <div className="col-12 mb-3">
         <div style={{border: '1px solid black'}}>
-          {/* <Floorplan state={state} /> */}
+          <Floorplan state={state} />
         </div>
       </div>
     </div>

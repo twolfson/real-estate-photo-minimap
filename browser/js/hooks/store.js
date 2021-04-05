@@ -108,11 +108,11 @@ let _useStore = zustand(function (setState, getState) {
         location.name = name;
       });
     },
-  /*
-  updateMinimap: function (data) {
-    Object.assign(state.minimap, data);
-  }
-  */
+    updateMinimap: function (data) {
+      return setState((state) => {
+        Object.assign(state.minimap, data);
+      });
+    },
 
     // Helper getters
     getLocationKeys: function () {
