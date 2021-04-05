@@ -42,6 +42,7 @@ Built out of frustration with disorienting rental and real estate listings (e.g.
 - [ ] Prompt user on BR/BA count to prepopulate fields (e.g. Bedoom A, Bedoom B for 2BR, add Bedoom C for 3BR)
 - [ ] Set max height on images
 - [x] Play with React Dev Tools to see performance issues as well as move off of `[].concat` to use nested arrays
+- [ ] Update schema versioning to be more robust (e.g. use `package.json` version or temporal version, settle on how migrations are handled)
 
 #### Low priority
 - [ ] Add `destroy` cleanup for `Blueprint3d` (not a lot of memory leaks expected)

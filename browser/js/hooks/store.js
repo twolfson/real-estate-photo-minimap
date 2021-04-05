@@ -14,7 +14,7 @@ let demoData = require('../../../data/demo.json');
 // }
 /* eslint-enable max-len */
 
-// Build our initial Zustand store
+// Build our Zustand store
 let _useStore = zustand(function (setState, getState) {
   return {
     // DEV: We use keys instead of array index as we want to associate it loosely (e.g. different shortcuts)
@@ -124,6 +124,32 @@ let _useStore = zustand(function (setState, getState) {
     },
   };
 });
+
+// Persistence bindings
+// Serialize and save our state
+if (config.persistData) {
+  _useStore.subscribe(function (state) {
+    localStorage.stateBackup = JSON.stringify({
+      state: state,
+      version: 'v1',
+      timestamp: Date.now(),
+    });
+  });
+}
+
+// Load in our saved state
+// TODO: Use distinct key for each minimap (part of CRUD build)
+// TODO: Set up ability for user to clear their own cache (would be deletion in CRUD)
+if (config.persistData && localStorage.stateBackup) {
+  let _loadedState = JSON.parse(localStorage.stateBackup).state;
+  _useStore.setState(_loadedState);
+
+  // eslint-disable-next-line no-console
+  console.info('Loaded state from `localStorage`. ' +
+    'To delete backup, run: `delete localStorage.stateBackup; window.refresh()`');
+}
+
+// Perform our exports
 exports.useStore = function () {
   // Proxy Zustand to guarantee no accidental mutations (e.g. `.sort()`)
   // DEV: This would appear if we updated a value async from the `render` call
@@ -133,62 +159,3 @@ exports.useStore = function () {
   return deepFreeze(cloneDeep(state));
 };
 exports._useUnfrozenStore = _useStore;
-
-/*
-let Store = {
-  // Allow external context to set render callback
-  _renderFn: null,
-
-  // Re-expose state and actions for quick access publicly
-  __state: state,
-  __actions: actions,
-  __helpers: helpers,
-
-  // Define our action interfaces
-  _renderState: null,
-  regenerateRenderState: function () {
-    helperState = Object.assign({}, state, helpers);
-    this._renderState = deepFreeze(cloneDeep(helperState));
-    return this._renderState;
-  },
-  run: function (method, *//* args *//*) {
-    let args = [].slice.call(arguments, 1);
-    assert(actions.hasOwnProperty(method), `Unknown action ${method}`);
-    actions[method].apply(actions, args);
-    this.regenerateRenderState();
-  },
-  rr *//* run and render *//*: function () {
-    // Run our logic
-    this.run.apply(this, arguments);
-    assert(this._renderFn, 'Store._renderFn was never set');
-    this._renderFn(this._renderState);
-
-    // Serialize and save our state
-    if (config.persistData) {
-      localStorage.stateBackup = JSON.stringify({
-        state: state,
-        version: 'v1',
-        timestamp: Date.now(),
-      });
-    }
-  }
-};
-Store.regenerateRenderState();
-window.Store = Store; // Expose for debugging/practicality
-
-// Load in our saved state
-// TODO: Use distinct key for each minimap (part of CRUD build)
-// TODO: Set up ability for user to clear their own cache (would be deletion in CRUD)
-if (config.persistData && localStorage.stateBackup) {
-  let _loadedState = JSON.parse(localStorage.stateBackup).state;
-  state = _loadedState;
-  Store.regenerateRenderState();
-
-  // eslint-disable-next-line no-console
-  console.info('Loaded state from `localStorage`. ' +
-    'To delete backup, run: `delete localStorage.stateBackup; window.refresh()`');
-}
-
-// Expose our store
-module.exports = Store;
-*/
