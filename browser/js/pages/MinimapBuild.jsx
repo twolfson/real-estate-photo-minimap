@@ -17,6 +17,31 @@ function MinimapBuild() {
   // Load in the rest of our hooks
   let state = useStore();
 
+  React.useEffect(() => {
+    // When a key is pressed
+    let _keyListener = (evt) => {
+      // If the event is for an input, then stop
+      // https://github.com/ccampbell/mousetrap/blob/1.6.5/mousetrap.js#L973-L1001
+      if (['INPUT', 'SELECT', 'TEXTAREA'].includes(evt.target.tagName)) {
+        return;
+      }
+
+      // Compare to known shortcuts
+      // Location numbers
+      if (state.getLocationKeys().includes(evt.key)) {
+        state.goToFirstLocationImage(evt.key);
+      // Arrow keys
+      } else if (evt.key === 'ArrowLeft') {
+        state.previousImage();
+      } else if (evt.key === 'ArrowRight') {
+        state.nextImage();
+      }
+    };
+    window.addEventListener('keydown', _keyListener);
+    return () => {
+      window.removeEventListener('keydown', _keyListener);
+    };
+  });
 
   // Perform our render
   return <div className="container">
@@ -54,7 +79,7 @@ function MinimapBuild() {
     <div className="row">
       <div className="col-12 mb-3">
         <div style={{border: '1px solid black'}}>
-          <Floorplan state={state} />
+          {/* <Floorplan state={state} /> */}
         </div>
       </div>
     </div>
@@ -71,14 +96,14 @@ function MinimapBuild() {
               <div className={`input-group input-group-as-btn-group`}>
                 <div className={`input-group-prepend`}>
                   <button className={`input-group-text location-${location.key}-bg`}
-                    onClick={(evt) => { Store.rr('goToFirstLocationImage', location.key); }}
+                    onClick={(evt) => { state.goToFirstLocationImage(location.key); }}
                   >
                     {location.key}
                   </button>
                 </div>
                 <button className={`form-control-plaintext location-${location.key}-bg`}
                   readOnly={true}
-                  onClick={(evt) => { Store.rr('goToFirstLocationImage', location.key); }}
+                  onClick={(evt) => { state.goToFirstLocationImage(location.key); }}
                 >
                   {location.name}
                 </button>
@@ -117,7 +142,7 @@ function MinimapBuild() {
                 className={classnames('btn-unstyled', {
                   'selected-image': i === state.currentImageIndex,
                 }, img.locationKey ? `location-img location-${img.locationKey}-img` : '')}
-                onClick={() => { Store.rr('goToImage', i); }}
+                onClick={() => { state.goToImage(i); }}
               >
                 {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
                 <img className="img-fluid"
@@ -148,36 +173,6 @@ function MinimapBuild() {
       </div>
     </div>
   </div>;
-
-  /*
-  componentDidMount() {
-    // When a key is pressed
-    let state = this.state;
-    this._keyListener = (evt) => {
-      // If the event is for an input, then stop
-      // https://github.com/ccampbell/mousetrap/blob/1.6.5/mousetrap.js#L973-L1001
-      if (['INPUT', 'SELECT', 'TEXTAREA'].includes(evt.target.tagName)) {
-        return;
-      }
-
-      // Compare to known shortcuts
-      // Location numbers
-      if (state.getLocationKeys().includes(evt.key)) {
-        Store.rr('goToFirstLocationImage', evt.key);
-      // Arrow keys
-      } else if (evt.key === 'ArrowLeft') {
-        Store.rr('previousImage');
-      } else if (evt.key === 'ArrowRight') {
-        Store.rr('nextImage');
-      }
-    };
-    window.addEventListener('keydown', this._keyListener);
-  }
-  componentWillUnmount() {
-    window.removeEventListener('keydown', this._keyListener);
-    delete this._keyListener;
-  }
-  */
 }
 
 // Export our module
