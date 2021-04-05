@@ -89,13 +89,15 @@ let useStore = zustand(function (set) {
       throw new Error('Unexpected comparison case');
     });
   },
-  setLocationForCurrentImage: function (locationKey) {
-    let locationKeys = helperState.getLocationKeys(); // eslint-disable-line no-use-before-define
-    assert(locationKeys.includes(locationKey), `Location ${locationKey} isn't within locations`);
-    helperState.getCurrentImage().locationKey = locationKey; // eslint-disable-line no-use-before-define
-    actions.nextImage();
-  },
   */
+    setLocationForCurrentImage: function (locationKey) {
+      return set((state) => {
+        let locationKeys = useLocationKeys();
+        assert(locationKeys.includes(locationKey), `Location ${locationKey} isn't within locations`);
+        useCurrentImage().locationKey = locationKey;
+        actions.nextImage();
+      });
+    },
     setLocationName: function (locationKey, name) {
       return set((state) => {
         let { locations } = state;
@@ -114,8 +116,11 @@ let useStore = zustand(function (set) {
 exports.useStore = useStore;
 
 // Helper getters
+function _useLocationKeys(state) {
+  return state.locations.map((location) => location.key);
+}
 function useLocationKeys() {
-  return useStore((state) => state.locations.map((location) => location.key));
+  return useStore(_useLocationKeys);
 }
 exports.useLocationKeys = useLocationKeys;
 

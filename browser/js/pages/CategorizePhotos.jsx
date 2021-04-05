@@ -50,7 +50,7 @@ function CategorizePhotos() {
               <div className="input-group">
                 <div className="input-group-prepend">
                   <button className={`input-group-text location-${location.key}-bg`}
-                    onClick={() => { Store.rr('setLocationForCurrentImage', location.key); }}
+                    onClick={() => { state.setLocationForCurrentImage(location.key); }}
                   >
                     {location.key}
                   </button>
