@@ -15,7 +15,7 @@ let demoData = require('../../../data/demo.json');
 /* eslint-enable max-len */
 
 // Build our initial Zustand store
-let useStore = zustand(function (setState, getState) {
+let _useStore = zustand(function (setState, getState) {
   return {
     // DEV: We use keys instead of array index as we want to associate it loosely (e.g. different shortcuts)
     locations: [
@@ -126,7 +126,11 @@ let useStore = zustand(function (setState, getState) {
     },
   };
 });
-exports.useStore = useStore;
+exports.useStore = function () {
+  // Proxy Zustand to guarantee no accidental mutations (e.g. `.sort()`)
+  let state = _useStore.apply(this, arguments);
+  return deepFreeze(cloneDeep(state));
+};
 
 /*
 let Store = {
