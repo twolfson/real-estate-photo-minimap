@@ -41,7 +41,7 @@ function MinimapBuild() {
     return () => {
       window.removeEventListener('keydown', _keyListener);
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   // Perform our render
   return <div className="container">

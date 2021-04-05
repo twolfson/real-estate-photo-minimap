@@ -10,6 +10,8 @@ module.exports = {
     'plugin:react-hooks/recommended'
   ],
 
+  // babel-eslint supports futuristic features like spread operators, https://stackoverflow.com/a/43426331/1960509
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaVersion: 2017,
     ecmaFeatures: {

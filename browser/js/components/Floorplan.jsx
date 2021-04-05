@@ -29,7 +29,7 @@ function BootstrapIcon({ svgStr, ...props }) {
   >
     <path fillRule="evenodd" d={svgStr} />
   </svg>;
-};
+}
 
 // Define our component
 function Floorplan() {
@@ -240,7 +240,7 @@ function Floorplan() {
       delete this.blueprint3d;
       delete this.viewerFloorplanner;
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <div id="floorplanner"
     style={{position: 'relative', height: '300px'}}

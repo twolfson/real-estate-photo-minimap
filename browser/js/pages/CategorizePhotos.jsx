@@ -36,7 +36,7 @@ function CategorizePhotos() {
     return () => {
       window.removeEventListener('keydown', _keyListener);
     };
-  }, []);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   return <div className="container">
     <div className="row">
