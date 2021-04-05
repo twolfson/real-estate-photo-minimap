@@ -43,6 +43,8 @@
 // https://github.com/tailwindlabs/tailwindcss/blob/v1.9.6/src/plugins/css/preflight.css#L27-L40
 // https://github.com/tailwindlabs/tailwindcss/blob/v1.9.6/src/plugins/css/preflight.css#L165-L181
 .btn-unstyled {
+  border: 0; // Not anywhere but practical for no style at all
+
   background-color: transparent;
   background-image: none;
   // Fix for Firefox/IE, see source for reference
