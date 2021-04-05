@@ -57,7 +57,7 @@ function CategorizePhotos() {
                 </div>
                 <input className="form-control"
                   type="text" value={location.name}
-                  onFocus={(evt) => { Store.rr('goToFirstLocationImage', location.key); }}
+                  onFocus={(evt) => { state.goToFirstLocationImage(location.key); }}
                   onChange={(evt) => { state.setLocationName(location.key, evt.target.value); }}
                   aria-label={`Location name ${location.key}`}
                 />

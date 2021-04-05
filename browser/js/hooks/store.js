@@ -36,13 +36,17 @@ let useStore = zustand(function (set) {
     }),
     minimap: null,
     currentImageIndex: 0,
+
+    // Actions
+    goToFirstLocationImage: function (locationKey) {
+      return set((state) => {
+        let firstLocationImageIndex = state.images.findIndex((img) => img.locationKey === locationKey);
+        if (firstLocationImageIndex !== -1) {
+          return { currentImageIndex: firstLocationImageIndex };
+        }
+      });
+    },
   /*
-  goToFirstLocationImage: function (locationKey) {
-    let firstLocationImageIndex = state.images.findIndex((img) => img.locationKey === locationKey);
-    if (firstLocationImageIndex !== -1) {
-      state.currentImageIndex = firstLocationImageIndex;
-    }
-  },
   goToImage: function (index) {
     assert(index >= 0 && index < state.images.length, `Index ${index} out of \`state.images\` range`);
     assert(!isNaN(index), `Index is NaN`);
