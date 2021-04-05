@@ -4,7 +4,7 @@ const CategorizePhotos = require('./pages/CategorizePhotos');
 const MinimapBuild = require('./pages/MinimapBuild');
 const React = require('react');
 const ReactDOM = require('react-dom');
-const {HashRouter, Switch, Route} = require('react-router-dom');
+const { HashRouter, Switch, Route } = require('react-router-dom');
 
 // Define our main page load hook
 function main() {

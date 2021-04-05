@@ -3,6 +3,7 @@ const assert = require('assert');
 const config = require('./config');
 const cloneDeep = require('lodash.clonedeep');
 const deepFreeze = require('deep-freeze');
+const zustand = require('zustand').default;
 let demoData = require('../../data/demo.json');
 
 // Reset data in development
@@ -13,31 +14,31 @@ let demoData = require('../../data/demo.json');
 // }
 /* eslint-enable max-len */
 
-// Model singleton
-// DEV: Inspired by Redux but not explicitly Redux due to learning overhead
-// DEV: state and actions are separate variables for easy/quick reference
-// DEV: Consider `actions` as setters and `Store` as container for getters
-let state = {
-  // DEV: We use keys instead of array index as we want to associate it loosely (e.g. different shortcuts)
-  locations: [
-    {key: '1', name: 'Room 1',   },
-    {key: '2', name: 'Room 2',   },
-    {key: '3', name: 'Room 3',   },
-    {key: '4', name: 'Room 4',   },
-    {key: '5', name: 'Hallway',  },
-    {key: '6', name: 'Kitchen',  },
-    {key: '7', name: 'Bathroom', },
-    {key: '8', name: '',         },
-    {key: '9', name: '',         },
-    {key: '0', name: '',         },
-  ],
-  images: demoData.map((src, i) => {
-    let img = {key: i.toString(), src: src, locationKey: null};
-    return img;
-  }),
-  minimap: null,
-  currentImageIndex: 0,
-};
+// Build our initial Zustand store
+let useStore = zustand(function (set) {
+  return {
+    // DEV: We use keys instead of array index as we want to associate it loosely (e.g. different shortcuts)
+    locations: [
+      {key: '1', name: 'Room 1',   },
+      {key: '2', name: 'Room 2',   },
+      {key: '3', name: 'Room 3',   },
+      {key: '4', name: 'Room 4',   },
+      {key: '5', name: 'Hallway',  },
+      {key: '6', name: 'Kitchen',  },
+      {key: '7', name: 'Bathroom', },
+      {key: '8', name: '',         },
+      {key: '9', name: '',         },
+      {key: '0', name: '',         },
+    ],
+    images: demoData.map((src, i) => {
+      let img = {key: i.toString(), src: src, locationKey: null};
+      return img;
+    }),
+    minimap: null,
+    currentImageIndex: 0,
+  };
+});
+exports.useStore = useStore;
 
 let actions = {
   goToFirstLocationImage: function (locationKey) {
@@ -103,19 +104,18 @@ let actions = {
   }
 };
 
-// Define our helper methods
-let helpers = {
-  // DEV: `this` will be `state` in these contexts
-  //  We need to use `this` as it will be unfrozen for `helperState` methods but frozen for `renderState`
-  getLocationKeys: function () {
-    return this.locations.map((location) => location.key);
-  },
-  getCurrentImage: function () {
-    return this.images[this.currentImageIndex];
-  },
-};
-let helperState; // Will have `this` context for `state`
+// Helper getters
+function useLocationKeys() {
+  return useStore((state) => state.locations.map((location) => location.key));
+}
+exports.useLocationKeys = useLocationKeys;
 
+function useCurrentImage() {
+  return useStore((state) => state.images[state.currentImageIndex]);
+}
+exports.useCurrentImage = useCurrentImage;
+
+/*
 let Store = {
   // Allow external context to set render callback
   _renderFn: null,
@@ -132,13 +132,13 @@ let Store = {
     this._renderState = deepFreeze(cloneDeep(helperState));
     return this._renderState;
   },
-  run: function (method, /* args */) {
+  run: function (method, *//* args *//*) {
     let args = [].slice.call(arguments, 1);
     assert(actions.hasOwnProperty(method), `Unknown action ${method}`);
     actions[method].apply(actions, args);
     this.regenerateRenderState();
   },
-  rr /* run and render */: function () {
+  rr *//* run and render *//*: function () {
     // Run our logic
     this.run.apply(this, arguments);
     assert(this._renderFn, 'Store._renderFn was never set');
@@ -172,3 +172,4 @@ if (config.persistData && localStorage.stateBackup) {
 
 // Expose our store
 module.exports = Store;
+*/
