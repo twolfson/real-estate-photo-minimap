@@ -104,6 +104,7 @@ let useStore = zustand(function (setState, getState) {
     },
     setLocationName: function (locationKey, name) {
       return setState((state) => {
+        console.log('wat', state.locations[0]);
         let location = state.locations.find((location) => location.key === locationKey);
         location.name = name;
       });
