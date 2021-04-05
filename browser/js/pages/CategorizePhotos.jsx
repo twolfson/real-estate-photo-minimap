@@ -86,7 +86,7 @@ function CategorizePhotos() {
         <p>
           or{' '}
           <button className="btn btn-secondary"
-            onClick={() => { Store.rr('nextImage'); }}>skip to next image</button>
+            onClick={() => { state.nextImage(); }}>skip to next image</button>
           <span className="text-muted"> (shortcut: s)</span>
         </p>
       </div>
@@ -99,7 +99,7 @@ function CategorizePhotos() {
             className={classnames('btn-unstyled', {
               'selected-image': i === state.currentImageIndex,
             }, img.locationKey ? `location-img location-${img.locationKey}-img` : '')}
-            onClick={() => { Store.rr('goToImage', i); }}
+            onClick={() => { state.goToImage(i); }}
           >
             {/* eslint-disable-next-line jsx-a11y/img-redundant-alt */}
             <img className="img-fluid"

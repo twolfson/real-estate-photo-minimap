@@ -46,23 +46,25 @@ let _useStore = zustand(function (setState, getState) {
         }
       });
     },
-  /*
-  goToImage: function (index) {
-    assert(index >= 0 && index < state.images.length, `Index ${index} out of \`state.images\` range`);
-    assert(!isNaN(index), `Index is NaN`);
-    state.currentImageIndex = index;
-  },
-  */
+    goToImage: function (index) {
+      return setState((state) => {
+        assert(index >= 0 && index < state.images.length, `Index ${index} out of \`state.images\` range`);
+        assert(!isNaN(index), `Index is NaN`);
+        state.currentImageIndex = index;
+      });
+    },
     nextImage: function () {
       return setState((state) => {
-        return { currentImageIndex: (state.currentImageIndex + 1) % state.images.length };
+        state.currentImageIndex = (state.currentImageIndex + 1) % state.images.length;
+      });
+    },
+    previousImage: function () {
+      return setState((state) => {
+        state.currentImageIndex = state.currentImageIndex - 1;
+        if (state.currentImageIndex < 0) { state.currentImageIndex = state.images.length - 1; }
       });
     },
   /*
-  previousImage: function () {
-    state.currentImageIndex = state.currentImageIndex - 1;
-    if (state.currentImageIndex < 0) { state.currentImageIndex = state.images.length - 1; }
-  },
   populateMinimap: function () {
     // If we already have minimap info, then do nothing
     if (state.minimap) {
@@ -118,7 +120,6 @@ let _useStore = zustand(function (setState, getState) {
     getLocationKeys: function () {
       return getState().locations.map((location) => location.key);
     },
-
     getCurrentImage: function () {
       let state = getState();
       return state.images[state.currentImageIndex];
