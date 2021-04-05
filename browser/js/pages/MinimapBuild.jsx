@@ -3,7 +3,7 @@ const assert = require('assert');
 const classnames = require('classnames');
 const Floorplan = require('../components/Floorplan');
 const React = require('react');
-const Store = require('../store');
+const Store = require('../hooks/store');
 const { Link } = require('react-router-dom');
 
 // Define our main page load hook

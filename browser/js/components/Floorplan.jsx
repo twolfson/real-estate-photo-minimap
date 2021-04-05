@@ -2,7 +2,7 @@
 // Load in our dependencies
 const assert = require('assert');
 const React = require('react');
-const Store = require('../store');
+const Store = require('../hooks/store');
 
 // A lot of the content in this file is copy/paste/modify from `example` in `blueprint3d
 // https://github.com/twolfson/blueprint3d/tree/90d33027ab67c456acd769cfeb38bbdee42e092d/example

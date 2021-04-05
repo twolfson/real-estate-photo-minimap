@@ -1,10 +1,10 @@
 // Load in our dependencies
 const assert = require('assert');
-const config = require('./config');
+const config = require('../config');
 const cloneDeep = require('lodash.clonedeep');
 const deepFreeze = require('deep-freeze');
 const zustand = require('zustand').default;
-let demoData = require('../../data/demo.json');
+let demoData = require('../../../data/demo.json');
 
 // Reset data in development
 // DEV: `if` check is to prevent this from ever leaking into production

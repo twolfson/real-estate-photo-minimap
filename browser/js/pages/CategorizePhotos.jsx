@@ -2,7 +2,7 @@
 const assert = require('assert');
 const classnames = require('classnames');
 const React = require('react');
-const { useStore, useCurrentImage } = require('../store');
+const { useStore, useCurrentImage } = require('../hooks/store');
 const { Link } = require('react-router-dom');
 
 // Define our main page load hook
