@@ -52,9 +52,13 @@ let useStore = zustand(function (setState, getState) {
     assert(!isNaN(index), `Index is NaN`);
     state.currentImageIndex = index;
   },
-  nextImage: function () {
-    state.currentImageIndex = (state.currentImageIndex + 1) % state.images.length;
-  },
+  */
+    nextImage: function () {
+      return setState((state) => {
+        return { currentImageIndex: (state.currentImageIndex + 1) % state.images.length };
+      });
+    },
+  /*
   previousImage: function () {
     state.currentImageIndex = state.currentImageIndex - 1;
     if (state.currentImageIndex < 0) { state.currentImageIndex = state.images.length - 1; }
@@ -92,10 +96,10 @@ let useStore = zustand(function (setState, getState) {
   */
     setLocationForCurrentImage: function (locationKey) {
       return setState((state) => {
-        let locationKeys = useLocationKeys();
+        let locationKeys = state.getLocationKeys();
         assert(locationKeys.includes(locationKey), `Location ${locationKey} isn't within locations`);
-        useCurrentImage().locationKey = locationKey;
-        actions.nextImage();
+        state.getCurrentImage().locationKey = locationKey;
+        state.nextImage();
       });
     },
     setLocationName: function (locationKey, name) {
