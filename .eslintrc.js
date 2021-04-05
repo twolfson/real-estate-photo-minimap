@@ -29,6 +29,7 @@ module.exports = {
 
     // Fight recommneded defaults
     'react/prop-types': OFF,
+    'react/no-unescaped-entities': [WARN, {forbid: ['>', '"']}],
   },
 
   // Configure our environment
