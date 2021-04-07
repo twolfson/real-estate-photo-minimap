@@ -1,0 +1,6 @@
+- See all TODOs (e.g. links, screenshots)
+- Build `views/_layout.pug`
+- Build `app.pug`
+- Collect a few listings as demos
+- Test out bookmarklets
+- Verify all new links are good
