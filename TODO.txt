@@ -4,3 +4,7 @@
 - Collect a few listings as demos
 - Test out bookmarklets
 - Verify all new links are good
+
+- Prob drop bookmarklets for now (maybe replace with "Coming soon!" text)
+
+- For next release: Textarea input, demo examples (since already built I believe), screenshot
