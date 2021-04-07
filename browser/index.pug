@@ -47,24 +47,25 @@ html(lang="en")
                     div: a.btn.btn-primary.btn-lg Enter image URLs from listing
                 .mb-3
                     div: strong= "Option 2: Bookmarklet"
+                    mixin bookmarklet(code)
+                        .row
+                            .col-4: pre.mb-0.card.bg-light: code.card-body= code
+                            .col-8
+                                div: a.btn.btn-primary.btn-lg(href=code) Bookmarklet
+                                div "Right click &rarr; Save Link as..." to save as bookmarklet
                     .mb-4
                         p.mb-1 Use the following bookmarklet to start from a supported MLS listing
-                        .row
-                            //- TODO: Swap in bookmarklet content
-                            .col-4: pre.mb-0.card.bg-light: code.card-body.
-                                hello
-                            .col-8
-                                //- TODO: Build bookmarklet
-                                div: a.btn.btn-primary.btn-lg(href="") Bookmarklet
-                                div "Right click &rarr; Save Link as..." to save as bookmarklet
+                        //- TODO: Swap in bookmarklet content
+                        +bookmarklet("javascript:alert(1)")
                         p.mb-0: em: small
                             = "Currently supported MLS: "
                             a(href="https://sfarmls.rapmls.com/") SFARMLS
 
                     .mb-4
-                        p To find corresponding MLS from a site like RedFin, here's another convenience bookmarklet:
-                        pre.mb-0.card.bg-light: code.card-body.
-                            hello
-                        p: em: small
-                            = "Currently supported MLS: "
-                            a(href="https://sfarmls.rapmls.com/") SFARMLS
+                        p To open SFARMLS from RedFin, here's a convenience bookmarklet:
+                        +bookmarklet("javascript:alert(1)")
+
+                    .mb-4
+                        p
+                            = "To request support for additional websites, please "
+                            a(href="https://twolfson.com/contact") contact Todd as instructed on their site
