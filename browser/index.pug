@@ -64,7 +64,10 @@ html(lang="en")
                     .mb-4
                         p.mb-1 To open SFARMLS from RedFin, here's a convenience bookmarklet:
                         //- TODO: Swap in bookmarklet content
-                        +bookmarklet("javascript:alert(1)")
+                        //- Would work but MLS is down, only fetches number right now though -- not loads page
+                        +bookmarklet("javascript:[...document.querySelectorAll('.propertyDetailItem')].find((el) => el.textContent.startsWith('MLS#')).querySelector('.content').textContent")
+                        //- Working photo extractor for Redfin (for now)
+                        +bookmarklet("javascript:d=document;$=d.querySelector.bind(d);s=$('#MBImage0 img').src;c=parseInt($('#photoPreviewButton').textContent.match(/See all (\d+) photos/)[1], 10);o=(new Array(c)).fill().map((_, i) => s.replace(/_0.jpg$/, `_${i}_0.jpg`));o[0]=s;alert(JSON.stringify(o, null, 2))")
 
                     .mb-4
                         p
